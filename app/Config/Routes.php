@@ -31,6 +31,24 @@ $routes->set404Override();
 // route since we don't have to scan directories.
 $routes->get('/', 'Home::index');
 
+$routes->add('admin/login', 'Admin\AuthC::login');
+$routes->add('admin/logout', 'Admin\AuthC::logout');
+
+$routes->group('admin', ['namespace' => 'App\Controllers\Admin', 'filter' => 'isLoggedInAdmin'], function ($routes) {
+
+    $routes->get('dashboard', 'AdminC::dashboard');
+
+    $routes->group('data', function ($routes) {
+        $routes->get('santri', 'DataC::data_santri');
+        $routes->get('ustadz', 'DataC::data_ustadz');
+
+        $routes->addRedirect('/', 'admin/dashboard');
+    });
+
+
+    $routes->addRedirect('/', 'admin/dashboard');
+});
+
 /*
  * --------------------------------------------------------------------
  * Additional Routing
