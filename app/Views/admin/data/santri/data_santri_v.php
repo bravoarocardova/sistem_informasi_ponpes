@@ -58,33 +58,30 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr>
-                    <td>Trident</td>
-                    <td>Internet
-                      Explorer 4.0
-                    </td>
-                    <td>Win 95+</td>
-                    <td> 4</td>
-                    <td>X</td>
-                    <td>Trident</td>
-                    <td>Internet
-                      Explorer 4.0
-                    </td>
-                    <td>Win 95+</td>
-                    <td> 4</td>
-                    <td>X</td>
-                    <td> 4</td>
-                    <td>X</td>
-                    <td>
-                      <a href="<?= base_url() ?>admin/data/santri/tambah" class="btn btn-warning" title="edit">
-                        <i class="fas fa-pencil-alt"></i>
-                      </a>
-                      <a href="<?= base_url() ?>admin/data/santri/tambah" class="btn btn-danger" title="hapus">
-                        <i class="fas fa-trash"></i>
-                      </a>
-                    </td>
-                  </tr>
-
+                  <?php foreach ($santri as $s) : ?>
+                    <tr>
+                      <td><?= $s['nis'] ?></td>
+                      <td><?= $s['nama_santri'] ?></td>
+                      <td><?= $s['jk'] ?></td>
+                      <td><?= $s['tgl_masuk'] ?></td>
+                      <td><?= $s['alamat_lengkap'] ?></td>
+                      <td><?= $s['status'] ?></td>
+                      <td><?= $s['wali'] ?></td>
+                      <td><?= $s['no_telp_wali'] ?></td>
+                      <td><?= $s['tempat_lahir'] ?></td>
+                      <td><?= $s['tgl_lahir'] ?></td>
+                      <td><?= $s['created_at'] ?></td>
+                      <td><?= $s['updated_at'] ?></td>
+                      <td>
+                        <a href="<?= base_url() ?>admin/data/santri/edit/<?= $s['nis'] ?>" class="btn btn-warning" title="edit">
+                          <i class="fas fa-pencil-alt"></i>
+                        </a>
+                        <a href="<?= base_url() ?>admin/data/santri/hapus/<?= $s['nis'] ?>" class="btn btn-danger" title="hapus">
+                          <i class="fas fa-trash"></i>
+                        </a>
+                      </td>
+                    </tr>
+                  <?php endforeach ?>
                 </tbody>
                 <tfoot>
                   <tr>

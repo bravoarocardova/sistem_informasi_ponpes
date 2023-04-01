@@ -55,30 +55,27 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr>
-                    <td>Trident</td>
-                    <td>Internet
-                      Explorer 4.0
-                    </td>
-                    <td>Win 95+</td>
-                    <td> 4</td>
-                    <td>X</td>
-                    <td>Trident</td>
-                    <td>Internet
-                      Explorer 4.0
-                    </td>
-                    <td>Win 95+</td>
-                    <td> 4</td>
-                    <td>
-                      <a href="<?= base_url() ?>admin/data/ustadz/edit" class="btn btn-warning" title="edit">
-                        <i class="fas fa-pencil-alt"></i>
-                      </a>
-                      <a href="<?= base_url() ?>admin/data/ustadz/hapus" class="btn btn-danger" title="hapus">
-                        <i class="fas fa-trash"></i>
-                      </a>
-                    </td>
-                  </tr>
-
+                  <?php foreach ($ustadz as $u) : ?>
+                    <tr>
+                      <td><?= $u['kd_ustadz'] ?></td>
+                      <td><?= $u['nama_ustadz'] ?></td>
+                      <td><?= $u['jk'] ?></td>
+                      <td><?= $u['alamat'] ?></td>
+                      <td><?= $u['status'] ?></td>
+                      <td><?= $u['no_telp'] ?></td>
+                      <td><?= $u['tgl_lahir'] ?></td>
+                      <td><?= $u['created_at'] ?></td>
+                      <td><?= $u['updated_at'] ?></td>
+                      <td>
+                        <a href="<?= base_url() ?>admin/data/ustadz/edit" class="btn btn-warning" title="edit">
+                          <i class="fas fa-pencil-alt"></i>
+                        </a>
+                        <a href="<?= base_url() ?>admin/data/ustadz/hapus" class="btn btn-danger" title="hapus">
+                          <i class="fas fa-trash"></i>
+                        </a>
+                      </td>
+                    </tr>
+                  <?php endforeach ?>
                 </tbody>
                 <tfoot>
                   <tr>

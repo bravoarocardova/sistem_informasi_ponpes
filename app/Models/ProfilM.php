@@ -4,16 +4,16 @@ namespace App\Models;
 
 use CodeIgniter\Model;
 
-class UstadzM extends Model
+class ProfilM extends Model
 {
-  protected $table      = 'ustadz';
-  protected $primaryKey = 'kd_ustadz';
+  protected $table      = 'profil';
+  // protected $primaryKey = '';
 
   protected $useAutoIncrement = false;
 
   protected $returnType     = 'array';
 
-  protected $allowedFields = ['kd_ustadz',  'nama_ustadz',  'jk',  'status',  'alamat',  'tgl_lahir',  'no_telp'];
+  protected $allowedFields = ['logo', 'nama_aplikasi' .  'nama_pondok',  'alamat_pondok',  'telepon_pondok',  'email_pondok',  'lokasi_pondok',  'sejarah',  'visi',  'misi',  'tentang_pondok',  'peraturan_pondok'];
 
   // Dates
   protected $useTimestamps = true;

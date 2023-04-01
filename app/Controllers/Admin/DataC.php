@@ -20,11 +20,15 @@ class DataC extends BaseController
 
   public function data_santri()
   {
-    return view('admin/data/santri/data_santri_v');
+    return view('admin/data/santri/data_santri_v', [
+      'santri' => $this->santriM->findAll()
+    ]);
   }
 
   public function data_ustadz()
   {
-    return view('admin/data/ustadz/data_ustadz_v');
+    return view('admin/data/ustadz/data_ustadz_v', [
+      'ustadz' => $this->ustadzM->findAll()
+    ]);
   }
 }
