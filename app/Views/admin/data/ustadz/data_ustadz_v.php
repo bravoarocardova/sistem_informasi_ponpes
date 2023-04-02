@@ -28,6 +28,7 @@
       <!-- Main row -->
       <div class="row">
         <div class="col-12">
+          <?= session()->get('msg') ?>
           <div class="card">
             <div class="card-header">
               <h3 class="card-title">
@@ -67,12 +68,17 @@
                       <td><?= $u['created_at'] ?></td>
                       <td><?= $u['updated_at'] ?></td>
                       <td>
-                        <a href="<?= base_url() ?>admin/data/ustadz/edit" class="btn btn-warning" title="edit">
+                        <a href="<?= base_url() ?>admin/data/ustadz/edit/<?= $u['kd_ustadz'] ?>" class="btn btn-warning" title="edit">
                           <i class="fas fa-pencil-alt"></i>
                         </a>
-                        <a href="<?= base_url() ?>admin/data/ustadz/hapus" class="btn btn-danger" title="hapus">
-                          <i class="fas fa-trash"></i>
-                        </a>
+                        <form action="<?= base_url() ?>admin/data/ustadz/hapus/<?= $u['kd_ustadz'] ?>" method="post" class="d-inline">
+                          <?= csrf_field() ?>
+                          <input type="hidden" name="_method" value="DELETE">
+                          <button class="btn btn-danger" title="hapus" onclick="return confirm('hapus <?= $u['kd_ustadz'] ?> ? ')">
+                            <i class="fas fa-trash"></i>
+                          </button>
+                        </form>
+
                       </td>
                     </tr>
                   <?php endforeach ?>

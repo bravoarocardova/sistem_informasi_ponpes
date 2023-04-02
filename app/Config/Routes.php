@@ -57,10 +57,10 @@ $routes->group('admin', ['namespace' => 'App\Controllers\Admin', 'filter' => 'is
             $routes->get('tambah', 'DataC::tambah_ustadz');
             $routes->post('tambah', 'DataC::proses_tambah_ustadz');
 
-            $routes->get('edit/(:num)', 'DataC::edit_ustadz/$1');
-            $routes->put('edit/(:num)', 'DataC::proses_edit_ustadz/$1');
+            $routes->get('edit/(:segment)', 'DataC::edit_ustadz/$1');
+            $routes->put('edit/(:segment)', 'DataC::proses_edit_ustadz/$1');
 
-            $routes->delete('hapus/(:num)', 'DataC::hapus_ustadz/$1');
+            $routes->delete('hapus/(:segment)', 'DataC::hapus_ustadz/$1');
         });
 
         $routes->addRedirect('/', 'admin/dashboard');

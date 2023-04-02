@@ -109,6 +109,69 @@ class DataC extends BaseController
     return $ruleSantri;
   }
 
+  private function ruleUstadz($is_unique = true)
+  {
+
+    $ruleUstadz =  [
+      'kd_ustadz' => [
+        'label' => 'Kode Ustadz',
+        'rules' => ($is_unique) ? 'required|is_unique[ustadz.kd_ustadz]' : 'required',
+        'errors' => [
+          'required' => '{field} Harus diisi',
+          'is_unique' => '{field} Sudah Ada',
+        ]
+      ],
+      'nama_ustadz' => [
+        'label' => 'Nama Ustadz',
+        'rules' => 'required|min_length[4]|max_length[100]',
+        'errors' => [
+          'required' => '{field} Harus diisi',
+          'min_length' => '{field} Minimal 4 Karakter',
+          'max_length' => '{field} Maksimal 100 Karakter',
+        ],
+      ],
+      'jk' => [
+        'label' => 'Jenis Kelamin',
+        'rules' => 'required|min_length[1]|max_length[1]',
+        'errors' => [
+          'required' => '{field} Harus diisi',
+          'min_length' => '{field} Minimal 1 Karakter',
+          'max_length' => '{field} Maksimal 1 Karakter',
+        ],
+      ],
+      'alamat' => [
+        'label' => 'Alamat',
+        'rules' => 'required|min_length[1]|max_length[150]',
+        'errors' => [
+          'required' => '{field} Harus diisi',
+          'min_length' => '{field} Minimal 1 Karakter',
+          'max_length' => '{field} Maksimal 150 Karakter',
+        ],
+      ],
+      'tgl_lahir' => [
+        'label' => 'Tanggal Lahir',
+        'rules' => 'required|min_length[4]|max_length[15]',
+        'errors' => [
+          'required' => '{field} Harus diisi',
+          'min_length' => '{field} Minimal 4 Karakter',
+          'max_length' => '{field} Maksimal 100 Karakter',
+        ],
+      ],
+      'no_telp' => [
+        'label' => 'No Telp',
+        'rules' => 'required|numeric|min_length[4]|max_length[15]',
+        'errors' => [
+          'required' => '{field} Harus diisi',
+          'min_length' => '{field} Minimal 4 Karakter',
+          'max_length' => '{field} Maksimal 15 Karakter',
+          'numeric' => '{field} Harus Angka'
+        ],
+      ],
+    ];
+
+    return $ruleUstadz;
+  }
+
   public function data_santri()
   {
     return view('admin/data/santri/data_santri_v', [
@@ -136,7 +199,7 @@ class DataC extends BaseController
         'jk' => $post['jk'],
         'tgl_masuk' => $post['tgl_masuk'],
         'alamat_lengkap' => $post['alamat_lengkap'],
-        'status' => 1,
+        'status' => 'Aktif',
         'no_telp_wali' => $post['no_telp_wali'],
         'wali' => $post['wali'],
       ];
@@ -168,8 +231,6 @@ class DataC extends BaseController
     if ($dataLama['nis'] == $post['nis']) {
       $is_unique = false;
     }
-
-    d($is_unique);
 
     if (!$this->validate($this->ruleSantri($is_unique))) {
       return redirect()->back()->withInput();
@@ -219,21 +280,89 @@ class DataC extends BaseController
 
   public function tambah_ustadz()
   {
+    return view('admin/data/ustadz/tambah_ustadz_form');
   }
 
   public function proses_tambah_ustadz()
   {
+    if (!$this->validate($this->ruleUstadz(true))) {
+      return redirect()->back()->withInput();
+    } else {
+      $post = $this->request->getPost();
+
+      $data = [
+        'kd_ustadz' => $post['kd_ustadz'],
+        'nama_ustadz' => $post['nama_ustadz'],
+        'tgl_lahir' => $post['tgl_lahir'],
+        'jk' => $post['jk'],
+        'alamat' => $post['alamat'],
+        'status' => 'Aktif',
+        'no_telp' => $post['no_telp']
+      ];
+      $simpan = $this->ustadzM->save($data);
+      if ($simpan) {
+        $type = 'success';
+        $msg = 'Berhasil tambah data.';
+      } else {
+        $type = 'danger';
+        $msg = 'Gagal tambah data.';
+      }
+      return redirect()->to(base_url() . 'admin/data/ustadz')->with('msg', myAlert($type, $msg));
+    }
   }
 
   public function edit_ustadz($kd_ustadz)
   {
+    return view('admin/data/ustadz/edit_ustadz_form', [
+      'ustadz' => $this->ustadzM->find($kd_ustadz)
+    ]);
   }
 
   public function proses_edit_ustadz($kd_ustadz)
   {
+    $dataLama = $this->ustadzM->find($kd_ustadz);
+    $post = $this->request->getPost();
+
+    $is_unique = true;
+    if ($dataLama['kd_ustadz'] == $post['kd_ustadz']) {
+      $is_unique = false;
+    }
+
+    if (!$this->validate($this->ruleUstadz($is_unique))) {
+      return redirect()->back()->withInput();
+    } else {
+
+      $data = [
+        'kd_ustadz' => $post['kd_ustadz'],
+        'nama_ustadz' => $post['nama_ustadz'],
+        'tgl_lahir' => $post['tgl_lahir'],
+        'jk' => $post['jk'],
+        'alamat' => $post['alamat'],
+        'status' => 'Aktif',
+        'no_telp' => $post['no_telp']
+      ];
+      $simpan = $this->ustadzM->update(['kd_ustadz' => $kd_ustadz], $data);
+      if ($simpan) {
+        $type = 'success';
+        $msg = 'Berhasil tambah data.';
+      } else {
+        $type = 'danger';
+        $msg = 'Gagal tambah data.';
+      }
+      return redirect()->to(base_url() . 'admin/data/ustadz')->with('msg', myAlert($type, $msg));
+    }
   }
 
   public function hapus_ustadz($kd_ustadz)
   {
+    $hapus = $this->ustadzM->delete($kd_ustadz);
+    if ($hapus) {
+      $type = 'success';
+      $msg = 'Berhasil dihapus.';
+    } else {
+      $type = 'danger';
+      $msg = 'Gagal dihapus.';
+    }
+    return redirect()->back()->with('msg', myAlert($type, $msg));
   }
 }
