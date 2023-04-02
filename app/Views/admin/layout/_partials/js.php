@@ -42,4 +42,4 @@
 <!-- AdminLTE for demo purposes -->
 <!-- <script src="<?= base_url() ?>js/demo.js"></script> -->
 <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
-<!-- <script src="<?= base_url() ?>js/pages/dashboard.js"></script> -->
+<script src="<?= base_url() ?>js/pages/dashboard.js"></script>

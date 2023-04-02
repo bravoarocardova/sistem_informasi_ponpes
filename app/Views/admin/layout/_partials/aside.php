@@ -6,7 +6,7 @@ $uri = service('uri');
   <!-- Brand Logo -->
   <a href="index3.html" class="brand-link">
     <img src="<?= base_url() ?>img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
-    <span class="brand-text font-weight-light">AdminLTE 3</span>
+    <span class="brand-text font-weight-light">Ponpes</span>
   </a>
 
   <!-- Sidebar -->
@@ -14,10 +14,10 @@ $uri = service('uri');
     <!-- Sidebar user panel (optional) -->
     <div class="user-panel mt-3 pb-3 mb-3 d-flex">
       <div class="image">
-        <img src="<?= base_url() ?>img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
+        <img src="<?= base_url() . 'img/profil/' . session()->get('admin')['foto'] ?>" class="img-circle elevation-2" alt="User Image">
       </div>
       <div class="info">
-        <a href="#" class="d-block">Alexander Pierce</a>
+        <a href="#" class="d-block"><?= session()->get('admin')['nama'] ?></a>
       </div>
     </div>
     <!-- Sidebar Menu -->
@@ -43,13 +43,13 @@ $uri = service('uri');
           </a>
           <ul class="nav nav-treeview">
             <li class="nav-item">
-              <a href="<?= base_url() ?>admin/data/santri" class="nav-link <?= ($uri->getSegment(3) == 'santri') ? 'active' : '' ?>">
+              <a href="<?= base_url() ?>admin/data/santri" class="nav-link <?= ($uri->getSegment(3) == 'santri') ? 'active text-primary' : '' ?>">
                 <i class="far fa-circle nav-icon"></i>
                 <p>Data Santri</p>
               </a>
             </li>
             <li class="nav-item">
-              <a href="<?= base_url() ?>admin/data/ustadz" class="nav-link <?= ($uri->getSegment(3) == 'ustadz') ? 'active' : '' ?>">
+              <a href="<?= base_url() ?>admin/data/ustadz" class="nav-link <?= ($uri->getSegment(3) == 'ustadz') ? 'active text-primary' : '' ?>">
                 <i class="far fa-circle nav-icon"></i>
                 <p>Data Ustadz</p>
               </a>
@@ -57,7 +57,14 @@ $uri = service('uri');
           </ul>
         </li>
         <li class="nav-header">Setting</li>
-
+        <li class="nav-item">
+          <a href="<?= base_url() ?>admin/profil" class="nav-link <?= ($uri->getSegment(2) == 'profil') ? 'active' : '' ?>">
+            <i class="nav-icon fa fa-id-card"></i>
+            <p>
+              Profil
+            </p>
+          </a>
+        </li>
         <li class="nav-item">
           <a href="<?= base_url() ?>admin/logout" class="nav-link  text-danger">
             <i class="nav-icon fas fa-sign-out-alt"></i>

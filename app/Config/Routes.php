@@ -39,8 +39,29 @@ $routes->group('admin', ['namespace' => 'App\Controllers\Admin', 'filter' => 'is
     $routes->get('dashboard', 'AdminC::dashboard');
 
     $routes->group('data', function ($routes) {
-        $routes->get('santri', 'DataC::data_santri');
-        $routes->get('ustadz', 'DataC::data_ustadz');
+        $routes->group('santri', function ($routes) {
+            $routes->get('', 'DataC::data_santri');
+
+            $routes->get('tambah', 'DataC::tambah_santri');
+            $routes->post('tambah', 'DataC::proses_tambah_santri');
+
+            $routes->get('edit/(:num)', 'DataC::edit_santri/$1');
+            $routes->put('edit/(:num)', 'DataC::proses_edit_santri/$1');
+
+            $routes->delete('hapus/(:num)', 'DataC::hapus_santri/$1');
+        });
+
+        $routes->group('ustadz', function ($routes) {
+            $routes->get('', 'DataC::data_ustadz');
+
+            $routes->get('tambah', 'DataC::tambah_ustadz');
+            $routes->post('tambah', 'DataC::proses_tambah_ustadz');
+
+            $routes->get('edit/(:num)', 'DataC::edit_ustadz/$1');
+            $routes->put('edit/(:num)', 'DataC::proses_edit_ustadz/$1');
+
+            $routes->delete('hapus/(:num)', 'DataC::hapus_ustadz/$1');
+        });
 
         $routes->addRedirect('/', 'admin/dashboard');
     });

@@ -28,6 +28,7 @@
       <!-- Main row -->
       <div class="row">
         <div class="col-12">
+          <?= session()->get('msg') ?>
           <div class="card">
             <div class="card-header">
               <h3 class="card-title">
@@ -76,9 +77,13 @@
                         <a href="<?= base_url() ?>admin/data/santri/edit/<?= $s['nis'] ?>" class="btn btn-warning" title="edit">
                           <i class="fas fa-pencil-alt"></i>
                         </a>
-                        <a href="<?= base_url() ?>admin/data/santri/hapus/<?= $s['nis'] ?>" class="btn btn-danger" title="hapus">
-                          <i class="fas fa-trash"></i>
-                        </a>
+                        <form action="<?= base_url() ?>admin/data/santri/hapus/<?= $s['nis'] ?>" method="post" class="d-inline">
+                          <?= csrf_field() ?>
+                          <input type="hidden" name="_method" value="DELETE">
+                          <button class="btn btn-danger" title="hapus" onclick="return confirm('hapus <?= $s['nis'] ?> ? ')">
+                            <i class="fas fa-trash"></i>
+                          </button>
+                        </form>
                       </td>
                     </tr>
                   <?php endforeach ?>
