@@ -36,38 +36,50 @@ $routes->add('admin/logout', 'Admin\AuthC::logout');
 
 $routes->group('admin', ['namespace' => 'App\Controllers\Admin', 'filter' => 'isLoggedInAdmin'], function ($routes) {
 
-    $routes->get('dashboard', 'AdminC::dashboard');
+  $routes->get('dashboard', 'AdminC::dashboard');
 
-    $routes->group('data', function ($routes) {
-        $routes->group('santri', function ($routes) {
-            $routes->get('', 'DataC::data_santri');
+  $routes->group('data', function ($routes) {
+    $routes->group('santri', function ($routes) {
+      $routes->get('', 'DataC::data_santri');
 
-            $routes->get('tambah', 'DataC::tambah_santri');
-            $routes->post('tambah', 'DataC::proses_tambah_santri');
+      $routes->get('tambah', 'DataC::tambah_santri');
+      $routes->post('tambah', 'DataC::proses_tambah_santri');
 
-            $routes->get('edit/(:num)', 'DataC::edit_santri/$1');
-            $routes->put('edit/(:num)', 'DataC::proses_edit_santri/$1');
+      $routes->get('edit/(:num)', 'DataC::edit_santri/$1');
+      $routes->put('edit/(:num)', 'DataC::proses_edit_santri/$1');
 
-            $routes->delete('hapus/(:num)', 'DataC::hapus_santri/$1');
-        });
-
-        $routes->group('ustadz', function ($routes) {
-            $routes->get('', 'DataC::data_ustadz');
-
-            $routes->get('tambah', 'DataC::tambah_ustadz');
-            $routes->post('tambah', 'DataC::proses_tambah_ustadz');
-
-            $routes->get('edit/(:segment)', 'DataC::edit_ustadz/$1');
-            $routes->put('edit/(:segment)', 'DataC::proses_edit_ustadz/$1');
-
-            $routes->delete('hapus/(:segment)', 'DataC::hapus_ustadz/$1');
-        });
-
-        $routes->addRedirect('/', 'admin/dashboard');
+      $routes->delete('hapus/(:num)', 'DataC::hapus_santri/$1');
     });
 
+    $routes->group('ustadz', function ($routes) {
+      $routes->get('', 'DataC::data_ustadz');
+
+      $routes->get('tambah', 'DataC::tambah_ustadz');
+      $routes->post('tambah', 'DataC::proses_tambah_ustadz');
+
+      $routes->get('edit/(:segment)', 'DataC::edit_ustadz/$1');
+      $routes->put('edit/(:segment)', 'DataC::proses_edit_ustadz/$1');
+
+      $routes->delete('hapus/(:segment)', 'DataC::hapus_ustadz/$1');
+    });
 
     $routes->addRedirect('/', 'admin/dashboard');
+  });
+
+  $routes->group('pengumuman', function ($routes) {
+    $routes->get('', 'DataC::data_pengumuman');
+
+    $routes->get('tambah', 'DataC::tambah_pengumuman');
+    $routes->post('tambah', 'DataC::proses_tambah_pengumuman');
+
+    $routes->get('edit/(:num)', 'DataC::edit_pengumuman/$1');
+    $routes->put('edit/(:num)', 'DataC::proses_edit_pengumuman/$1');
+
+    $routes->delete('hapus/(:num)', 'DataC::hapus_pengumuman/$1');
+  });
+
+
+  $routes->addRedirect('/', 'admin/dashboard');
 });
 
 /*
@@ -84,5 +96,5 @@ $routes->group('admin', ['namespace' => 'App\Controllers\Admin', 'filter' => 'is
  * needing to reload it.
  */
 if (is_file(APPPATH . 'Config/' . ENVIRONMENT . '/Routes.php')) {
-    require APPPATH . 'Config/' . ENVIRONMENT . '/Routes.php';
+  require APPPATH . 'Config/' . ENVIRONMENT . '/Routes.php';
 }

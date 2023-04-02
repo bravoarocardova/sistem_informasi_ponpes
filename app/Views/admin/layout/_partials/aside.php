@@ -56,6 +56,14 @@ $uri = service('uri');
             </li>
           </ul>
         </li>
+        <li class="nav-item">
+          <a href="<?= base_url() ?>admin/pengumuman" class="nav-link <?= ($uri->getSegment(2) == 'pengumuman') ? 'active' : '' ?>">
+            <i class="nav-icon fa fa-bullhorn"></i>
+            <p>
+              Pengumuman
+            </p>
+          </a>
+        </li>
         <li class="nav-header">Setting</li>
         <li class="nav-item">
           <a href="<?= base_url() ?>admin/profil" class="nav-link <?= ($uri->getSegment(2) == 'profil') ? 'active' : '' ?>">

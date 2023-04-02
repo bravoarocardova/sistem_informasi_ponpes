@@ -5,17 +5,20 @@ namespace App\Controllers\Admin;
 use App\Controllers\BaseController;
 use App\Models\SantriM;
 use App\Models\UstadzM;
+use App\Models\PengumumanM;
 
 class DataC extends BaseController
 {
 
   private $santriM;
   private $ustadzM;
+  private $pengumumanM;
 
   public function __construct()
   {
     $this->santriM = new SantriM();
     $this->ustadzM = new UstadzM();
+    $this->pengumumanM = new PengumumanM();
   }
 
   private function ruleSantri($is_unique = true)
@@ -170,6 +173,41 @@ class DataC extends BaseController
     ];
 
     return $ruleUstadz;
+  }
+
+  private function rulePengumuman($is_valid_gambar = true)
+  {
+
+    $rulePengumuman =  [
+      'gambar' => [
+        'label' => 'Gambar',
+        'rules' => ($is_valid_gambar) ? 'uploaded[gambar]|mime_in[gambar,image/jpg,image/jpeg,image/png]|max_size[gambar,4096]' : 'mime_in[gambar,image/jpg,image/jpeg,image/png]|max_size[gambar,4096]',
+        'errors' => [
+          'uploaded' => '{field} Harus ada yang diupload',
+          'mime_in' => '{field} Harus [jpg, jpeg, png]',
+          'max_size' => '{field} Maksimal 4mb'
+        ]
+      ],
+      'judul' => [
+        'label' => 'judul',
+        'rules' => 'required|min_length[4]|max_length[100]',
+        'errors' => [
+          'required' => '{field} Harus diisi',
+          'min_length' => '{field} Minimal 4 Karakter',
+          'max_length' => '{field} Maksimal 100 Karakter',
+        ],
+      ],
+      'isi' => [
+        'label' => 'Isi',
+        'rules' => 'required|min_length[1]',
+        'errors' => [
+          'required' => '{field} Harus diisi',
+          'min_length' => '{field} Minimal 1 Karakter',
+        ],
+      ],
+    ];
+
+    return $rulePengumuman;
   }
 
   public function data_santri()
@@ -356,6 +394,114 @@ class DataC extends BaseController
   public function hapus_ustadz($kd_ustadz)
   {
     $hapus = $this->ustadzM->delete($kd_ustadz);
+    if ($hapus) {
+      $type = 'success';
+      $msg = 'Berhasil dihapus.';
+    } else {
+      $type = 'danger';
+      $msg = 'Gagal dihapus.';
+    }
+    return redirect()->back()->with('msg', myAlert($type, $msg));
+  }
+
+
+  // pengumuman
+  public function data_pengumuman()
+  {
+    return view('admin/data/pengumuman/data_pengumuman_v', [
+      'pengumuman' => $this->pengumumanM->findAll()
+    ]);
+  }
+
+  public function tambah_pengumuman()
+  {
+    return view('admin/data/pengumuman/tambah_pengumuman_form');
+  }
+
+  public function proses_tambah_pengumuman()
+  {
+    if (!$this->validate($this->rulePengumuman(true))) {
+      return redirect()->back()->withInput();
+    } else {
+      $post = $this->request->getPost();
+
+      $gambar = $this->request->getFile('gambar');
+      $newGambar = $gambar->getRandomName();
+
+      $data = [
+        'judul' => $post['judul'],
+        'isi' => $post['isi'],
+        'gambar' => $newGambar,
+        'penulis' => session()->get('admin')['nama'],
+      ];
+
+      $simpan = $this->pengumumanM->save($data);
+      if ($simpan) {
+        $gambar->move('img/pengumuman/', $newGambar);
+        $type = 'success';
+        $msg = 'Berhasil tambah data.';
+      } else {
+        $type = 'danger';
+        $msg = 'Gagal tambah data.';
+      }
+      return redirect()->to(base_url() . 'admin/pengumuman')->with('msg', myAlert($type, $msg));
+    }
+  }
+
+  public function edit_pengumuman($id_pengumuman)
+  {
+    return view('admin/data/pengumuman/edit_pengumuman_form', [
+      'pengumuman' => $this->pengumumanM->find($id_pengumuman)
+    ]);
+  }
+
+  public function proses_edit_pengumuman($id_pengumuman)
+  {
+    $dataLama = $this->pengumumanM->find($id_pengumuman);
+
+    $post = $this->request->getPost();
+
+    $gambar = $this->request->getFile('gambar');
+
+
+    $is_valid_gambar = false;
+
+    if ($gambar->isValid()) {
+      $is_valid_gambar = true;
+    }
+
+    if (!$this->validate($this->rulePengumuman($is_valid_gambar))) {
+      return redirect()->back()->withInput();
+    } else {
+      $data = [
+        'id_pengumuman' => $id_pengumuman,
+        'judul' => $post['judul'],
+        'isi' => $post['isi'],
+      ];
+      if ($gambar->isValid()) {
+        $newGambar = $gambar->getRandomName();
+        $data['gambar'] = $newGambar;
+        $gambar->move('img/pengumuman/', $newGambar);
+      }
+
+      $simpan = $this->pengumumanM->save($data);
+      if ($simpan) {
+        unlink(FCPATH . '/img/pengumuman/' . $dataLama['gambar']);
+        $type = 'success';
+        $msg = 'Berhasil tambah data.';
+      } else {
+        $type = 'danger';
+        $msg = 'Gagal tambah data.';
+      }
+      return redirect()->to(base_url() . 'admin/pengumuman')->with('msg', myAlert($type, $msg));
+    }
+  }
+
+  public function hapus_pengumuman($id_pengumuman)
+  {
+    $dataPengumuman = $this->pengumumanM->find($id_pengumuman);
+    $hapus = $this->pengumumanM->delete($id_pengumuman);
+    unlink(FCPATH . '/img/pengumuman/' . $dataPengumuman['gambar']);
     if ($hapus) {
       $type = 'success';
       $msg = 'Berhasil dihapus.';
