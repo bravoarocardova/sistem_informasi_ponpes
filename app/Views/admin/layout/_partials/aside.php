@@ -64,7 +64,23 @@ $uri = service('uri');
             </p>
           </a>
         </li>
-        <li class="nav-header">Setting</li>
+        <li class="nav-header">Profil</li>
+        <li class="nav-item">
+          <a href="<?= base_url() ?>admin/galery" class="nav-link <?= ($uri->getSegment(2) == 'galery') ? 'active' : '' ?>">
+            <i class="nav-icon fa fa-camera"></i>
+            <p>
+              Galery
+            </p>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a href="<?= base_url() ?>admin/slideshow" class="nav-link <?= ($uri->getSegment(2) == 'slideshow') ? 'active' : '' ?>">
+            <i class="nav-icon fa fa-columns"></i>
+            <p>
+              Slideshow
+            </p>
+          </a>
+        </li>
         <li class="nav-item <?= ($uri->getSegment(2) == 'profil') ? 'menu-open' : '' ?>">
           <a href="#" class="nav-link <?= ($uri->getSegment(2) == 'profil') ? 'active' : '' ?>">
             <i class="nav-icon fa fa-id-card"></i>

@@ -85,7 +85,7 @@
                 </tbody>
                 <tfoot>
                   <tr>
-                    <td>KODE USTADZ</td>
+                    <th>KODE USTADZ</th>
                     <th>NAMA USTADZ</th>
                     <th>JK</th>
                     <th>ALAMAT LENGKAP</th>

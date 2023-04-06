@@ -78,6 +78,18 @@ $routes->group('admin', ['namespace' => 'App\Controllers\Admin', 'filter' => 'is
     $routes->delete('hapus/(:num)', 'DataC::hapus_pengumuman/$1');
   });
 
+  $routes->group('slideshow', function ($routes) {
+    $routes->get('', 'DataC::data_slideshow');
+
+    $routes->get('tambah', 'DataC::tambah_slideshow');
+    $routes->post('tambah', 'DataC::proses_tambah_slideshow');
+
+    $routes->get('edit/(:num)', 'DataC::edit_slideshow/$1');
+    $routes->put('edit/(:num)', 'DataC::proses_edit_slideshow/$1');
+
+    $routes->delete('hapus/(:num)', 'DataC::hapus_slideshow/$1');
+  });
+
   $routes->group('profil', function ($routes) {
     $routes->add('aplikasi', 'ProfilC::aplikasi');
 

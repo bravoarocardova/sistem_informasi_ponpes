@@ -6,6 +6,7 @@ use App\Controllers\BaseController;
 use App\Models\SantriM;
 use App\Models\UstadzM;
 use App\Models\PengumumanM;
+use App\Models\SlideshowM;
 
 class DataC extends BaseController
 {
@@ -13,12 +14,14 @@ class DataC extends BaseController
   private $santriM;
   private $ustadzM;
   private $pengumumanM;
+  private $slideshowM;
 
   public function __construct()
   {
     $this->santriM = new SantriM();
     $this->ustadzM = new UstadzM();
     $this->pengumumanM = new PengumumanM();
+    $this->slideshowM = new SlideshowM();
   }
 
   private function ruleSantri($is_unique = true)
@@ -208,6 +211,51 @@ class DataC extends BaseController
     ];
 
     return $rulePengumuman;
+  }
+
+  private function ruleSlideshow($is_valid_slideshow = true)
+  {
+
+    $ruleSlideshow =  [
+      'slideshow' => [
+        'label' => 'Slideshow',
+        'rules' => ($is_valid_slideshow) ? 'uploaded[slideshow]|mime_in[slideshow,image/jpg,image/jpeg,image/png]|max_size[slideshow,4096]' : 'mime_in[slideshow,image/jpg,image/jpeg,image/png]|max_size[slideshow,4096]',
+        'errors' => [
+          'uploaded' => '{field} Harus ada yang diupload',
+          'mime_in' => '{field} Harus [jpg, jpeg, png]',
+          'max_size' => '{field} Maksimal 4mb'
+        ]
+      ],
+      'judul' => [
+        'label' => 'Judul',
+        'rules' => 'required|min_length[1]|max_length[100]',
+        'errors' => [
+          'required' => '{field} Harus diisi',
+          'min_length' => '{field} Minimal 1 Karakter',
+          'max_length' => '{field} Maksimal 100 Karakter',
+        ],
+      ],
+      'caption' => [
+        'label' => 'caption',
+        'rules' => 'required|min_length[1]|max_length[100]',
+        'errors' => [
+          'required' => '{field} Harus diisi',
+          'min_length' => '{field} Minimal 1 Karakter',
+          'max_length' => '{field} Maksimal 100 Karakter',
+        ],
+      ],
+      'align' => [
+        'label' => 'Align',
+        'rules' => 'required|min_length[1]|max_length[10]',
+        'errors' => [
+          'required' => '{field} Harus diisi',
+          'min_length' => '{field} Minimal 1 Karakter',
+          'max_length' => '{field} Maksimal 10 Karakter',
+        ],
+      ],
+    ];
+
+    return $ruleSlideshow;
   }
 
   public function data_santri()
@@ -482,11 +530,11 @@ class DataC extends BaseController
         $newGambar = $gambar->getRandomName();
         $data['gambar'] = $newGambar;
         $gambar->move('img/pengumuman/', $newGambar);
+        unlink(FCPATH . '/img/pengumuman/' . $dataLama['gambar']);
       }
 
       $simpan = $this->pengumumanM->save($data);
       if ($simpan) {
-        unlink(FCPATH . '/img/pengumuman/' . $dataLama['gambar']);
         $type = 'success';
         $msg = 'Berhasil tambah data.';
       } else {
@@ -502,6 +550,114 @@ class DataC extends BaseController
     $dataPengumuman = $this->pengumumanM->find($id_pengumuman);
     $hapus = $this->pengumumanM->delete($id_pengumuman);
     unlink(FCPATH . '/img/pengumuman/' . $dataPengumuman['gambar']);
+    if ($hapus) {
+      $type = 'success';
+      $msg = 'Berhasil dihapus.';
+    } else {
+      $type = 'danger';
+      $msg = 'Gagal dihapus.';
+    }
+    return redirect()->back()->with('msg', myAlert($type, $msg));
+  }
+
+  public function data_slideshow()
+  {
+    return view('admin/data/slideshow/data_slideshow_v', [
+      'slideshow' => $this->slideshowM->findAll()
+    ]);
+  }
+
+  public function tambah_slideshow()
+  {
+    return view('admin/data/slideshow/tambah_slideshow_form');
+  }
+
+  public function proses_tambah_slideshow()
+  {
+    if (!$this->validate($this->ruleSlideshow(true))) {
+      return redirect()->back()->withInput();
+    } else {
+      $post = $this->request->getPost();
+
+      $slideshow = $this->request->getFile('slideshow');
+      $newslideshow = $slideshow->getRandomName();
+
+      $data = [
+        'slideshow' => $newslideshow,
+        'judul' => $post['judul'],
+        'caption' => $post['caption'],
+        'align' => $post['align'],
+      ];
+
+      $simpan = $this->slideshowM->save($data);
+      if ($simpan) {
+        $slideshow->move('img/slideshow/', $newslideshow);
+        $type = 'success';
+        $msg = 'Berhasil tambah data.';
+      } else {
+        $type = 'danger';
+        $msg = 'Gagal tambah data.';
+      }
+      return redirect()->to(base_url() . 'admin/slideshow')->with('msg', myAlert($type, $msg));
+    }
+  }
+
+  public function edit_slideshow($id_slideshow)
+  {
+    return view('admin/data/slideshow/edit_slideshow_form', [
+      'slideshow' => $this->slideshowM->find($id_slideshow)
+    ]);
+  }
+
+  public function proses_edit_slideshow($id_slideshow)
+  {
+    $dataLama = $this->slideshowM->find($id_slideshow);
+
+    $post = $this->request->getPost();
+
+    $slideshow = $this->request->getFile('slideshow');
+
+
+    $is_valid_slideshow = false;
+
+    if ($slideshow->isValid()) {
+      $is_valid_slideshow = true;
+    }
+
+    if (!$this->validate($this->ruleSlideshow($is_valid_slideshow))) {
+      return redirect()->back()->withInput();
+    } else {
+      $data = [
+        'id_slideshow' => $id_slideshow,
+        'judul' => $post['judul'],
+        'caption' => $post['caption'],
+        'align' => $post['caption'],
+      ];
+
+      if ($slideshow->isValid()) {
+        $newGambar = $slideshow->getRandomName();
+        $data['slideshow'] = $newGambar;
+        $slideshow->move('img/slideshow/', $newGambar);
+        unlink(FCPATH . '/img/slideshow/' . $dataLama['slideshow']);
+      }
+
+      $simpan = $this->slideshowM->save($data);
+      if ($simpan) {
+        $type = 'success';
+        $msg = 'Berhasil tambah data.';
+      } else {
+        $type = 'danger';
+        $msg = 'Gagal tambah data.';
+      }
+      return redirect()->to(base_url() . 'admin/slideshow')->with('msg', myAlert($type, $msg));
+    }
+  }
+
+  public function hapus_slideshow($id_slideshow)
+  {
+    $dataSlideshow = $this->slideshowM->find($id_slideshow);
+    $hapus = $this->slideshowM->delete($id_slideshow);
+    unlink(FCPATH . '/img/slideshow/' . $dataSlideshow['slideshow']);
     if ($hapus) {
       $type = 'success';
       $msg = 'Berhasil dihapus.';

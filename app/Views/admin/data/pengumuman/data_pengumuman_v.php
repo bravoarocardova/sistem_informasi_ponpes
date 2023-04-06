@@ -80,11 +80,11 @@
                 </tbody>
                 <tfoot>
                   <tr>
+                    <th>TANGGAL DIBUAT</th>
                     <th>Gambar</th>
                     <th>JUDUL</th>
                     <th>ISI</th>
                     <th>PENULIS</th>
-                    <th>TANGGAL DIBUAT</th>
                     <th>TANGGAL UPDATE</th>
                     <th>AKSI</th>
                   </tr>
