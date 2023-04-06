@@ -75,11 +75,10 @@ class ProfilC extends BaseController
       ],
       'lokasi_pondok' => [
         'label' => 'Lokasi Pondok',
-        'rules' => 'required|min_length[1]|max_length[20]',
+        'rules' => 'required|min_length[1]',
         'errors' => [
           'required' => '{field} Harus diisi',
           'min_length' => '{field} Minimal 1 Karakter',
-          'max_length' => '{field} Maksimal 20 Karakter',
         ],
       ],
     ];
@@ -119,13 +118,14 @@ class ProfilC extends BaseController
           $newlogo = $logo->getRandomName();
           $data['logo'] = $newlogo;
           $logo->move('img/icon/', $newlogo);
+          if ($dataLama != null && $dataLama['logo'] != null) {
+            unlink(FCPATH . '/img/icon/' . $dataLama['logo']);
+          }
         }
 
         $simpan = $this->profilM->save($data);
         if ($simpan) {
-          if ($dataLama != null && $dataLama['logo'] != null) {
-            unlink(FCPATH . '/img/icon/' . $dataLama['logo']);
-          }
+
           $type = 'success';
           $msg = 'Berhasil simpan data.';
         } else {

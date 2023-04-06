@@ -92,7 +92,7 @@
                       <div class="invalid-feedback">
                         <?= validation_show_error('lokasi_pondok') ?>
                       </div>
-                      <small>(latitude , longitude)</small>
+                      <small>Embed map src by google maps</small>
                     </div>
                   </div>
                 </div>
