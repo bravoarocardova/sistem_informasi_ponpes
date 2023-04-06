@@ -51,25 +51,19 @@
                           <?= validation_show_error('gambar') ?>
                         </div>
                       </div>
-                      <div class="invalid-feedback">
-                        <?= validation_show_error('gambar')
-                        ?>
-                      </div>
                     </div>
                     <div class="mb-3">
                       <label class="form-label" for="judul">Judul</label>
                       <input type="text" class="form-control <?= validation_show_error('judul') ? 'is-invalid' : '' ?>" id="judul" name="judul" placeholder="Judul" value="<?= old('judul', $pengumuman['judul']) ?>">
                       <div class="invalid-feedback">
-                        <?= validation_show_error('judul')
-                        ?>
+                        <?= validation_show_error('judul') ?>
                       </div>
                     </div>
                     <div class="mb-3">
-                      <label class="form-label" for="summernote">Isi</label>
-                      <textarea name="isi" id="summernote" cols="30" rows="10" class="form-control <?= validation_show_error('isi') ? 'is-invalid' : '' ?>"><?= old('isi', $pengumuman['isi']) ?></textarea>
+                      <label class="form-label" for="isi">Isi</label>
+                      <textarea name="isi" id="isi" cols="30" rows="10" class="form-control summernote <?= validation_show_error('isi') ? 'is-invalid' : '' ?>"><?= old('isi', $pengumuman['isi']) ?></textarea>
                       <div class="invalid-feedback">
-                        <?= validation_show_error('isi')
-                        ?>
+                        <?= validation_show_error('isi') ?>
                       </div>
                     </div>
                   </div>
@@ -88,24 +82,5 @@
   </section>
   <!-- /.content -->
 </div>
-<script>
-  $(function() {
-    // Summernote
-    $('#summernote').summernote({
-      height: 100,
-      toolbar: [
-        // [groupName, [list of button]]
-        ['style', ['bold', 'italic', 'underline', 'clear']],
-        ['font', ['strikethrough', 'superscript', 'subscript']],
-        ['fontsize', ['fontsize']],
-        ['color', ['color']],
-        ['para', ['ul', 'ol', 'paragraph']],
-        ['height', ['height']]
-      ],
-    });
-    $('#summernote').summernote('fontSize', 12);
-
-  })
-</script>
 
 <?= $this->endSection() ?>

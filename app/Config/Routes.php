@@ -78,6 +78,27 @@ $routes->group('admin', ['namespace' => 'App\Controllers\Admin', 'filter' => 'is
     $routes->delete('hapus/(:num)', 'DataC::hapus_pengumuman/$1');
   });
 
+  $routes->group('profil', function ($routes) {
+    $routes->add('aplikasi', 'ProfilC::aplikasi');
+
+    $routes->add('sejarah', 'ProfilC::sejarah');
+
+    $routes->add('visi_misi', 'ProfilC::visi_misi');
+
+    $routes->add('struktur', 'ProfilC::struktur');
+
+    $routes->add('peraturan_pondok', 'ProfilC::peraturan_pondok');
+
+
+
+    // $routes->post('tambah', 'ProfilC::proses_tambah_pengumuman');
+
+    // $routes->get('edit/(:num)', 'ProfilC::edit_pengumuman/$1');
+    // $routes->put('edit/(:num)', 'ProfilC::proses_edit_pengumuman/$1');
+
+    // $routes->delete('hapus/(:num)', 'ProfilC::hapus_pengumuman/$1');
+  });
+
 
   $routes->addRedirect('/', 'admin/dashboard');
 });

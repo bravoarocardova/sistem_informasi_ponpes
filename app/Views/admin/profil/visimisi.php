@@ -8,12 +8,12 @@
     <div class="container-fluid">
       <div class="row mb-2">
         <div class="col-sm-6">
-          <h1 class="m-0">Tambah Pengumuman</h1>
+          <h1 class="m-0">Profil Visi dan Misi</h1>
         </div><!-- /.col -->
         <div class="col-sm-6">
           <ol class="breadcrumb float-sm-right">
-            <li class="breadcrumb-item"><a href="#">Data</a></li>
-            <li class="breadcrumb-item active">Pengumuman</li>
+            <li class="breadcrumb-item"><a href="#">Profil</a></li>
+            <li class="breadcrumb-item active">Visi dan Misi</li>
           </ol>
         </div><!-- /.col -->
       </div><!-- /.row -->
@@ -29,9 +29,7 @@
         <div class="col-12">
           <div class="card">
             <div class="card-header">
-              <h3 class="card-title">
-
-              </h3>
+              <?= session()->get('msg') ?>
             </div>
             <!-- /.card-header -->
             <div class="card-body">
@@ -40,32 +38,23 @@
 
                 <div class="row">
                   <div class="col-md-8">
+
                     <div class="mb-3">
-                      <img alt="" src="" class="rounded img-responsive mt-2" width="128" height="128" id="img-profile-upload">
-                      <div class="mt-2">
-                        <label for="gambar">
-                          <span class="btn btn-primary"><i class="fas fa-upload"></i> Pilih Gambar</span>
-                        </label>
-                        <input type="file" name="gambar" id="gambar" class="d-none <?= validation_show_error('gambar') ? 'is-invalid' : '' ?>" onchange="document.getElementById('img-profile-upload').src = window.URL.createObjectURL(this.files[0])">
-                        <div class=" invalid-feedback">
-                          <?= validation_show_error('gambar') ?>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="mb-3">
-                      <label class="form-label" for="judul">Judul</label>
-                      <input type="text" class="form-control <?= validation_show_error('judul') ? 'is-invalid' : '' ?>" id="judul" name="judul" placeholder="Judul" value="<?= old('judul') ?>">
+                      <label class="form-label" for="visi">Visi</label>
+                      <textarea name="visi" id="visi" cols="30" rows="2" placeholder="visi Pondok" class="form-control summernote <?= validation_show_error('visi') ? 'is-invalid' : '' ?>"><?= old('visi', $profil['visi'] ?? '') ?></textarea>
                       <div class="invalid-feedback">
-                        <?= validation_show_error('judul') ?>
+                        <?= validation_show_error('visi') ?>
                       </div>
                     </div>
+
                     <div class="mb-3">
-                      <label class="form-label" for="isi">Isi</label>
-                      <textarea name="isi" id="isi" cols="30" rows="10" class="form-control summernote <?= validation_show_error('isi') ? 'is-invalid' : '' ?>"><?= old('isi') ?></textarea>
+                      <label class="form-label" for="misi">Misi</label>
+                      <textarea name="misi" id="misi" cols="30" rows="2" placeholder="misi Pondok" class="form-control summernote <?= validation_show_error('misi') ? 'is-invalid' : '' ?>"><?= old('misi', $profil['misi'] ?? '') ?></textarea>
                       <div class="invalid-feedback">
-                        <?= validation_show_error('isi') ?>
+                        <?= validation_show_error('misi') ?>
                       </div>
                     </div>
+
                   </div>
                 </div>
                 <a href="javascript:history.back()" class="btn btn-danger">Cancel</a>

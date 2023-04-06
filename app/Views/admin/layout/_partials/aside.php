@@ -33,7 +33,7 @@ $uri = service('uri');
             </p>
           </a>
         </li>
-        <li class="nav-item menu-open">
+        <li class="nav-item <?= ($uri->getSegment(2) == 'data') ? 'menu-open' : '' ?>">
           <a href="#" class="nav-link <?= ($uri->getSegment(2) == 'data') ? 'active' : '' ?>">
             <i class="nav-icon fas fa-book"></i>
             <p>
@@ -65,13 +65,46 @@ $uri = service('uri');
           </a>
         </li>
         <li class="nav-header">Setting</li>
-        <li class="nav-item">
-          <a href="<?= base_url() ?>admin/profil" class="nav-link <?= ($uri->getSegment(2) == 'profil') ? 'active' : '' ?>">
+        <li class="nav-item <?= ($uri->getSegment(2) == 'profil') ? 'menu-open' : '' ?>">
+          <a href="#" class="nav-link <?= ($uri->getSegment(2) == 'profil') ? 'active' : '' ?>">
             <i class="nav-icon fa fa-id-card"></i>
             <p>
               Profil
+              <i class="right fas fa-angle-left"></i>
             </p>
           </a>
+          <ul class="nav nav-treeview">
+            <li class="nav-item">
+              <a href="<?= base_url() ?>admin/profil/aplikasi" class="nav-link <?= ($uri->getSegment(3) == 'aplikasi') ? 'active text-primary' : '' ?>">
+                <i class="far fa-circle nav-icon"></i>
+                <p>Aplikasi</p>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a href="<?= base_url() ?>admin/profil/sejarah" class="nav-link <?= ($uri->getSegment(3) == 'sejarah') ? 'active text-primary' : '' ?>">
+                <i class="far fa-circle nav-icon"></i>
+                <p>Sejarah</p>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a href="<?= base_url() ?>admin/profil/visi_misi" class="nav-link <?= ($uri->getSegment(3) == 'visi_misi') ? 'active text-primary' : '' ?>">
+                <i class="far fa-circle nav-icon"></i>
+                <p>Visi & Misi</p>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a href="<?= base_url() ?>admin/profil/struktur" class="nav-link <?= ($uri->getSegment(3) == 'struktur') ? 'active text-primary' : '' ?>">
+                <i class="far fa-circle nav-icon"></i>
+                <p>Struktur</p>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a href="<?= base_url() ?>admin/profil/peraturan_pondok" class="nav-link <?= ($uri->getSegment(3) == 'peraturan_pondok') ? 'active text-primary' : '' ?>">
+                <i class="far fa-circle nav-icon"></i>
+                <p>Peraturan Pondok</p>
+              </a>
+            </li>
+          </ul>
         </li>
         <li class="nav-item">
           <a href="<?= base_url() ?>admin/logout" class="nav-link  text-danger">
