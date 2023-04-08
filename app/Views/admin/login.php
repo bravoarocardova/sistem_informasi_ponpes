@@ -21,7 +21,8 @@
     <!-- /.login-logo -->
     <div class="card card-outline card-primary">
       <div class="card-header text-center">
-        <a href="<?= base_url() ?>" class="h1"><b>Ponpes </b>Madinatul U'lum</a>
+        <img src="<?= base_url() . 'img/icon/' . profil_pondok()['logo'] ?>" alt="" width="100"><br>
+        <a href="<?= base_url() ?>" class="h1"><?= profil_pondok()['nama_pondok'] ?></a>
       </div>
       <div class="card-body">
         <p class="login-box-msg">Selamat Datang</p>

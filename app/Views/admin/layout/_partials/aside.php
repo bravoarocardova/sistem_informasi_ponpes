@@ -5,8 +5,8 @@ $uri = service('uri');
 <aside class="main-sidebar sidebar-dark-primary elevation-4">
   <!-- Brand Logo -->
   <a href="index3.html" class="brand-link">
-    <img src="<?= base_url() ?>img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
-    <span class="brand-text font-weight-light">Ponpes</span>
+    <img src="<?= base_url() . 'img/icon/' . profil_pondok()['logo'] ?>" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
+    <span class="brand-text font-weight-light"><?= profil_pondok()['nama_aplikasi'] ?></span>
   </a>
 
   <!-- Sidebar -->
@@ -14,10 +14,10 @@ $uri = service('uri');
     <!-- Sidebar user panel (optional) -->
     <div class="user-panel mt-3 pb-3 mb-3 d-flex">
       <div class="image">
-        <img src="<?= base_url() . 'img/profil/' . session()->get('admin')['foto'] ?>" class="img-circle elevation-2" alt="User Image">
+        <img src="<?= base_url() . 'img/profil/' . session()->get('admin')['foto'] ?>" class="img-circle elevation-2" style="width:40px;height:40px;object-fit:cover" alt="User Image">
       </div>
       <div class="info">
-        <a href="#" class="d-block"><?= session()->get('admin')['nama'] ?></a>
+        <a href="<?= base_url() . 'admin/pengguna' ?>" class="d-block"><?= session()->get('admin')['nama'] ?></a>
       </div>
     </div>
     <!-- Sidebar Menu -->
@@ -29,7 +29,6 @@ $uri = service('uri');
             <i class="nav-icon fas fa-tachometer-alt"></i>
             <p>
               Dashboard
-              <span class="badge badge-info right">2</span>
             </p>
           </a>
         </li>
@@ -55,6 +54,15 @@ $uri = service('uri');
               </a>
             </li>
           </ul>
+        </li>
+        <li class="nav-item">
+          <a href="<?= base_url() ?>admin/penerimaan" class="nav-link <?= ($uri->getSegment(2) == 'penerimaan') ? 'active' : '' ?>">
+            <i class="nav-icon fa fa-user-plus"></i>
+            <p>
+              Penerimaan
+              <span class="badge badge-danger right">2</span>
+            </p>
+          </a>
         </li>
         <li class="nav-item">
           <a href="<?= base_url() ?>admin/pengumuman" class="nav-link <?= ($uri->getSegment(2) == 'pengumuman') ? 'active' : '' ?>">
@@ -122,6 +130,8 @@ $uri = service('uri');
             </li>
           </ul>
         </li>
+        <li class="nav-header">Setting</li>
+
         <li class="nav-item">
           <a href="<?= base_url() ?>admin/logout" class="nav-link  text-danger">
             <i class="nav-icon fas fa-sign-out-alt"></i>

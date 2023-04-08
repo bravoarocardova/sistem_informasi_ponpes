@@ -78,6 +78,18 @@ $routes->group('admin', ['namespace' => 'App\Controllers\Admin', 'filter' => 'is
     $routes->delete('hapus/(:num)', 'DataC::hapus_pengumuman/$1');
   });
 
+  $routes->group('galery', function ($routes) {
+    $routes->get('', 'DataC::data_galery');
+
+    $routes->get('tambah', 'DataC::tambah_galery');
+    $routes->post('tambah', 'DataC::proses_tambah_galery');
+
+    $routes->get('edit/(:num)', 'DataC::edit_galery/$1');
+    $routes->put('edit/(:num)', 'DataC::proses_edit_galery/$1');
+
+    $routes->delete('hapus/(:num)', 'DataC::hapus_galery/$1');
+  });
+
   $routes->group('slideshow', function ($routes) {
     $routes->get('', 'DataC::data_slideshow');
 
@@ -100,16 +112,9 @@ $routes->group('admin', ['namespace' => 'App\Controllers\Admin', 'filter' => 'is
     $routes->add('struktur', 'ProfilC::struktur');
 
     $routes->add('peraturan_pondok', 'ProfilC::peraturan_pondok');
-
-
-
-    // $routes->post('tambah', 'ProfilC::proses_tambah_pengumuman');
-
-    // $routes->get('edit/(:num)', 'ProfilC::edit_pengumuman/$1');
-    // $routes->put('edit/(:num)', 'ProfilC::proses_edit_pengumuman/$1');
-
-    // $routes->delete('hapus/(:num)', 'ProfilC::hapus_pengumuman/$1');
   });
+
+  $routes->add('pengguna', 'ProfilC::pengguna');
 
 
   $routes->addRedirect('/', 'admin/dashboard');

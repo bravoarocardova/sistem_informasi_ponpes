@@ -3,6 +3,7 @@
 namespace App\Controllers\Admin;
 
 use App\Controllers\BaseController;
+use App\Models\GaleryM;
 use App\Models\SantriM;
 use App\Models\UstadzM;
 use App\Models\PengumumanM;
@@ -15,6 +16,7 @@ class DataC extends BaseController
   private $ustadzM;
   private $pengumumanM;
   private $slideshowM;
+  private $galeryM;
 
   public function __construct()
   {
@@ -22,6 +24,7 @@ class DataC extends BaseController
     $this->ustadzM = new UstadzM();
     $this->pengumumanM = new PengumumanM();
     $this->slideshowM = new SlideshowM();
+    $this->galeryM = new GaleryM();
   }
 
   private function ruleSantri($is_unique = true)
@@ -192,7 +195,7 @@ class DataC extends BaseController
         ]
       ],
       'judul' => [
-        'label' => 'judul',
+        'label' => 'Judul',
         'rules' => 'required|min_length[4]|max_length[100]',
         'errors' => [
           'required' => '{field} Harus diisi',
@@ -228,7 +231,7 @@ class DataC extends BaseController
       ],
       'judul' => [
         'label' => 'Judul',
-        'rules' => 'required|min_length[1]|max_length[100]',
+        'rules' => 'max_length[100]',
         'errors' => [
           'required' => '{field} Harus diisi',
           'min_length' => '{field} Minimal 1 Karakter',
@@ -236,8 +239,8 @@ class DataC extends BaseController
         ],
       ],
       'caption' => [
-        'label' => 'caption',
-        'rules' => 'required|min_length[1]|max_length[100]',
+        'label' => 'Caption',
+        'rules' => 'max_length[100]',
         'errors' => [
           'required' => '{field} Harus diisi',
           'min_length' => '{field} Minimal 1 Karakter',
@@ -246,7 +249,7 @@ class DataC extends BaseController
       ],
       'align' => [
         'label' => 'Align',
-        'rules' => 'required|min_length[1]|max_length[10]',
+        'rules' => 'max_length[10]',
         'errors' => [
           'required' => '{field} Harus diisi',
           'min_length' => '{field} Minimal 1 Karakter',
@@ -256,6 +259,42 @@ class DataC extends BaseController
     ];
 
     return $ruleSlideshow;
+  }
+
+  private function ruleGalery($is_valid_file = true)
+  {
+
+    $ruleGalery =  [
+      'file' => [
+        'label' => 'File',
+        'rules' => ($is_valid_file) ? 'uploaded[file]|mime_in[file,image/jpg,image/jpeg,image/png]|max_size[file,4096]' : 'mime_in[file,image/jpg,image/jpeg,image/png]|max_size[file,4096]',
+        'errors' => [
+          'uploaded' => '{field} Harus ada yang diupload',
+          'mime_in' => '{field} Harus [jpg, jpeg, png]',
+          'max_size' => '{field} Maksimal 4mb'
+        ]
+      ],
+      'caption' => [
+        'label' => 'Caption',
+        'rules' => 'required|min_length[1]|max_length[100]',
+        'errors' => [
+          'required' => '{field} Harus diisi',
+          'min_length' => '{field} Minimal 1 Karakter',
+          'max_length' => '{field} Maksimal 100 Karakter',
+        ],
+      ],
+      'tipe' => [
+        'label' => 'Tipe',
+        'rules' => 'required|min_length[1]|max_length[10]',
+        'errors' => [
+          'required' => '{field} Harus diisi',
+          'min_length' => '{field} Minimal 1 Karakter',
+          'max_length' => '{field} Maksimal 10 Karakter',
+        ],
+      ],
+    ];
+
+    return $ruleGalery;
   }
 
   public function data_santri()
@@ -560,6 +599,8 @@ class DataC extends BaseController
     return redirect()->back()->with('msg', myAlert($type, $msg));
   }
 
+  // SlideShow
+
   public function data_slideshow()
   {
     return view('admin/data/slideshow/data_slideshow_v', [
@@ -631,7 +672,7 @@ class DataC extends BaseController
         'id_slideshow' => $id_slideshow,
         'judul' => $post['judul'],
         'caption' => $post['caption'],
-        'align' => $post['caption'],
+        'align' => $post['align'],
       ];
 
       if ($slideshow->isValid()) {
@@ -658,6 +699,114 @@ class DataC extends BaseController
     $dataSlideshow = $this->slideshowM->find($id_slideshow);
     $hapus = $this->slideshowM->delete($id_slideshow);
     unlink(FCPATH . '/img/slideshow/' . $dataSlideshow['slideshow']);
+    if ($hapus) {
+      $type = 'success';
+      $msg = 'Berhasil dihapus.';
+    } else {
+      $type = 'danger';
+      $msg = 'Gagal dihapus.';
+    }
+    return redirect()->back()->with('msg', myAlert($type, $msg));
+  }
+
+  // Galery
+
+  public function data_galery()
+  {
+    return view('admin/data/galery/data_galery_v', [
+      'galery' => $this->galeryM->findAll()
+    ]);
+  }
+
+  public function tambah_galery()
+  {
+    return view('admin/data/galery/tambah_galery_form');
+  }
+
+  public function proses_tambah_galery()
+  {
+    if (!$this->validate($this->ruleGalery(true))) {
+      return redirect()->back()->withInput();
+    } else {
+      $post = $this->request->getPost();
+
+      $file = $this->request->getFile('file');
+      $newfile = $file->getRandomName();
+
+      $data = [
+        'file' => $newfile,
+        'caption' => $post['caption'],
+        'tipe' => $post['tipe'],
+      ];
+
+      $simpan = $this->galeryM->save($data);
+      if ($simpan) {
+        $file->move('img/galery/', $newfile);
+        $type = 'success';
+        $msg = 'Berhasil tambah data.';
+      } else {
+        $type = 'danger';
+        $msg = 'Gagal tambah data.';
+      }
+      return redirect()->to(base_url() . 'admin/galery')->with('msg', myAlert($type, $msg));
+    }
+  }
+
+  public function edit_galery($id_galery)
+  {
+    return view('admin/data/galery/edit_galery_form', [
+      'galery' => $this->galeryM->find($id_galery)
+    ]);
+  }
+
+  public function proses_edit_galery($id_galery)
+  {
+    $dataLama = $this->galeryM->find($id_galery);
+
+    $post = $this->request->getPost();
+
+    $file = $this->request->getFile('file');
+
+
+    $is_valid_file = false;
+
+    if ($file->isValid()) {
+      $is_valid_file = true;
+    }
+
+    if (!$this->validate($this->ruleGalery($is_valid_file))) {
+      return redirect()->back()->withInput();
+    } else {
+      $data = [
+        'id_galery' => $id_galery,
+        'caption' => $post['caption'],
+        'tipe' => $post['tipe'],
+      ];
+
+      if ($file->isValid()) {
+        $newFile = $file->getRandomName();
+        $data['file'] = $newFile;
+        $file->move('img/galery/', $newFile);
+        unlink(FCPATH . '/img/galery/' . $dataLama['file']);
+      }
+
+      $simpan = $this->galeryM->save($data);
+      if ($simpan) {
+        $type = 'success';
+        $msg = 'Berhasil tambah data.';
+      } else {
+        $type = 'danger';
+        $msg = 'Gagal tambah data.';
+      }
+      return redirect()->to(base_url() . 'admin/galery')->with('msg', myAlert($type, $msg));
+    }
+  }
+
+  public function hapus_galery($id_galery)
+  {
+    $datagalery = $this->galeryM->find($id_galery);
+    $hapus = $this->galeryM->delete($id_galery);
+    unlink(FCPATH . '/img/galery/' . $datagalery['file']);
     if ($hapus) {
       $type = 'success';
       $msg = 'Berhasil dihapus.';

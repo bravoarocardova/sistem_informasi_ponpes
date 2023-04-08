@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\ProfilM;
 use CodeIgniter\Model;
 
 /**
@@ -31,4 +32,11 @@ function createInvoice($kode, Model $model, $field, $offset = 3, $length = 8)
   $lastKode = (int) substr($lastKode[$field], $offset);
   $lastKode++;
   return $kode . sprintf("%0" . $length . "s", $lastKode);
+}
+
+
+function profil_pondok()
+{
+  $profil = new ProfilM();
+  return $profil->find(1);
 }
