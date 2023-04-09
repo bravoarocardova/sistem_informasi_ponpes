@@ -39,7 +39,7 @@
                 <div class="row">
                   <div class="col-md-8">
                     <div class="mb-3">
-                      <img alt="" src="<?= ($profil != null) ? base_url() . 'img/struktur/' . $profil['struktur_pondok'] : '' ?>" class="rounded img-responsive mt-2" width="512" height="512" id="img-struktur_pondok-upload">
+                      <img alt="" src="<?= ($profilApp != null) ? base_url() . 'img/struktur/' . $profilApp['struktur_pondok'] : '' ?>" class="rounded img-responsive mt-2" width="512" height="512" id="img-struktur_pondok-upload">
                       <div class="mt-2">
                         <label for="struktur_pondok">
                           <span class="btn btn-primary"><i class="fas fa-upload"></i> Pilih Struktur</span>

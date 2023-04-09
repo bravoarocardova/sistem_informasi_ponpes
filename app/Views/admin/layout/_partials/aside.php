@@ -1,12 +1,13 @@
 <?php
 $uri = service('uri');
+
 ?>
 
 <aside class="main-sidebar sidebar-dark-primary elevation-4">
   <!-- Brand Logo -->
   <a href="index3.html" class="brand-link">
-    <img src="<?= base_url() . 'img/icon/' . profil_pondok()['logo'] ?>" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
-    <span class="brand-text font-weight-light"><?= profil_pondok()['nama_aplikasi'] ?></span>
+    <img src="<?= base_url() . 'img/icon/' . $profilApp['logo'] ?>" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
+    <span class="brand-text font-weight-light"><?= $profilApp['nama_aplikasi'] ?></span>
   </a>
 
   <!-- Sidebar -->
@@ -60,7 +61,7 @@ $uri = service('uri');
             <i class="nav-icon fa fa-user-plus"></i>
             <p>
               Penerimaan
-              <span class="badge badge-danger right">2</span>
+              <span class="badge badge-danger right" id="badge-penerimaan"><?= jumlah_pendaftar() ?></span>
             </p>
           </a>
         </li>

@@ -2,6 +2,7 @@
 
 namespace App\Controllers;
 
+use App\Models\ProfilM;
 use CodeIgniter\Controller;
 use CodeIgniter\HTTP\CLIRequest;
 use CodeIgniter\HTTP\IncomingRequest;
@@ -42,6 +43,7 @@ abstract class BaseController extends Controller
      * The creation of dynamic property is deprecated in PHP 8.2.
      */
     // protected $session;
+    protected $profilApp;
 
     /**
      * Constructor.
@@ -54,5 +56,8 @@ abstract class BaseController extends Controller
         // Preload any models, libraries, etc, here.
 
         // E.g.: $this->session = \Config\Services::session();
+
+        $profil = new ProfilM();
+        $this->profilApp = $profil->get();
     }
 }

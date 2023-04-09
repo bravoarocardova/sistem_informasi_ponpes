@@ -66,6 +66,18 @@ $routes->group('admin', ['namespace' => 'App\Controllers\Admin', 'filter' => 'is
     $routes->addRedirect('/', 'admin/dashboard');
   });
 
+  $routes->group('penerimaan', function ($routes) {
+    $routes->get('', 'DataC::data_penerimaan');
+
+    // $routes->get('tambah', 'DataC::tambah_penerimaan');
+    // $routes->post('tambah', 'DataC::proses_tambah_penerimaan');
+
+    // $routes->get('edit/(:segment)', 'DataC::edit_penerimaan/$1');
+    // $routes->put('edit/(:segment)', 'DataC::proses_edit_penerimaan/$1');
+
+    $routes->delete('hapus/(:segment)', 'DataC::hapus_penerimaan/$1');
+  });
+
   $routes->group('pengumuman', function ($routes) {
     $routes->get('', 'DataC::data_pengumuman');
 

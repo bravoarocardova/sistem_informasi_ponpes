@@ -141,7 +141,7 @@ class ProfilC extends BaseController
     return view(
       'admin/profil/aplikasi',
       [
-        'profil' => $this->profilM->find(1)
+        'profilApp' => $this->profilApp
       ]
     );
   }
@@ -183,7 +183,7 @@ class ProfilC extends BaseController
     return view(
       'admin/profil/sejarah',
       [
-        'profil' => $this->profilM->find(1)
+        'profilApp' => $this->profilApp
       ]
     );
   }
@@ -234,7 +234,7 @@ class ProfilC extends BaseController
     return view(
       'admin/profil/visimisi',
       [
-        'profil' => $this->profilM->find(1)
+        'profilApp' => $this->profilApp
       ]
     );
   }
@@ -285,7 +285,7 @@ class ProfilC extends BaseController
     return view(
       'admin/profil/struktur',
       [
-        'profil' => $this->profilM->find(1)
+        'profilApp' => $this->profilApp
       ]
     );
   }
@@ -327,7 +327,7 @@ class ProfilC extends BaseController
     return view(
       'admin/profil/peraturan_pondok',
       [
-        'profil' => $this->profilM->find(1)
+        'profilApp' => $this->profilApp
       ]
     );
   }
@@ -502,6 +502,7 @@ class ProfilC extends BaseController
       'admin/profil/pengguna',
       [
         'admin' => $this->adminM->find(session()->get('admin')['id_admin']),
+        'profilApp' => $this->profilApp
       ]
     );
   }

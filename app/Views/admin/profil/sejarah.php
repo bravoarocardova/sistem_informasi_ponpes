@@ -41,7 +41,7 @@
 
                     <div class="mb-3">
                       <label class="form-label" for="sejarah">Sejarah Pondok</label>
-                      <textarea name="sejarah" id="sejarah" cols="30" rows="2" placeholder="Sejarah Pondok" class="form-control summernote <?= validation_show_error('sejarah') ? 'is-invalid' : '' ?>"><?= old('sejarah', $profil['sejarah'] ?? '') ?></textarea>
+                      <textarea name="sejarah" id="sejarah" cols="30" rows="2" placeholder="Sejarah Pondok" class="form-control summernote <?= validation_show_error('sejarah') ? 'is-invalid' : '' ?>"><?= old('sejarah', $profilApp['sejarah'] ?? '') ?></textarea>
                       <div class="invalid-feedback">
                         <?= validation_show_error('sejarah') ?>
                       </div>

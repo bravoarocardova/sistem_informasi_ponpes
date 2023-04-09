@@ -8,6 +8,7 @@ use App\Models\SantriM;
 use App\Models\UstadzM;
 use App\Models\PengumumanM;
 use App\Models\SlideshowM;
+use App\Models\PendaftaranM;
 
 class DataC extends BaseController
 {
@@ -17,6 +18,7 @@ class DataC extends BaseController
   private $pengumumanM;
   private $slideshowM;
   private $galeryM;
+  private $pendaftaranM;
 
   public function __construct()
   {
@@ -25,6 +27,7 @@ class DataC extends BaseController
     $this->pengumumanM = new PengumumanM();
     $this->slideshowM = new SlideshowM();
     $this->galeryM = new GaleryM();
+    $this->pendaftaranM = new PendaftaranM();
   }
 
   private function ruleSantri($is_unique = true)
@@ -300,13 +303,16 @@ class DataC extends BaseController
   public function data_santri()
   {
     return view('admin/data/santri/data_santri_v', [
-      'santri' => $this->santriM->findAll()
+      'santri' => $this->santriM->findAll(),
+      'profilApp' => $this->profilApp
     ]);
   }
 
   public function tambah_santri()
   {
-    return view('admin/data/santri/tambah_santri_form');
+    return view('admin/data/santri/tambah_santri_form', [
+      'profilApp' => $this->profilApp
+    ]);
   }
 
   public function proses_tambah_santri()
@@ -343,7 +349,8 @@ class DataC extends BaseController
   public function edit_santri($nis)
   {
     return view('admin/data/santri/edit_santri_form', [
-      'santri' => $this->santriM->find($nis)
+      'santri' => $this->santriM->find($nis),
+      'profilApp' => $this->profilApp
     ]);
   }
 
@@ -372,8 +379,7 @@ class DataC extends BaseController
         'no_telp_wali' => $post['no_telp_wali'],
         'wali' => $post['wali'],
       ];
-      d($nis);
-      d($data);
+
       $simpan = $this->santriM->update(['nis' => $nis], $data);
       if ($simpan) {
         return redirect()->to(base_url() . 'admin/data/santri')->with('msg', myAlert('success', 'Berhasil ubah data'));
@@ -399,13 +405,16 @@ class DataC extends BaseController
   public function data_ustadz()
   {
     return view('admin/data/ustadz/data_ustadz_v', [
-      'ustadz' => $this->ustadzM->findAll()
+      'ustadz' => $this->ustadzM->findAll(),
+      'profilApp' => $this->profilApp
     ]);
   }
 
   public function tambah_ustadz()
   {
-    return view('admin/data/ustadz/tambah_ustadz_form');
+    return view('admin/data/ustadz/tambah_ustadz_form', [
+      'profilApp' => $this->profilApp
+    ]);
   }
 
   public function proses_tambah_ustadz()
@@ -496,13 +505,16 @@ class DataC extends BaseController
   public function data_pengumuman()
   {
     return view('admin/data/pengumuman/data_pengumuman_v', [
-      'pengumuman' => $this->pengumumanM->findAll()
+      'pengumuman' => $this->pengumumanM->findAll(),
+      'profilApp' => $this->profilApp
     ]);
   }
 
   public function tambah_pengumuman()
   {
-    return view('admin/data/pengumuman/tambah_pengumuman_form');
+    return view('admin/data/pengumuman/tambah_pengumuman_form', [
+      'profilApp' => $this->profilApp
+    ]);
   }
 
   public function proses_tambah_pengumuman()
@@ -538,7 +550,8 @@ class DataC extends BaseController
   public function edit_pengumuman($id_pengumuman)
   {
     return view('admin/data/pengumuman/edit_pengumuman_form', [
-      'pengumuman' => $this->pengumumanM->find($id_pengumuman)
+      'pengumuman' => $this->pengumumanM->find($id_pengumuman),
+      'profilApp' => $this->profilApp
     ]);
   }
 
@@ -604,13 +617,16 @@ class DataC extends BaseController
   public function data_slideshow()
   {
     return view('admin/data/slideshow/data_slideshow_v', [
-      'slideshow' => $this->slideshowM->findAll()
+      'slideshow' => $this->slideshowM->findAll(),
+      'profilApp' => $this->profilApp
     ]);
   }
 
   public function tambah_slideshow()
   {
-    return view('admin/data/slideshow/tambah_slideshow_form');
+    return view('admin/data/slideshow/tambah_slideshow_form', [
+      'profilApp' => $this->profilApp
+    ]);
   }
 
   public function proses_tambah_slideshow()
@@ -646,7 +662,8 @@ class DataC extends BaseController
   public function edit_slideshow($id_slideshow)
   {
     return view('admin/data/slideshow/edit_slideshow_form', [
-      'slideshow' => $this->slideshowM->find($id_slideshow)
+      'slideshow' => $this->slideshowM->find($id_slideshow),
+      'profilApp' => $this->profilApp
     ]);
   }
 
@@ -714,13 +731,16 @@ class DataC extends BaseController
   public function data_galery()
   {
     return view('admin/data/galery/data_galery_v', [
-      'galery' => $this->galeryM->findAll()
+      'galery' => $this->galeryM->findAll(),
+      'profilApp' => $this->profilApp
     ]);
   }
 
   public function tambah_galery()
   {
-    return view('admin/data/galery/tambah_galery_form');
+    return view('admin/data/galery/tambah_galery_form', [
+      'profilApp' => $this->profilApp
+    ]);
   }
 
   public function proses_tambah_galery()
@@ -755,7 +775,8 @@ class DataC extends BaseController
   public function edit_galery($id_galery)
   {
     return view('admin/data/galery/edit_galery_form', [
-      'galery' => $this->galeryM->find($id_galery)
+      'galery' => $this->galeryM->find($id_galery),
+      'profilApp' => $this->profilApp
     ]);
   }
 
@@ -807,6 +828,34 @@ class DataC extends BaseController
     $datagalery = $this->galeryM->find($id_galery);
     $hapus = $this->galeryM->delete($id_galery);
     unlink(FCPATH . '/img/galery/' . $datagalery['file']);
+    if ($hapus) {
+      $type = 'success';
+      $msg = 'Berhasil dihapus.';
+    } else {
+      $type = 'danger';
+      $msg = 'Gagal dihapus.';
+    }
+    return redirect()->back()->with('msg', myAlert($type, $msg));
+  }
+
+  // Penerimaan
+
+  public function data_penerimaan()
+  {
+    return view('admin/data/penerimaan/data_penerimaan_v', [
+      'pendaftaran' => $this->pendaftaranM->findAll(),
+      'profilApp' => $this->profilApp
+    ]);
+  }
+
+  public function hapus_penerimaan($id_pendaftaran)
+  {
+    $dataPendaftaran = $this->pendaftaranM->find($id_pendaftaran);
+    $hapus = $this->pendaftaranM->delete($id_pendaftaran);
+
+    if (file_exists(FCPATH . '/img/pendaftaran/' . $dataPendaftaran['photo'])) {
+      unlink(FCPATH . '/img/pendaftaran/' . $dataPendaftaran['photo']);
+    }
     if ($hapus) {
       $type = 'success';
       $msg = 'Berhasil dihapus.';

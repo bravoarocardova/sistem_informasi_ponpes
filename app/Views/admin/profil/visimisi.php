@@ -41,7 +41,7 @@
 
                     <div class="mb-3">
                       <label class="form-label" for="visi">Visi</label>
-                      <textarea name="visi" id="visi" cols="30" rows="2" placeholder="visi Pondok" class="form-control summernote <?= validation_show_error('visi') ? 'is-invalid' : '' ?>"><?= old('visi', $profil['visi'] ?? '') ?></textarea>
+                      <textarea name="visi" id="visi" cols="30" rows="2" placeholder="visi Pondok" class="form-control summernote <?= validation_show_error('visi') ? 'is-invalid' : '' ?>"><?= old('visi', $profilApp['visi'] ?? '') ?></textarea>
                       <div class="invalid-feedback">
                         <?= validation_show_error('visi') ?>
                       </div>
@@ -49,7 +49,7 @@
 
                     <div class="mb-3">
                       <label class="form-label" for="misi">Misi</label>
-                      <textarea name="misi" id="misi" cols="30" rows="2" placeholder="misi Pondok" class="form-control summernote <?= validation_show_error('misi') ? 'is-invalid' : '' ?>"><?= old('misi', $profil['misi'] ?? '') ?></textarea>
+                      <textarea name="misi" id="misi" cols="30" rows="2" placeholder="misi Pondok" class="form-control summernote <?= validation_show_error('misi') ? 'is-invalid' : '' ?>"><?= old('misi', $profilApp['misi'] ?? '') ?></textarea>
                       <div class="invalid-feedback">
                         <?= validation_show_error('misi') ?>
                       </div>

@@ -8,7 +8,7 @@
     <div class="container-fluid">
       <div class="row mb-2">
         <div class="col-sm-6">
-          <h1 class="m-0">Profil Peraturan Pondok</h1>
+          <h1 class="m-0">App Peraturan Pondok</h1>
         </div><!-- /.col -->
         <div class="col-sm-6">
           <ol class="breadcrumb float-sm-right">
@@ -41,7 +41,7 @@
 
                     <div class="mb-3">
                       <label class="form-label" for="peraturan_pondok">Peraturan Pondok</label>
-                      <textarea name="peraturan_pondok" id="peraturan_pondok" cols="30" rows="2" placeholder="peraturan_pondok Pondok" class="form-control summernote <?= validation_show_error('peraturan_pondok') ? 'is-invalid' : '' ?>"><?= old('peraturan_pondok', $profil['peraturan_pondok'] ?? '') ?></textarea>
+                      <textarea name="peraturan_pondok" id="peraturan_pondok" cols="30" rows="2" placeholder="peraturan_pondok Pondok" class="form-control summernote <?= validation_show_error('peraturan_pondok') ? 'is-invalid' : '' ?>"><?= old('peraturan_pondok', $profilApp['peraturan_pondok'] ?? '') ?></textarea>
                       <div class="invalid-feedback">
                         <?= validation_show_error('peraturan_pondok') ?>
                       </div>

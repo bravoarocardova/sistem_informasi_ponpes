@@ -4,6 +4,7 @@ namespace App\Controllers\Admin;
 
 use App\Controllers\BaseController;
 use App\Models\AdminM;
+use App\Models\ProfilM;
 use App\Models\SantriM;
 use App\Models\UstadzM;
 
@@ -23,6 +24,7 @@ class AdminC extends BaseController
       'jumlah_ustadz' => $ustadz->countAllResults(),
       'jumlah_pendaftar' => 0,
       'jumlah_admin' => $admin->countAllResults(),
+      'profilApp' => $this->profilApp
     ];
     return view('admin/dashboard', $data);
   }

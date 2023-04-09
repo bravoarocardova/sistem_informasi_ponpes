@@ -39,7 +39,7 @@
                 <div class="row">
                   <div class="col-md-8">
                     <div class="mb-3">
-                      <img alt="" src="<?= ($profil != null) ? base_url() . 'img/icon/' . $profil['logo'] : '' ?>" class="rounded img-responsive mt-2" width="128" height="128" id="img-logo-upload">
+                      <img alt="" src="<?= ($profilApp != null) ? base_url() . 'img/icon/' . $profilApp['logo'] : '' ?>" class="rounded img-responsive mt-2" width="128" height="128" id="img-logo-upload">
                       <div class="mt-2">
                         <label for="logo">
                           <span class="btn btn-primary"><i class="fas fa-upload"></i> Pilih Logo</span>
@@ -53,42 +53,42 @@
                     </div>
                     <div class="mb-3">
                       <label class="form-label" for="nama_aplikasi">Nama Aplikasi</label>
-                      <input type="text" class="form-control <?= validation_show_error('nama_aplikasi') ? 'is-invalid' : '' ?>" id="nama_aplikasi" name="nama_aplikasi" placeholder="Nama Aplikasi" value="<?= old('nama_aplikasi', $profil['nama_aplikasi'] ?? '') ?>">
+                      <input type="text" class="form-control <?= validation_show_error('nama_aplikasi') ? 'is-invalid' : '' ?>" id="nama_aplikasi" name="nama_aplikasi" placeholder="Nama Aplikasi" value="<?= old('nama_aplikasi', $profilApp['nama_aplikasi'] ?? '') ?>">
                       <div class="invalid-feedback">
                         <?= validation_show_error('nama_aplikasi') ?>
                       </div>
                     </div>
                     <div class="mb-3">
                       <label class="form-label" for="nama_pondok">Nama Pondok</label>
-                      <input type="text" class="form-control <?= validation_show_error('nama_pondok') ? 'is-invalid' : '' ?>" id="nama_pondok" name="nama_pondok" placeholder="Nama Pondok" value="<?= old('nama_pondok', $profil['nama_pondok'] ?? '') ?>">
+                      <input type="text" class="form-control <?= validation_show_error('nama_pondok') ? 'is-invalid' : '' ?>" id="nama_pondok" name="nama_pondok" placeholder="Nama Pondok" value="<?= old('nama_pondok', $profilApp['nama_pondok'] ?? '') ?>">
                       <div class="invalid-feedback">
                         <?= validation_show_error('nama_pondok') ?>
                       </div>
                     </div>
                     <div class="mb-3">
                       <label class="form-label" for="alamat_pondok">Alamat Pondok</label>
-                      <textarea name="alamat_pondok" id="alamat_pondok" cols="30" rows="2" placeholder="Alamat Pondok" class="form-control <?= validation_show_error('alamat_pondok') ? 'is-invalid' : '' ?>"><?= old('alamat_pondok', $profil['alamat_pondok'] ?? '') ?></textarea>
+                      <textarea name="alamat_pondok" id="alamat_pondok" cols="30" rows="2" placeholder="Alamat Pondok" class="form-control <?= validation_show_error('alamat_pondok') ? 'is-invalid' : '' ?>"><?= old('alamat_pondok', $profilApp['alamat_pondok'] ?? '') ?></textarea>
                       <div class="invalid-feedback">
                         <?= validation_show_error('alamat_pondok') ?>
                       </div>
                     </div>
                     <div class="mb-3">
                       <label class="form-label" for="telepon_pondok">Telepon Pondok</label>
-                      <input type="text" class="form-control <?= validation_show_error('telepon_pondok') ? 'is-invalid' : '' ?>" id="telepon_pondok" name="telepon_pondok" placeholder="Telepon Pondok" value="<?= old('telepon_pondok', $profil['telepon_pondok'] ?? '') ?>">
+                      <input type="text" class="form-control <?= validation_show_error('telepon_pondok') ? 'is-invalid' : '' ?>" id="telepon_pondok" name="telepon_pondok" placeholder="Telepon Pondok" value="<?= old('telepon_pondok', $profilApp['telepon_pondok'] ?? '') ?>">
                       <div class="invalid-feedback">
                         <?= validation_show_error('telepon_pondok') ?>
                       </div>
                     </div>
                     <div class="mb-3">
                       <label class="form-label" for="email_pondok">Email Pondok</label>
-                      <input type="email" class="form-control <?= validation_show_error('email_pondok') ? 'is-invalid' : '' ?>" id="email_pondok" name="email_pondok" placeholder="Email Pondok" value="<?= old('email_pondok', $profil['email_pondok'] ?? '') ?>">
+                      <input type="email" class="form-control <?= validation_show_error('email_pondok') ? 'is-invalid' : '' ?>" id="email_pondok" name="email_pondok" placeholder="Email Pondok" value="<?= old('email_pondok', $profilApp['email_pondok'] ?? '') ?>">
                       <div class="invalid-feedback">
                         <?= validation_show_error('email_pondok') ?>
                       </div>
                     </div>
                     <div class="mb-3">
                       <label class="form-label" for="lokasi_pondok">Lokasi Pondok</label>
-                      <input type="text" class="form-control <?= validation_show_error('lokasi_pondok') ? 'is-invalid' : '' ?>" id="lokasi_pondok" name="lokasi_pondok" placeholder="Lokasi Pondok (latitude , longitude)" value="<?= old('lokasi_pondok', $profil['lokasi_pondok'] ?? '') ?>">
+                      <input type="text" class="form-control <?= validation_show_error('lokasi_pondok') ? 'is-invalid' : '' ?>" id="lokasi_pondok" name="lokasi_pondok" placeholder="Lokasi Pondok (latitude , longitude)" value="<?= old('lokasi_pondok', $profilApp['lokasi_pondok'] ?? '') ?>">
                       <div class="invalid-feedback">
                         <?= validation_show_error('lokasi_pondok') ?>
                       </div>

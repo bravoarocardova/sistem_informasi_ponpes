@@ -20,4 +20,9 @@ class ProfilM extends Model
   protected $dateFormat    = 'datetime';
   protected $createdField  = 'created_at';
   protected $updatedField  = 'updated_at';
+
+  public function get()
+  {
+    return $this->find(1);
+  }
 }

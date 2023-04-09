@@ -49,7 +49,9 @@ class AuthC extends BaseController
       return redirect()->back()->with('msg', myAlert('danger', $msg));
     }
 
-    return view('admin/login');
+    return view('admin/login', [
+      'profilApp' => $this->profilApp
+    ]);
   }
 
   public function logout()

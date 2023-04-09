@@ -1,6 +1,6 @@
 <?php
 
-use App\Models\ProfilM;
+use App\Models\PendaftaranM;
 use CodeIgniter\Model;
 
 /**
@@ -34,9 +34,8 @@ function createInvoice($kode, Model $model, $field, $offset = 3, $length = 8)
   return $kode . sprintf("%0" . $length . "s", $lastKode);
 }
 
-
-function profil_pondok()
+function jumlah_pendaftar()
 {
-  $profil = new ProfilM();
-  return $profil->find(1);
+  $pendaftar = new PendaftaranM();
+  return $pendaftar->where('status !=', 'Lulus')->countAllResults();
 }
