@@ -4,7 +4,8 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Ponpes </title>
+  <title><?= $profilApp['nama_pondok'] ?></title>
+  <link rel="shortcut icon" href="<?= base_url() . 'img/icon/' . $profilApp['logo'] ?>" type="image/x-icon">
 
   <!-- Google Font: Source Sans Pro -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
@@ -21,8 +22,8 @@
     <!-- /.login-logo -->
     <div class="card card-outline card-primary">
       <div class="card-header text-center">
-        <img src="<?= base_url() . 'img/icon/' . profil_pondok()['logo'] ?>" alt="" width="100"><br>
-        <a href="<?= base_url() ?>" class="h1"><?= profil_pondok()['nama_pondok'] ?></a>
+        <img src="<?= base_url() . 'img/icon/' . $profilApp['logo'] ?>" alt="" width="100"><br>
+        <a href="<?= base_url() ?>" class="h1"><?= $profilApp['nama_pondok'] ?></a>
       </div>
       <div class="card-body">
         <p class="login-box-msg">Selamat Datang</p>

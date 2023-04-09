@@ -577,6 +577,7 @@ class DataC extends BaseController
         'id_pengumuman' => $id_pengumuman,
         'judul' => $post['judul'],
         'isi' => $post['isi'],
+        'penulis' => session()->get('admin')['nama'],
       ];
       if ($gambar->isValid()) {
         $newGambar = $gambar->getRandomName();
