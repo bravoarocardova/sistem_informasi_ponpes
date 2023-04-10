@@ -57,4 +57,44 @@ class Home extends BaseController
             'pengumuman_aside' => $this->pengumumanM->orderBy('id_pengumuman', 'RANDOM')->findAll(5),
         ]);
     }
+
+    public function sejarah()
+    {
+        return view('home/profil/sejarah_v', [
+            'profilApp' => $this->profilApp,
+
+        ]);
+    }
+
+    public function visi_misi()
+    {
+        return view('home/profil/visi_misi_v', [
+            'profilApp' => $this->profilApp,
+
+        ]);
+    }
+
+    public function struktur_organisasi()
+    {
+        return view('home/profil/struktur_organisasi_v', [
+            'profilApp' => $this->profilApp,
+
+        ]);
+    }
+
+    public function peraturan_pondok()
+    {
+        return view('home/profil/peraturan_pondok_v', [
+            'profilApp' => $this->profilApp,
+
+        ]);
+    }
+
+    public function pendaftaran()
+    {
+        return view('home/pendaftaran_v', [
+            'profilApp' => $this->profilApp,
+
+        ]);
+    }
 }

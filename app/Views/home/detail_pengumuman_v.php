@@ -2,32 +2,34 @@
 <?= $this->section('content') ?>
 
 <!-- Pengumuman -->
-<div class="bg-light p-4">
+<div class="p-4">
   <div class="container">
-    <div class="row text-center">
-      <h4 class="fw-bold ">Pengumuman</h4>
-      <p class="text-dark">Pengumuman Pondok kami</p>
+    <div class="card p-3 bg-light">
+      <div class="row text-center">
+        <h4 class="fw-bold ">Pengumuman</h4>
+        <p class="text-dark">Pengumuman Pondok kami</p>
+      </div>
     </div>
-    <div class="row">
-      <div class="col-md-12 col-lg-8 card">
+    <div class="row mt-2">
+      <div class="col-md-12 col-lg-8">
+        <div class="card">
+          <img src="<?= base_url() . 'img/pengumuman/' . $pengumuman['gambar'] ?>" class="rounded w-100">
 
-        <img src="<?= base_url() . 'img/pengumuman/' . $pengumuman['gambar'] ?>" class="rounded w-100">
-
-
-        <h4 class="mt-4 ms-2">
-          <?= $pengumuman['judul'] ?>
-        </h4>
-        <div class="row text-start p-2 ">
-          <div class="col-12">
-            <?= $pengumuman['created_at'] ?>
+          <h4 class="mt-4 ms-2">
+            <?= $pengumuman['judul'] ?>
+          </h4>
+          <div class="row text-start p-2 ">
+            <div class="col-12">
+              <?= $pengumuman['created_at'] ?>
+            </div>
+            <div class="col-12">
+              by : <?= $pengumuman['penulis'] ?>
+            </div>
           </div>
-          <div class="col-12">
-            by : <?= $pengumuman['penulis'] ?>
-          </div>
-        </div>
-        <div class="row mt-4 ms-1">
-          <div class="col-12">
-            <?= $pengumuman['isi'] ?>
+          <div class="row mt-4 ms-1">
+            <div class="col-12">
+              <?= $pengumuman['isi'] ?>
+            </div>
           </div>
         </div>
 

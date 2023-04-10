@@ -4,11 +4,13 @@
 <!-- galeri -->
 <div class="container">
   <div class="p-4 mt-n7" id="galeri">
-    <div class="row text-center">
-      <h4 class="fw-bold ">Galeri</h4>
-      <p class="text-dark">Galeri Pondok kami</p>
+    <div class="card p-3 bg-light">
+      <div class="row text-center">
+        <h4 class="fw-bold ">Galeri</h4>
+        <p class="text-dark">Galeri Pondok kami</p>
+      </div>
     </div>
-    <div class="row">
+    <div class="row mt-2">
       <?php foreach ($galery as $r) : ?>
         <div class="col-6 col-md-6 col-lg-4">
           <div class="card mb-2">

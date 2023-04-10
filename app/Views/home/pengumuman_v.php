@@ -2,13 +2,15 @@
 <?= $this->section('content') ?>
 
 <!-- Pengumuman -->
-<div class="bg-light p-4">
+<div class="bg-white p-4">
   <div class="container">
-    <div class="row text-center">
-      <h4 class="fw-bold ">Pengumuman</h4>
-      <p class="text-dark">Pengumuman Pondok kami</p>
+    <div class="card p-3 bg-light">
+      <div class="row text-center">
+        <h4 class="fw-bold ">Pengumuman</h4>
+        <p class="text-dark">Pengumuman Pondok kami</p>
+      </div>
     </div>
-    <div class="row">
+    <div class="row mt-2">
       <?php foreach ($pengumuman as $r) : ?>
         <div class=" col-md-6 col-lg-4 ">
           <div class="card mb-2">

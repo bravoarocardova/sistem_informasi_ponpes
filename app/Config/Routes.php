@@ -34,6 +34,15 @@ $routes->get('/galery', 'Home::galery');
 $routes->get('/pengumuman', 'Home::pengumuman');
 $routes->get('/pengumuman/(:num)', 'Home::detail_pengumuman/$1');
 
+$routes->get('/sejarah', 'Home::sejarah');
+$routes->get('/visi-misi', 'Home::visi_misi');
+$routes->get('/struktur-organisasi', 'Home::struktur_organisasi');
+$routes->get('/peraturan-pondok', 'Home::peraturan_pondok');
+$routes->get('/pendaftaran', 'Home::pendaftaran');
+
+
+// Admin
+
 $routes->add('admin/login', 'Admin\AuthC::login');
 $routes->add('admin/logout', 'Admin\AuthC::logout');
 

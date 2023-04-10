@@ -35,14 +35,72 @@
 </div>
 <!-- End Carousel -->
 
+<!-- Sejarah -->
+<div class="p-4">
+  <div class="container">
+
+    <div class="row mt-5">
+
+      <div class="col-md-12 col-lg-8 mb-4">
+        <div class="card ps-4 bg-light">
+          <div class="row mt-n5">
+            <div class="card w-auto">
+              <div class="col-md-12 d-flex align-items-center p-3">
+                <img src="<?= base_url() . 'img/icon/' . $profilApp['logo'] ?>" alt="" style="width:50px;height:50px">
+                <div class="ms-4">
+                  <h4 class="fw-bold ">Sejarah</h4>
+                  <p class="text-dark">Sejarah <?= $profilApp['nama_pondok'] ?></p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="row mt-4">
+            <?= substr($profilApp['sejarah'], 0, 700) ?>
+            <a href="<?= base_url() . 'sejarah' ?>" class="text-decoration-none"> <i class="fa fa-angle-double-right"></i> Lihat Selengkapnya</a>
+          </div>
+
+        </div>
+
+      </div>
+
+      <div class="col-md-12 col-lg-4 ">
+        <div class="card">
+          <div class="card-title p-2 ">
+            <h3>Profil</h3>
+          </div>
+          <div class="card-body">
+            <div class="row border-top p-3">
+              <a href="<?= base_url() . 'sejarah' ?>" class="text-decoration-none link-dark">Sejarah</a>
+            </div>
+            <div class="row border-top p-3">
+              <a href="<?= base_url() . 'visi-misi' ?>" class="text-decoration-none">Visi & Misi</a>
+            </div>
+            <div class="row border-top p-3">
+              <a href="<?= base_url() . 'struktur-organisasi' ?>" class="text-decoration-none">Struktur Organisasi</a>
+            </div>
+            <div class="row border-top p-3">
+              <a href="<?= base_url() . 'peraturan-pondok' ?>" class="text-decoration-none">Peraturan Pondok</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+<!-- End Sejarah -->
+
 <!-- Pengumuman -->
 <div class="bg-light p-4">
   <div class="container">
-    <div class="row text-center">
-      <h4 class="fw-bold ">Pengumuman</h4>
-      <p class="text-dark">Pengumuman Pondok kami</p>
+    <div class="card p-3">
+      <div class="row text-center">
+        <h4 class="fw-bold ">Pengumuman</h4>
+        <p class="text-dark">Pengumuman Pondok kami</p>
+      </div>
     </div>
-    <div class="row">
+    <div class="row mt-2">
       <div class="col-md-12 col-lg-7">
         <div class="row">
           <?php foreach ($pengumuman as $r) : ?>
@@ -111,18 +169,20 @@
 
 <!-- galeri -->
 <div class="container">
-  <div class="p-4 mt-n7" id="galeri">
-    <div class="row text-center">
-      <h4 class="fw-bold ">Galeri</h4>
-      <p class="text-dark">Galeri Pondok kami</p>
+  <div class="p-4" id="galeri">
+    <div class="card p-3 bg-light">
+      <div class="row text-center">
+        <h4 class="fw-bold ">Galeri</h4>
+        <p class="text-dark">Galeri Pondok kami</p>
+      </div>
     </div>
-    <div class="row">
+    <div class="row mt-2">
       <?php foreach ($galery as $r) : ?>
         <div class="col-12  col-md-6 col-lg-4 ">
           <div class="card mb-2">
             <div class="text-center">
               <img src="<?= base_url() . 'img/galery/' . $r['file'] ?>" class="img-fluid card-img-top rounded" style="min-height:200px; max-height:200px; object-fit:fill">
-              <h6><?= $r['caption'] ?></h6>
+              <h6 class="p-2"><?= $r['caption'] ?></h6>
             </div>
           </div>
         </div>
@@ -135,12 +195,38 @@
 <div class="bg-light">
   <div class="container p-4">
     <div class="row">
-      <div class="col-md-8 offset-md-2">
-        <div class="row text-center">
-          <h4 class="fw-bold ">Lokasi</h4>
-          <p class="text-dark">Lokasi Pondok kami</p>
+      <div class="col-md-10 offset-md-1">
+        <div class="card p-3">
+          <div class="row text-center">
+            <h4 class="fw-bold ">Lokasi</h4>
+            <p class="text-dark">Lokasi Pondok kami</p>
+          </div>
         </div>
-        <iframe src="<?= $profilApp['lokasi_pondok'] ?>" width="100%" height="400" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+        <div class="row mt-4">
+          <div class="col-md-8">
+            <iframe src="<?= $profilApp['lokasi_pondok'] ?>" width="100%" height="300" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+          </div>
+          <div class="col-md-4">
+            <div class="row">
+              <h5 class="fw-bolder ">Alamat</h5>
+              <p class="">
+                <?= $profilApp['alamat_pondok'] ?>
+              </p>
+            </div>
+            <div class="row">
+              <h5 class="fw-bolder ">Kontak</h5>
+              <p class="">
+                <i class="fa fa-phone"></i>
+                <?= $profilApp['telepon_pondok'] ?>
+              </p>
+              <p class="">
+                <i class="fa fa-envelope"></i>
+                <?= $profilApp['email_pondok'] ?>
+              </p>
+            </div>
+          </div>
+        </div>
+
       </div>
     </div>
   </div>

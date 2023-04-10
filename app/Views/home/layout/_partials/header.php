@@ -10,16 +10,16 @@
       <ul class="nav ">
         <li class="nav-item"><a href="<?= base_url() ?>" class="nav-link <?= ($uri->getSegment(1) == '') ? 'link-secondary' : 'link-dark' ?>" aria-current="page">Home</a></li>
         <li class="nav-item dropdown">
-          <a class="nav-link link-dark dropdown-toggle" href="#" id="dropdown04" data-bs-toggle="dropdown" aria-expanded="false">Profil</a>
+          <a class="nav-link dropdown-toggle <?= ($uri->getSegment(1) == 'profil') ? 'link-secondary' : 'link-dark' ?>" href="#" id="dropdown04" data-bs-toggle="dropdown" aria-expanded="false">Profil</a>
           <ul class="dropdown-menu" aria-labelledby="dropdown04">
-            <li><a class="dropdown-item" href="#">Sejarah</a></li>
-            <li><a class="dropdown-item" href="#">Visi & Misi</a></li>
-            <li><a class="dropdown-item" href="#">Struktur Organisasi</a></li>
-            <li><a class="dropdown-item" href="#">Peraturan Pondok</a></li>
+            <li><a class="dropdown-item" href="<?= base_url() . 'sejarah' ?>">Sejarah</a></li>
+            <li><a class="dropdown-item" href="<?= base_url() . 'visi-misi' ?>">Visi & Misi</a></li>
+            <li><a class="dropdown-item" href="<?= base_url() . 'struktur-organisasi' ?>">Struktur Organisasi</a></li>
+            <li><a class="dropdown-item" href="<?= base_url() . 'peraturan-pondok' ?>">Peraturan Pondok</a></li>
           </ul>
         </li>
         <li class="nav-item"><a href="<?= base_url() . 'pengumuman' ?>" class="nav-link <?= ($uri->getSegment(1) == 'pengumuman') ? 'link-secondary' : 'link-dark' ?>">Pengumuman</a></li>
-        <li class="nav-item"><a href="#" class="nav-link link-dark">Pendaftaran</a></li>
+        <li class="nav-item"><a href="<?= base_url() . 'pendaftaran' ?>" class="nav-link <?= ($uri->getSegment(1) == 'pendaftaran') ? 'link-secondary' : 'link-dark' ?>">Pendaftaran</a></li>
         <li class="nav-item"><a href="#" class="nav-link link-dark">Kegiatan</a></li>
         <li class="nav-item"><a href="<?= base_url() . 'galery' ?>" class="nav-link <?= ($uri->getSegment(1) == 'galery') ? 'link-secondary' : 'link-dark' ?>">Galeri</a></li>
       </ul>
