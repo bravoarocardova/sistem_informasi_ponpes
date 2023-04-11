@@ -38,7 +38,8 @@ $routes->get('/sejarah', 'Home::sejarah');
 $routes->get('/visi-misi', 'Home::visi_misi');
 $routes->get('/struktur-organisasi', 'Home::struktur_organisasi');
 $routes->get('/peraturan-pondok', 'Home::peraturan_pondok');
-$routes->get('/pendaftaran', 'Home::pendaftaran');
+$routes->add('/pendaftaran', 'Home::pendaftaran');
+$routes->get('/pendaftaran/(:segment)', 'Home::detail_pendaftaran/$1');
 
 
 // Admin
@@ -63,6 +64,18 @@ $routes->group('admin', ['namespace' => 'App\Controllers\Admin', 'filter' => 'is
       $routes->delete('hapus/(:num)', 'DataC::hapus_santri/$1');
     });
 
+    $routes->group('santri_keluar', function ($routes) {
+      $routes->get('', 'DataC::data_santri_keluar');
+
+      // $routes->get('tambah', 'DataC::tambah_santri');
+      // $routes->post('tambah', 'DataC::proses_tambah_santri');
+
+      $routes->put('kembalikan/(:num)', 'DataC::proses_kembalikan_santri/$1');
+      $routes->put('tambah/(:num)', 'DataC::proses_keluar_santri/$1');
+
+      $routes->delete('hapus/(:num)', 'DataC::hapus_santri_keluar/$1');
+    });
+
     $routes->group('ustadz', function ($routes) {
       $routes->get('', 'DataC::data_ustadz');
 
@@ -84,7 +97,7 @@ $routes->group('admin', ['namespace' => 'App\Controllers\Admin', 'filter' => 'is
     // $routes->get('tambah', 'DataC::tambah_penerimaan');
     // $routes->post('tambah', 'DataC::proses_tambah_penerimaan');
 
-    // $routes->get('edit/(:segment)', 'DataC::edit_penerimaan/$1');
+    $routes->put('terima/(:segment)', 'DataC::terima_penerimaan/$1');
     // $routes->put('edit/(:segment)', 'DataC::proses_edit_penerimaan/$1');
 
     $routes->delete('hapus/(:segment)', 'DataC::hapus_penerimaan/$1');

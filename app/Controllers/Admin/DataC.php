@@ -303,7 +303,7 @@ class DataC extends BaseController
   public function data_santri()
   {
     return view('admin/data/santri/data_santri_v', [
-      'santri' => $this->santriM->findAll(),
+      'santri' => $this->santriM->where('status', 'Aktif')->find(),
       'profilApp' => $this->profilApp
     ]);
   }
@@ -402,6 +402,49 @@ class DataC extends BaseController
     return redirect()->back()->with('msg', myAlert($type, $msg));
   }
 
+  public function data_santri_keluar()
+  {
+    return view('admin/data/santri/data_santri_keluar_v', [
+      'santri' => $this->santriM->where('status', 'Aktif')->find(),
+      'santri_keluar' => $this->santriM->where('status', 'Tidak Aktif')->find(),
+      'profilApp' => $this->profilApp
+    ]);
+  }
+
+  public function proses_keluar_santri($nis)
+  {
+    $data = [
+      'nis' => $nis,
+      'status' => 'Tidak Aktif',
+    ];
+    $simpan = $this->santriM->save($data);
+    if ($simpan) {
+      $type = 'success';
+      $msg = 'Berhasil tambah data.';
+    } else {
+      $type = 'danger';
+      $msg = 'Gagal tambah data.';
+    }
+    return redirect()->to(base_url() . 'admin/data/santri_keluar')->with('msg', myAlert($type, $msg));
+  }
+
+  public function proses_kembalikan_santri($nis)
+  {
+    $data = [
+      'nis' => $nis,
+      'status' => 'Aktif',
+    ];
+    $simpan = $this->santriM->save($data);
+    if ($simpan) {
+      $type = 'success';
+      $msg = 'Berhasil Ubah data.';
+    } else {
+      $type = 'danger';
+      $msg = 'Gagal Ubah data.';
+    }
+    return redirect()->to(base_url() . 'admin/data/santri_keluar')->with('msg', myAlert($type, $msg));
+  }
+
   public function data_ustadz()
   {
     return view('admin/data/ustadz/data_ustadz_v', [
@@ -448,7 +491,8 @@ class DataC extends BaseController
   public function edit_ustadz($kd_ustadz)
   {
     return view('admin/data/ustadz/edit_ustadz_form', [
-      'ustadz' => $this->ustadzM->find($kd_ustadz)
+      'ustadz' => $this->ustadzM->find($kd_ustadz),
+      'profilApp' => $this->profilApp
     ]);
   }
 
@@ -847,6 +891,24 @@ class DataC extends BaseController
       'pendaftaran' => $this->pendaftaranM->findAll(),
       'profilApp' => $this->profilApp
     ]);
+  }
+
+  public function terima_penerimaan($id_pendaftaran)
+  {
+    $data = [
+      'id_pendaftaran' => $id_pendaftaran,
+      'status' => 'Lulus',
+    ];
+
+    $simpan = $this->pendaftaranM->save($data);
+    if ($simpan) {
+      $type = 'success';
+      $msg = 'Berhasil tambah data.';
+    } else {
+      $type = 'danger';
+      $msg = 'Gagal tambah data.';
+    }
+    return redirect()->to(base_url() . 'admin/penerimaan')->with('msg', myAlert($type, $msg));
   }
 
   public function hapus_penerimaan($id_pendaftaran)

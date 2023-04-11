@@ -66,10 +66,10 @@
                     <tr>
                       <td>
                         <?php if ($r['status'] != 'Lulus') : ?>
-                          <form action="<?= base_url() ?>admin/penerimaan/hapus/<?= $r['id_pendaftaran'] ?>" method="post" class="d-inline">
+                          <form action="<?= base_url() ?>admin/penerimaan/terima/<?= $r['id_pendaftaran'] ?>" method="post" class="d-inline">
                             <?= csrf_field() ?>
-                            <input type="hidden" name="_method" value="DELETE">
-                            <button class="btn btn-success" title="Terima">
+                            <input type="hidden" name="_method" value="PUT">
+                            <button type="submit" class="btn btn-success" title="Terima">
                               <i class="fas fa-check"></i>
                             </button>
                           </form>
@@ -79,7 +79,9 @@
                       </td>
                       <td><?= $r['id_pendaftaran'] ?></td>
                       <td><?= $r['nama'] ?></td>
-                      <td><?= $r['photo'] ?></td>
+                      <td>
+                        <img src="<?= base_url() . 'img/pendaftaran/' . $r['photo'] ?>" class="" width="128">
+                      </td>
                       <td class="text-center"><?= $r['jk'] ?></td>
                       <td><?= $r['no_telp'] ?></td>
                       <td><?= $r['email'] ?></td>

@@ -4,7 +4,7 @@
 <!-- Sejarah -->
 <div class="p-4">
   <div class="container">
-
+    <?php echo validation_list_errors() ?>
     <!-- Main row -->
     <div class="row mt-5">
       <div class="col-8">
@@ -23,26 +23,44 @@
             </div>
           </div>
           <!-- /.card-header -->
-          <div class="card-body">
+          <div class="card-body bg-light">
             <form action="" method="POST" enctype="multipart/form-data">
               <?= csrf_field() ?>
 
               <div class="row">
                 <div class="col-md-12">
                   <div class="mb-3">
-                    <label class="form-label" for="inputnis">NIS</label>
-                    <input type="text" class="form-control <?= validation_show_error('nis') ? 'is-invalid' : '' ?>" id="inputnis" name="nis" placeholder="NIS" value="<?= old('nis') ?>">
+                    <img alt="" src="" class="rounded img-responsive mt-2" width="128" height="168" id="img-photo-upload">
+                    <div class="mt-2">
+                      <label for="photo">
+                        <span class="btn btn-primary"><i class="fas fa-upload"></i> Pilih Photo</span>
+                      </label>
+                      <input type="file" name="photo" id="photo" class="d-none <?= validation_show_error('photo') ? 'is-invalid' : '' ?>" onchange="document.getElementById('img-photo-upload').src = window.URL.createObjectURL(this.files[0])">
+                      <div class=" invalid-feedback">
+                        <?= validation_show_error('photo') ?>
+                      </div>
+                    </div>
+                    <small>For best results, use an image max 4mb in .jpg .png format</small>
+                  </div>
+
+                  <div class="mb-3">
+                    <label class="form-label" for="inputnama">Nama Calon Santri</label>
+                    <input type="text" class="form-control <?= validation_show_error('nama') ? 'is-invalid' : '' ?>" id="inputnama" name="nama" placeholder="Nama Calon Santri" value="<?= old('nama') ?>">
                     <div class="invalid-feedback">
-                      <?= validation_show_error('nis')
+                      <?= validation_show_error('nama')
                       ?>
                     </div>
                   </div>
+
                   <div class="mb-3">
-                    <label class="form-label" for="inputnama_santri">Nama Santri</label>
-                    <input type="text" class="form-control <?= validation_show_error('nama_santri') ? 'is-invalid' : '' ?>" id="inputnama_santri" name="nama_santri" placeholder="Nama Santri" value="<?= old('nama_santri') ?>">
+                    <label class="form-label" for="inputjk">Jenis Kelamin</label>
+                    <select name="jk" id="inputjk" class="form-control <?= validation_show_error('jk') ? 'is-invalid' : '' ?>">
+                      <option value="">Pilih Jenis Kelamin</option>
+                      <option value="L" <?= (old('jk') == 'L' ? 'selected' : '') ?>>Laki-Laki</option>
+                      <option value="P" <?= (old('jk') == 'P' ? 'selected' : '') ?>>Perempuan</option>
+                    </select>
                     <div class="invalid-feedback">
-                      <?= validation_show_error('nama_santri')
-                      ?>
+                      <?= validation_show_error('jk') ?>
                     </div>
                   </div>
                   <div class="mb-3">
@@ -67,47 +85,44 @@
                   <div class="mb-3">
                     <div class="row">
                       <div class="col-6">
-                        <label class="form-label" for="inputjk">Jenis Kelamin</label>
-                        <select name="jk" id="inputjk" class="form-control <?= validation_show_error('jk') ? 'is-invalid' : '' ?>">
-                          <option value="">Pilih Jenis Kelamin</option>
-                          <option value="L" <?= (old('jk') == 'L' ? 'selected' : '') ?>>Laki-Laki</option>
-                          <option value="P" <?= (old('jk') == 'P' ? 'selected' : '') ?>>Perempuan</option>
-                        </select>
+                        <label class="form-label" for="inputasal_sekolah">Asal Sekolah</label>
+                        <input type="text" class="form-control <?= validation_show_error('asal_sekolah') ? 'is-invalid' : '' ?>" id="inputasal_sekolah" placeholder="Asal Sekolah" name="asal_sekolah" value="<?= old('asal_sekolah') ?>">
                         <div class="invalid-feedback">
-                          <?= validation_show_error('jk') ?>
+                          <?= validation_show_error('asal_sekolah')
+                          ?>
                         </div>
                       </div>
                       <div class="col-6">
-                        <label class="form-label" for="inputtgl_masuk">Tanggal Masuk</label>
-                        <input type="date" class="form-control <?= validation_show_error('tgl_masuk') ? 'is-invalid' : '' ?>" id="inputtgl_masuk" name="tgl_masuk" value="<?= old('tgl_masuk') ?>">
+                        <label class="form-label" for="inputlulus_tahun">Lulus Tahun</label>
+                        <input type="year" maxlength="4" class="form-control <?= validation_show_error('lulus_tahun') ? 'is-invalid' : '' ?>" id="inputlulus_tahun" placeholder="Tahun Lulus" name="lulus_tahun" value="<?= old('lulus_tahun') ?>">
                         <div class="invalid-feedback">
-                          <?= validation_show_error('tgl_masuk')
+                          <?= validation_show_error('lulus_tahun')
                           ?>
                         </div>
                       </div>
                     </div>
                   </div>
                   <div class="mb-3">
-                    <label class="form-label" for="inputalamat_lengkap">Alamat Lengkap</label>
-                    <textarea name="alamat_lengkap" id="inputalamat_lengkap" cols="30" rows="3" class="form-control <?= validation_show_error('alamat_lengkap') ? 'is-invalid' : '' ?>" placeholder="Alamat Lengkap"><?= old('alamat_lengkap') ?></textarea>
+                    <label class="form-label" for="inputalamat">Alamat Lengkap</label>
+                    <textarea name="alamat" id="inputalamat" cols="30" rows="3" class="form-control <?= validation_show_error('alamat') ? 'is-invalid' : '' ?>" placeholder="Alamat Lengkap"><?= old('alamat') ?></textarea>
                     <div class="invalid-feedback">
-                      <?= validation_show_error('alamat_lengkap')
+                      <?= validation_show_error('alamat')
                       ?>
                     </div>
                   </div>
                   <div class=" mb-3">
-                    <label class="form-label" for="inputWali">Wali</label>
-                    <input type="text" class="form-control <?= validation_show_error('wali') ? 'is-invalid' : '' ?>" id="inputWali" name="wali" placeholder="Wali" value="<?= old('wali') ?>">
+                    <label class="form-label" for="inputno_telp">No Telp</label>
+                    <input type="text" class="form-control <?= validation_show_error('no_telp') ? 'is-invalid' : '' ?>" id="inputno_telp" name="no_telp" placeholder="No Telp" value="<?= old('no_telp') ?>">
                     <div class="invalid-feedback">
-                      <?= validation_show_error('wali') ?>
+                      <?= validation_show_error('no_telp')
+                      ?>
                     </div>
                   </div>
                   <div class=" mb-3">
-                    <label class="form-label" for="inputno_telp_wali">No Telp Wali</label>
-                    <input type="text" class="form-control <?= validation_show_error('no_telp_wali') ? 'is-invalid' : '' ?>" id="inputno_telp_wali" name="no_telp_wali" placeholder="No Telp Wali" value="<?= old('no_telp_wali') ?>">
+                    <label class="form-label" for="inputemail">Email</label>
+                    <input type="text" class="form-control <?= validation_show_error('email') ? 'is-invalid' : '' ?>" id="inputemail" name="email" placeholder="Email" value="<?= old('email') ?>">
                     <div class="invalid-feedback">
-                      <?= validation_show_error('no_telp_wali')
-                      ?>
+                      <?= validation_show_error('email') ?>
                     </div>
                   </div>
                 </div>
@@ -119,6 +134,24 @@
 
           </div>
           <!-- /.card-body -->
+        </div>
+      </div>
+      <div class="col-4">
+        <div class="card">
+          <div class="card-header">
+            <h3 class="card-title">Pencarian</h3>
+          </div>
+          <div class="card-body">
+            <form action="<?= base_url() . 'pendaftaran' ?>" method="get">
+              <div class="mb-3">
+                <input type="text" class="form-control" id="key" name="key" placeholder="Cari">
+              </div>
+              <button type="submit" class="btn btn-primary">
+                <i class="fa fa-magnify"></i>
+                Cari
+              </button>
+            </form>
+          </div>
         </div>
       </div>
     </div>
