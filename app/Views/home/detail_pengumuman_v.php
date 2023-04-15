@@ -47,7 +47,7 @@
                   <div class="row">
                     <div class="col-12">
                       <h6 class="">
-                        <a href="<?= base_url() . 'pengumuman/' . $r['id_pengumuman'] ?>" class="text-decoration-none text-">
+                        <a href="<?= base_url() . 'pengumuman/' . $r['id_pengumuman'] ?>" class="text-decoration-none text-dark fw-bold">
                           <?= $r['judul'] ?>
                         </a>
                       </h6>

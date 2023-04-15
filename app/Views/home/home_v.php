@@ -109,7 +109,7 @@
                 <div class="">
                   <img src="<?= base_url() . 'img/pengumuman/' . $r['gambar'] ?>" class="img-fluid card-img-top rounded" style="min-height:200px; max-height:200px; object-fit:fill">
                   <h6 class="mx-4 my-2">
-                    <a href="<?= base_url() . 'pengumuman/' . $r['id_pengumuman'] ?>" class="text-decoration-none text-">
+                    <a href="<?= base_url() . 'pengumuman/' . $r['id_pengumuman'] ?>" class="text-decoration-none text-dark fw-bold">
                       <?= $r['judul'] ?>
                     </a>
                   </h6>
@@ -142,7 +142,7 @@
                   <div class="row">
                     <div class="col-12">
                       <h6 class="">
-                        <a href="<?= base_url() . 'pengumuman/' . $r['id_pengumuman'] ?>" class="text-decoration-none text-">
+                        <a href="<?= base_url() . 'pengumuman/' . $r['id_pengumuman'] ?>" class="text-decoration-none text-dark fw-bold">
                           <?= $r['judul'] ?>
                         </a>
                       </h6>
