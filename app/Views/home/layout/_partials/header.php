@@ -20,7 +20,7 @@
         </li>
         <li class="nav-item"><a href="<?= base_url() . 'pengumuman' ?>" class="nav-link <?= ($uri->getSegment(1) == 'pengumuman') ? 'link-secondary' : 'link-dark' ?>">Pengumuman</a></li>
         <li class="nav-item"><a href="<?= base_url() . 'pendaftaran' ?>" class="nav-link <?= ($uri->getSegment(1) == 'pendaftaran') ? 'link-secondary' : 'link-dark' ?>">Pendaftaran</a></li>
-        <li class="nav-item"><a href="#" class="nav-link link-dark">Kegiatan</a></li>
+        <li class="nav-item"><a href="<?= base_url() . 'kegiatan' ?>" class="nav-link <?= ($uri->getSegment(1) == 'kegiatan') ? 'link-secondary' : 'link-dark' ?>">Kegiatan</a></li>
         <li class="nav-item"><a href="<?= base_url() . 'galery' ?>" class="nav-link <?= ($uri->getSegment(1) == 'galery') ? 'link-secondary' : 'link-dark' ?>">Galeri</a></li>
       </ul>
     </div>

@@ -3,6 +3,7 @@
 namespace App\Controllers;
 
 use App\Models\GaleryM;
+use App\Models\KegiatanM;
 use App\Models\PendaftaranM;
 use App\Models\PengumumanM;
 use App\Models\SlideshowM;
@@ -90,6 +91,16 @@ class Home extends BaseController
     return view('home/profil/peraturan_pondok_v', [
       'profilApp' => $this->profilApp,
 
+    ]);
+  }
+
+  public function kegiatan()
+  {
+    $kegiatanM = new KegiatanM();
+    return view('home/kegiatan_v', [
+      'profilApp' => $this->profilApp,
+      'kegiatan' => $kegiatanM->findAll(),
+      'pengumuman_aside' => $this->pengumumanM->orderBy('id_pengumuman', 'RANDOM')->findAll(5),
     ]);
   }
 

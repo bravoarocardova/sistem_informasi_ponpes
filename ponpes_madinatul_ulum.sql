@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Waktu pembuatan: 15 Apr 2023 pada 12.23
+-- Waktu pembuatan: 15 Bulan Mei 2023 pada 19.59
 -- Versi server: 8.0.32-0ubuntu0.22.04.2
 -- Versi PHP: 8.1.2-1ubuntu2.11
 
@@ -70,12 +70,39 @@ CREATE TABLE `galery` (
 --
 
 INSERT INTO `galery` (`id_galery`, `file`, `caption`, `tipe`, `created_at`, `updated_at`) VALUES
-(4, '1680963241_14ae39051a3c118cd419.png', 'galeryi 1', 'foto', '2023-04-08 14:14:01', '2023-04-08 14:14:01'),
-(5, '1680963261_039bba1610dde9effb0c.png', 'galery2', 'foto', '2023-04-08 14:14:21', '2023-04-08 14:14:21'),
-(6, '1680963310_8973769c223c7ec9ac5f.png', 'galery3', 'foto', '2023-04-08 14:15:10', '2023-04-08 14:15:10'),
-(7, '1680963333_dab07529dab6685ddfd1.png', 'galery4', 'foto', '2023-04-08 14:15:33', '2023-04-08 14:15:33'),
-(8, '1680963348_b5ec4c4f1d5937581bc6.png', 'galery5', 'foto', '2023-04-08 14:15:48', '2023-04-08 14:15:48'),
+(4, '1682087377_8f4004fbc1f787c3d3f8.png', 'galeryi 1', 'foto', '2023-04-08 14:14:01', '2023-04-21 14:29:37'),
+(5, '1682087383_765faa4589cca8eca109.png', 'galery2', 'foto', '2023-04-08 14:14:21', '2023-04-21 14:29:43'),
+(6, '1682087389_a624486d1120240dcc50.png', 'galery3', 'foto', '2023-04-08 14:15:10', '2023-04-21 14:29:49'),
+(7, '1682087395_088e3ff1544a2c38671d.png', 'galery4', 'foto', '2023-04-08 14:15:33', '2023-04-21 14:29:55'),
+(8, '1682087401_cca81362dada6ff3f8ab.png', 'galery5', 'foto', '2023-04-08 14:15:48', '2023-04-21 14:30:01'),
 (9, '1680963363_cab39c0151f1d82a53bb.png', 'galery6', 'foto', '2023-04-08 14:16:03', '2023-04-08 14:16:03');
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `kegiatan`
+--
+
+CREATE TABLE `kegiatan` (
+  `id_kegiatan` int NOT NULL,
+  `hari_kegiatan` varchar(50) COLLATE utf8mb4_general_ci NOT NULL,
+  `kegiatan` text COLLATE utf8mb4_general_ci NOT NULL,
+  `created_at` timestamp NOT NULL,
+  `updated_at` timestamp NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data untuk tabel `kegiatan`
+--
+
+INSERT INTO `kegiatan` (`id_kegiatan`, `hari_kegiatan`, `kegiatan`, `created_at`, `updated_at`) VALUES
+(1, 'Senin', '<ul><li>Kegiatan di sini hari senin</li><li>Kegiatan Lagi</li><li>Kegiatan Trus</li><li>Pokoknya kegiatan</li></ul>', '2023-05-15 12:02:42', '2023-05-15 12:57:05'),
+(2, 'Selasa', '<p>Hari Selasa</p>', '2023-05-15 12:03:00', '2023-05-15 12:03:00'),
+(3, 'Rabu', '<p>Hari Rabu</p>', '2023-05-15 12:03:10', '2023-05-15 12:03:10'),
+(4, 'Kamis', '<p>Hari Kamis</p>', '2023-05-15 12:03:21', '2023-05-15 12:03:21'),
+(5, 'Jumat', '<p>Hari Jumat</p>', '2023-05-15 12:03:30', '2023-05-15 12:03:30'),
+(6, 'Sabtu', '<p>Hari Sabtu</p>', '2023-05-15 12:03:40', '2023-05-15 12:03:40'),
+(7, 'Minggu', '<p>Hari Minggu</p>', '2023-05-15 12:03:51', '2023-05-15 12:03:51');
 
 -- --------------------------------------------------------
 
@@ -121,14 +148,14 @@ CREATE TABLE `pengumuman` (
 --
 
 INSERT INTO `pengumuman` (`id_pengumuman`, `judul`, `isi`, `gambar`, `penulis`, `created_at`, `updated_at`) VALUES
-(8, 'Bejat! Pengasuh Pesantren Cabuli Belasan Santriwati, Modus Dijanjikan Dapat Karomah', '<p>cc</p>', '1680821881_4470ed9957f5900fb4b8.png', 'Admin', '2023-04-06 22:58:01', '2023-04-15 04:53:28'),
-(9, 'Garap Suara NU di Jateng, Relawan Anies Mulai Bergerilya ke Brebes', '<p>oijasodifjiodsjfo dsojf iodjsaofijio sajiofj ajfpji jsd af dfad f a  fds </p>', '1680963411_b756aea4d151ac8dea34.png', 'Admin', '2023-04-08 14:16:51', '2023-04-15 04:53:42'),
-(10, 'Sandiaga Ajak Santri Ciptakan Lapangan Kerja: Bisa Membuka UMKM', '<p>opksjdafkjopsd fdsopf kopdskpofa dsfds fd ad a df </p>', '1680963426_83abc42bf2dab56487f6.png', 'Admin', '2023-04-08 14:17:06', '2023-04-15 04:54:04'),
-(11, 'DaerahBelajar Wirausaha, Santri Al-Manshuriyah Ikut Pelatihan Menjahit', '<p>fds fsad fasd fds af sd af</p>', '1680963437_c99e889e757369c3f2d9.png', 'Admin', '2023-04-08 14:17:17', '2023-04-15 04:54:21'),
-(12, 'TGS Ganjar Sumut Tanamkan Pentingnya Akhlakul Karimah Remaja Masjid', '<p>fds fsad fsda fsdaf asdf sdf ewfe wsaf wef ew weq</p>', '1680963449_5fbfc40d81e44b4a7065.png', 'Admin', '2023-04-08 14:17:29', '2023-04-15 04:54:31'),
-(13, 'Perluas Jaringan, Relawan SDG Lebarkan Sayap hingga NTB', '<p>f adsf sdaf sda fsda few qtr ewqrt ewtfg rytryh gy erwtgft</p>', '1680963463_00a0e0d7729a33232038.png', 'Admin', '2023-04-08 14:17:43', '2023-04-15 04:55:35'),
-(14, 'Bekali Santri Ponpes Darul Ma\'arif, SDG Adakan Pelatihan Menjahit', '<p>fsad f weqt ew weqtwea  asdf sda</p>', '1680963474_3e712006923d5a1bf578.png', 'Admin', '2023-04-08 14:17:54', '2023-04-15 04:55:46'),
-(15, 'Meriahkan Ramadan, SDG Gelar Kreasi Santri di Ponpes Al-Aqsha', '<p>sd fa ewq wqeruj iopew jioioqwju ieojoq jioeju iorejwio j<span style=\"font-size: 1rem;\">sd fa ewq wqeruj iopew jioioqwju ieojoq jioeju iorejwio j</span><span style=\"font-size: 1rem;\">sd fa ewq wqeruj iopew jioioqwju ieojoq jioeju iorejwio j</span><span style=\"font-size: 1rem;\">sd fa ewq wqeruj iopew jioioqwju ieojoq jioeju iorejwio j</span><span style=\"font-size: 1rem;\">sd fa ewq wqeruj iopew jioioqwju ieojoq jioeju iorejwio j</span><span style=\"font-size: 1rem;\">sd fa ewq wqeruj iopew jioioqwju ieojoq jioeju iorejwio j</span><span style=\"font-size: 1rem;\">sd fa ewq wqeruj iopew jioioqwju ieojoq jioeju iorejwio j</span><span style=\"font-size: 1rem;\">sd fa ewq wqeruj iopew jioioqwju ieojoq jioeju iorejwio jssssssssssssssssssssssssssss</span></p>', '1680963497_fc81e64e81f7b810888d.png', 'Admin', '2023-04-08 14:18:17', '2023-04-15 04:56:02');
+(8, 'Bejat! Pengasuh Pesantren Cabuli Belasan Santriwati, Modus Dijanjikan Dapat Karomah', '<p>ccddd d</p>', '1682087870_7d27a6e166cbf4ba703d.png', 'Admin', '2023-04-06 22:58:01', '2023-04-21 14:37:56'),
+(9, 'Garap Suara NU di Jateng, Relawan Anies Mulai Bergerilya ke Brebes', '<p>oijasodifjiodsjfo dsojf iodjsaofijio sajiofj ajfpji jsd af dfad f a  fds </p>', '1682087287_197bb7ee4921707d8d16.png', 'Admin', '2023-04-08 14:16:51', '2023-04-21 14:28:07'),
+(10, 'Sandiaga Ajak Santri Ciptakan Lapangan Kerja: Bisa Membuka UMKM', '<p>opksjdafkjopsd fdsopf kopdskpofa dsfds fd ad a df </p>', '1682087301_356acf44bac7e2932bfc.png', 'Admin', '2023-04-08 14:17:06', '2023-04-21 14:28:21'),
+(11, 'DaerahBelajar Wirausaha, Santri Al-Manshuriyah Ikut Pelatihan Menjahit', '<p>fds fsad fasd fds af sd af</p>', '1682087312_6c85dcf758216b1c2986.png', 'Admin', '2023-04-08 14:17:17', '2023-04-21 14:28:32'),
+(12, 'TGS Ganjar Sumut Tanamkan Pentingnya Akhlakul Karimah Remaja Masjid', '<p>fds fsad fsda fsdaf asdf sdf ewfe wsaf wef ew weq</p>', '1682087322_b2871d8318ebe5d1407c.png', 'Admin', '2023-04-08 14:17:29', '2023-04-21 14:28:42'),
+(13, 'Perluas Jaringan, Relawan SDG Lebarkan Sayap hingga NTB', '<p>f adsf sdaf sda fsda few qtr ewqrt ewtfg rytryh gy erwtgft</p>', '1682087343_f3c56f1a7fa15aec1465.png', 'Admin', '2023-04-08 14:17:43', '2023-04-21 14:29:03'),
+(14, 'Bekali Santri Ponpes Darul Ma\'arif, SDG Adakan Pelatihan Menjahit', '<p>fsad f weqt ew weqtwea  asdf sda</p>', '1682087352_72a5085a11af4352ade3.png', 'Admin', '2023-04-08 14:17:54', '2023-04-21 14:29:12'),
+(15, 'Meriahkan Ramadan, SDG Gelar Kreasi Santri di Ponpes Al-Aqsha', '<p>sd fa ewq wqeruj iopew jioioqwju ieojoq jioeju iorejwio j<span style=\"font-size: 1rem;\">sd fa ewq wqeruj iopew jioioqwju ieojoq jioeju iorejwio j</span><span style=\"font-size: 1rem;\">sd fa ewq wqeruj iopew jioioqwju ieojoq jioeju iorejwio j</span><span style=\"font-size: 1rem;\">sd fa ewq wqeruj iopew jioioqwju ieojoq jioeju iorejwio j</span><span style=\"font-size: 1rem;\">sd fa ewq wqeruj iopew jioioqwju ieojoq jioeju iorejwio j</span><span style=\"font-size: 1rem;\">sd fa ewq wqeruj iopew jioioqwju ieojoq jioeju iorejwio j</span><span style=\"font-size: 1rem;\">sd fa ewq wqeruj iopew jioioqwju ieojoq jioeju iorejwio j</span><span style=\"font-size: 1rem;\">sd fa ewq wqeruj iopew jioioqwju ieojoq jioeju iorejwio jssssssssssssssssssssssssssss</span></p>', '1682087363_21bbc571709a644fea6d.png', 'Admin', '2023-04-08 14:18:17', '2023-04-21 14:29:23');
 
 -- --------------------------------------------------------
 
@@ -203,9 +230,9 @@ CREATE TABLE `slideshow` (
 --
 
 INSERT INTO `slideshow` (`id_slideshow`, `slideshow`, `judul`, `caption`, `align`, `created_at`, `updated_at`) VALUES
-(8, '1681025231_dc731381b8602b72ccc0.jpg', 'judul', 'fsd', 'start', '2023-04-06 23:33:01', '2023-04-09 07:27:11'),
-(9, '1681025245_1096ca3454df8bee5788.jpg', '', '', '', '2023-04-08 14:12:26', '2023-04-09 07:27:25'),
-(10, '1681025260_59d499f72a4469f953ca.jpg', 'Judul', 'oijoi', 'end', '2023-04-08 14:16:27', '2023-04-09 07:27:40');
+(8, '1684155086_b8126617a1dca0a5158c.jpg', 'judul', 'fsd', 'start', '2023-04-06 23:33:01', '2023-05-15 12:51:26'),
+(9, '1684155093_c885115d93fe877f86d9.jpeg', '', '', '', '2023-04-08 14:12:26', '2023-05-15 12:51:33'),
+(10, '1684155101_018c179962e30c296f30.jpg', 'Judul', 'oijoi', 'end', '2023-04-08 14:16:27', '2023-05-15 12:51:41');
 
 -- --------------------------------------------------------
 
@@ -247,6 +274,12 @@ ALTER TABLE `admin`
 --
 ALTER TABLE `galery`
   ADD PRIMARY KEY (`id_galery`);
+
+--
+-- Indeks untuk tabel `kegiatan`
+--
+ALTER TABLE `kegiatan`
+  ADD PRIMARY KEY (`id_kegiatan`);
 
 --
 -- Indeks untuk tabel `pendaftaran`
@@ -299,6 +332,12 @@ ALTER TABLE `admin`
 --
 ALTER TABLE `galery`
   MODIFY `id_galery` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+
+--
+-- AUTO_INCREMENT untuk tabel `kegiatan`
+--
+ALTER TABLE `kegiatan`
+  MODIFY `id_kegiatan` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT untuk tabel `pengumuman`

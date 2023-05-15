@@ -14,14 +14,14 @@
               <div class="col-md-12 d-flex align-items-center p-3">
                 <img src="<?= base_url() . 'img/icon/' . $profilApp['logo'] ?>" alt="" style="width:50px;height:50px">
                 <div class="ms-4">
-                  <h4 class="fw-bold ">Struktur Organisasi</h4>
+                  <h4 class="fw-bold">Struktur Organisasi</h4>
                   <p class="text-dark">Struktur Organisasi <?= $profilApp['nama_pondok'] ?></p>
                 </div>
               </div>
             </div>
           </div>
 
-          <div class="row mt-4">
+          <div class="row mt-4 me-2 mb-2">
             <img src="<?= base_url() . 'img/struktur/' . $profilApp['struktur_pondok'] ?>" alt="">
           </div>
 

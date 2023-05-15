@@ -4,6 +4,7 @@ namespace App\Controllers\Admin;
 
 use App\Controllers\BaseController;
 use App\Models\GaleryM;
+use App\Models\KegiatanM;
 use App\Models\SantriM;
 use App\Models\UstadzM;
 use App\Models\PengumumanM;
@@ -19,6 +20,7 @@ class DataC extends BaseController
   private $slideshowM;
   private $galeryM;
   private $pendaftaranM;
+  private $kegiatanM;
 
   public function __construct()
   {
@@ -28,6 +30,7 @@ class DataC extends BaseController
     $this->slideshowM = new SlideshowM();
     $this->galeryM = new GaleryM();
     $this->pendaftaranM = new PendaftaranM();
+    $this->kegiatanM = new KegiatanM();
   }
 
   private function ruleSantri($is_unique = true)
@@ -217,6 +220,33 @@ class DataC extends BaseController
     ];
 
     return $rulePengumuman;
+  }
+
+  private function ruleKegiatan($is_unique = true)
+  {
+
+    $ruleKegiatan =  [
+      'hari_kegiatan' => [
+        'label' => 'Hari Kegiatan',
+        'rules' => ($is_unique) ? 'required|min_length[4]|max_length[100]|is_unique[kegiatan.hari_kegiatan]' : 'required|min_length[4]|max_length[100]',
+        'errors' => [
+          'required' => '{field} Harus diisi',
+          'min_length' => '{field} Minimal 4 Karakter',
+          'max_length' => '{field} Maksimal 100 Karakter',
+          'is_unique' => '{field} Sudah Ada'
+        ],
+      ],
+      'kegiatan' => [
+        'label' => 'Kegiatan',
+        'rules' => 'required|min_length[1]',
+        'errors' => [
+          'required' => '{field} Harus diisi',
+          'min_length' => '{field} Minimal 1 Karakter',
+        ],
+      ],
+    ];
+
+    return $ruleKegiatan;
   }
 
   private function ruleSlideshow($is_valid_slideshow = true)
@@ -633,10 +663,10 @@ class DataC extends BaseController
       $simpan = $this->pengumumanM->save($data);
       if ($simpan) {
         $type = 'success';
-        $msg = 'Berhasil tambah data.';
+        $msg = 'Berhasil ubah data.';
       } else {
         $type = 'danger';
-        $msg = 'Gagal tambah data.';
+        $msg = 'Gagal ubah data.';
       }
       return redirect()->to(base_url() . 'admin/pengumuman')->with('msg', myAlert($type, $msg));
     }
@@ -647,6 +677,99 @@ class DataC extends BaseController
     $dataPengumuman = $this->pengumumanM->find($id_pengumuman);
     $hapus = $this->pengumumanM->delete($id_pengumuman);
     unlink(FCPATH . '/img/pengumuman/' . $dataPengumuman['gambar']);
+    if ($hapus) {
+      $type = 'success';
+      $msg = 'Berhasil dihapus.';
+    } else {
+      $type = 'danger';
+      $msg = 'Gagal dihapus.';
+    }
+    return redirect()->back()->with('msg', myAlert($type, $msg));
+  }
+
+  // kegiatan
+  public function data_kegiatan()
+  {
+    return view('admin/data/kegiatan/data_kegiatan_v', [
+      'kegiatan' => $this->kegiatanM->findAll(),
+      'profilApp' => $this->profilApp
+    ]);
+  }
+
+  public function tambah_kegiatan()
+  {
+    return view('admin/data/kegiatan/tambah_kegiatan_form', [
+      'profilApp' => $this->profilApp
+    ]);
+  }
+
+  public function proses_tambah_kegiatan()
+  {
+    if (!$this->validate($this->ruleKegiatan())) {
+      return redirect()->back()->withInput();
+    } else {
+      $post = $this->request->getPost();
+
+      $data = [
+        'hari_kegiatan' => $post['hari_kegiatan'],
+        'kegiatan' => $post['kegiatan'],
+      ];
+
+      $simpan = $this->kegiatanM->save($data);
+      if ($simpan) {
+        $type = 'success';
+        $msg = 'Berhasil tambah data.';
+      } else {
+        $type = 'danger';
+        $msg = 'Gagal tambah data.';
+      }
+      return redirect()->to(base_url() . 'admin/kegiatan')->with('msg', myAlert($type, $msg));
+    }
+  }
+
+  public function edit_kegiatan($id_kegiatan)
+  {
+    return view('admin/data/kegiatan/edit_kegiatan_form', [
+      'kegiatan' => $this->kegiatanM->find($id_kegiatan),
+      'profilApp' => $this->profilApp
+    ]);
+  }
+
+  public function proses_edit_kegiatan($id_kegiatan)
+  {
+    $dataLama = $this->kegiatanM->find($id_kegiatan);
+
+    $post = $this->request->getPost();
+
+    $is_unique = true;
+    if ($dataLama['hari_kegiatan'] == $post['hari_kegiatan']) {
+      $is_unique = false;
+    }
+
+    if (!$this->validate($this->ruleKegiatan($is_unique))) {
+      return redirect()->back()->withInput();
+    } else {
+      $data = [
+        'id_kegiatan' => $id_kegiatan,
+        'hari_kegiatan' => $post['hari_kegiatan'],
+        'kegiatan' => $post['kegiatan'],
+      ];
+
+      $simpan = $this->kegiatanM->save($data);
+      if ($simpan) {
+        $type = 'success';
+        $msg = 'Berhasil ubah data.';
+      } else {
+        $type = 'danger';
+        $msg = 'Gagal ubah data.';
+      }
+      return redirect()->to(base_url() . 'admin/kegiatan')->with('msg', myAlert($type, $msg));
+    }
+  }
+
+  public function hapus_kegiatan($id_kegiatan)
+  {
+    $hapus = $this->kegiatanM->delete($id_kegiatan);
     if ($hapus) {
       $type = 'success';
       $msg = 'Berhasil dihapus.';

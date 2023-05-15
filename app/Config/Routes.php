@@ -40,6 +40,7 @@ $routes->get('/struktur-organisasi', 'Home::struktur_organisasi');
 $routes->get('/peraturan-pondok', 'Home::peraturan_pondok');
 $routes->add('/pendaftaran', 'Home::pendaftaran');
 $routes->get('/pendaftaran/(:segment)', 'Home::detail_pendaftaran/$1');
+$routes->get('/kegiatan', 'Home::kegiatan');
 
 
 // Admin
@@ -113,6 +114,18 @@ $routes->group('admin', ['namespace' => 'App\Controllers\Admin', 'filter' => 'is
     $routes->put('edit/(:num)', 'DataC::proses_edit_pengumuman/$1');
 
     $routes->delete('hapus/(:num)', 'DataC::hapus_pengumuman/$1');
+  });
+
+  $routes->group('kegiatan', function ($routes) {
+    $routes->get('', 'DataC::data_kegiatan');
+
+    $routes->get('tambah', 'DataC::tambah_kegiatan');
+    $routes->post('tambah', 'DataC::proses_tambah_kegiatan');
+
+    $routes->get('edit/(:num)', 'DataC::edit_kegiatan/$1');
+    $routes->put('edit/(:num)', 'DataC::proses_edit_kegiatan/$1');
+
+    $routes->delete('hapus/(:num)', 'DataC::hapus_kegiatan/$1');
   });
 
   $routes->group('galery', function ($routes) {
