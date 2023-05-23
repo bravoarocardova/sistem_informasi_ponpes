@@ -54,7 +54,7 @@ $routes->group('admin', ['namespace' => 'App\Controllers\Admin', 'filter' => 'is
 
   $routes->group('data', function ($routes) {
     $routes->group('santri', function ($routes) {
-      $routes->get('', 'DataC::data_santri');
+      $routes->add('', 'DataC::data_santri');
 
       $routes->get('tambah', 'DataC::tambah_santri');
       $routes->post('tambah', 'DataC::proses_tambah_santri');
@@ -78,7 +78,7 @@ $routes->group('admin', ['namespace' => 'App\Controllers\Admin', 'filter' => 'is
     });
 
     $routes->group('ustadz', function ($routes) {
-      $routes->get('', 'DataC::data_ustadz');
+      $routes->add('', 'DataC::data_ustadz');
 
       $routes->get('tambah', 'DataC::tambah_ustadz');
       $routes->post('tambah', 'DataC::proses_tambah_ustadz');
@@ -126,6 +126,30 @@ $routes->group('admin', ['namespace' => 'App\Controllers\Admin', 'filter' => 'is
     $routes->put('edit/(:num)', 'DataC::proses_edit_kegiatan/$1');
 
     $routes->delete('hapus/(:num)', 'DataC::hapus_kegiatan/$1');
+  });
+
+  $routes->group('keasramaan', function ($routes) {
+    $routes->get('', 'DataC::data_keasramaan');
+
+    $routes->get('tambah', 'DataC::tambah_keasramaan');
+    $routes->post('tambah', 'DataC::proses_tambah_keasramaan');
+
+    $routes->get('edit/(:num)', 'DataC::edit_keasramaan/$1');
+    $routes->put('edit/(:num)', 'DataC::proses_edit_keasramaan/$1');
+
+    $routes->delete('hapus/(:num)', 'DataC::hapus_keasramaan/$1');
+
+    $routes->group('detail', function ($routes) {
+      $routes->get('(:segment)', 'DataC::detail_keasramaan/$1');
+
+      $routes->get('(:segment)/tambah', 'DataC::tambah_detail_keasramaan/$1');
+      $routes->post('(:segment)/tambah', 'DataC::proses_tambah_detail_keasramaan/$1');
+
+      $routes->get('(:segment)/edit/(:num)', 'DataC::edit_detail_keasramaan/$1/$2');
+      $routes->put('(:segment)/edit/(:num)', 'DataC::proses_edit_detail_keasramaan/$1/$2');
+
+      $routes->delete('(:segment)/hapus/(:num)', 'DataC::hapus_detail_keasramaan/$1/$2');
+    });
   });
 
   $routes->group('galery', function ($routes) {

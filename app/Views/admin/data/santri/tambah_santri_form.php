@@ -121,6 +121,20 @@
                         ?>
                       </div>
                     </div>
+                    <div class="mb-3">
+                      <label for="" class="form-label">Jenjang Sekolah</label>
+                      <div class="form-check ">
+                        <input type="radio" class="form-check-input <?= validation_show_error('jenjang_sekolah') ? 'is-invalid' : '' ?>" id="jenjang_sekolah2" name="jenjang_sekolah" value="MA" oninvalid="this.setCustomValidity('Pilih Salah Satu')" <?= (old('jenjang_sekolah') == 'MA' ? 'checked' : '') ?>>
+                        <label class="form-check-label" for="jenjang_sekolah2">MA</label>
+                      </div>
+                      <div class="form-check mb-3">
+                        <input type="radio" class="form-check-input <?= validation_show_error('jenjang_sekolah') ? 'is-invalid' : '' ?>" id="jenjang_sekolah3" name="jenjang_sekolah" value="MTS" oninvalid="this.setCustomValidity('Pilih Salah Satu')" <?= (old('jenjang_sekolah') == 'MTS' ? 'checked' : '') ?>>
+                        <label class="form-check-label" for="jenjang_sekolah3">MTS</label>
+                        <div class="invalid-feedback">
+                          <?= validation_show_error('jenjang_sekolah') ?>
+                        </div>
+                      </div>
+                    </div>
                   </div>
 
                 </div>

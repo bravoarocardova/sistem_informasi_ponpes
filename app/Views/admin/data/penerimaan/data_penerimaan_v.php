@@ -54,6 +54,7 @@
                     <th>TANGGAL LAHIR</th>
                     <th>ALAMAT LENGKAP</th>
                     <th>ASAL SEKOLAH</th>
+                    <th>PENANGGUNG JAWAB</th>
                     <th>LULUS TAHUN</th>
                     <th>STATUS</th>
                     <th>TANGGAL DIBUAT</th>
@@ -89,6 +90,7 @@
                       <td><?= $r['tgl_lahir'] ?></td>
                       <td><?= $r['alamat'] ?></td>
                       <td><?= $r['asal_sekolah'] ?></td>
+                      <td><?= $r['nama_admin'] ?></td>
                       <td class="text-center"><?= $r['lulus_tahun'] ?></td>
                       <td><?= $r['status'] ?></td>
                       <td><?= $r['created_at'] ?></td>
@@ -121,6 +123,7 @@
                     <th>TANGGAL LAHIR</th>
                     <th>ALAMAT LENGKAP</th>
                     <th>ASAL SEKOLAH</th>
+                    <th>PENANGGUNG JAWAB</th>
                     <th>LULUS TAHUN</th>
                     <th>STATUS</th>
                     <th>TANGGAL DIBUAT</th>
@@ -148,7 +151,7 @@
       "autoWidth": false,
       "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"],
       "columnDefs": [{
-        "targets": [3, 6, 7, 8, 9, 11, 12, 14],
+        "targets": [3, 6, 7, 8, 9, 11, 12, 13, 15],
         "visible": false
 
       }]

@@ -46,7 +46,7 @@
                 </div>
               </div>
 
-              <div class="row mt-4">
+              <div class="row mt-4 me-2 mb-2">
                 <?= $profilApp['misi'] ?>
               </div>
 

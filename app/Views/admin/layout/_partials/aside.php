@@ -87,6 +87,14 @@ $uri = service('uri');
             </p>
           </a>
         </li>
+        <li class="nav-item">
+          <a href="<?= base_url() ?>admin/keasramaan" class="nav-link <?= ($uri->getSegment(2) == 'keasramaan') ? 'active' : '' ?>">
+            <i class="nav-icon fa fa-bookmark"></i>
+            <p>
+              Keasramaan
+            </p>
+          </a>
+        </li>
         <li class="nav-header">Profil</li>
         <li class="nav-item">
           <a href="<?= base_url() ?>admin/galery" class="nav-link <?= ($uri->getSegment(2) == 'galery') ? 'active' : '' ?>">
@@ -146,7 +154,7 @@ $uri = service('uri');
           </ul>
         </li>
         <li class="nav-item">
-          <a href="<?= base_url() ?>" class="nav-link ">
+          <a href="<?= base_url() ?>" class="nav-link " target="_blank">
             <i class="nav-icon fas fa-home"></i>
             <p>
               Homepage

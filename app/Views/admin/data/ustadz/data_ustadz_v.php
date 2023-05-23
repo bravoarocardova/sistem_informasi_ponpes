@@ -24,19 +24,39 @@
   <!-- Main content -->
   <section class="content">
     <div class="container-fluid">
-
       <!-- Main row -->
       <div class="row">
         <div class="col-12">
           <?= session()->get('msg') ?>
           <div class="card">
             <div class="card-header">
-              <h3 class="card-title">
-                <a href="<?= base_url() ?>admin/data/ustadz/tambah" class="btn btn-primary">
-                  <i class="fas fa-plus-square"></i>
-                  Tambah
-                </a>
-              </h3>
+              <div class="row">
+                <div class="col-lg-9">
+                  <h3 class="card-title">
+                    <a href="<?= base_url() ?>admin/data/ustadz/tambah" class="btn btn-primary">
+                      <i class="fas fa-plus-square"></i>
+                      Tambah
+                    </a>
+                  </h3>
+                </div>
+                <div class="col-lg-3">
+                  <form action="" method="post">
+                    <div class="mb-3 d-flex">
+                      <label class="form-label" for="filter_jk"></label>
+                      <select name="filter_jk" id="filter_jk" class="form-control <?= validation_show_error('filter_jk') ? 'is-invalid' : '' ?>">
+                        <option value="ALL" <?= ($filter_jk == 'ALL') ? 'selected' : '' ?>>ALL</option>
+                        <option value="L" <?= ($filter_jk == 'L') ? 'selected' : '' ?>>Laki-laki</option>
+                        <option value="P" <?= ($filter_jk == 'P') ? 'selected' : '' ?>>Perempuan</option>
+                      </select>
+                      <button type="submit" class="btn btn-info">
+                        <i class="fa fa-search"></i>
+
+                      </button>
+                    </div>
+                  </form>
+
+                </div>
+              </div>
             </div>
             <!-- /.card-header -->
             <div class="card-body">

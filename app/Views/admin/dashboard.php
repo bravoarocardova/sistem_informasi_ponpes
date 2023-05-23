@@ -30,7 +30,7 @@
           <!-- small box -->
           <div class="small-box bg-info">
             <div class="inner">
-              <h3><?= $jumlah_ustadz ?></h3>
+              <h3><?= $jumlah_santri ?></h3>
 
               <p>Santri</p>
             </div>
@@ -60,7 +60,7 @@
           <!-- small box -->
           <div class="small-box bg-warning">
             <div class="inner">
-              <h3>44</h3>
+              <h3><?= $jumlah_pendaftar ?></h3>
 
               <p>Pendaftaran Santri</p>
             </div>

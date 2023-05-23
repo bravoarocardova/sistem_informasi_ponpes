@@ -4,7 +4,8 @@
 <!-- Sejarah -->
 <div class="p-4">
   <div class="container">
-    <?php echo validation_list_errors() ?>
+    <?php //echo validation_list_errors() 
+    ?>
     <!-- Main row -->
     <div class="row mt-5">
       <div class="col-8">
@@ -123,6 +124,22 @@
                     <input type="text" class="form-control <?= validation_show_error('email') ? 'is-invalid' : '' ?>" id="inputemail" name="email" placeholder="Email" value="<?= old('email') ?>">
                     <div class="invalid-feedback">
                       <?= validation_show_error('email') ?>
+                    </div>
+                  </div>
+                  <div class="mb-3">
+                    <label for="" class="form-label">Jenjang Sekolah didaftar</label>
+                    <div class="form-control <?= validation_show_error('jenjang_sekolah') ? 'is-invalid' : '' ?>">
+                      <div class="form-check">
+                        <input type="radio" class="form-check-input <?= validation_show_error('jenjang_sekolah') ? 'is-invalid' : '' ?>" id="jenjang_sekolah2" name="jenjang_sekolah" value="MA" oninvalid="this.setCustomValidity('Pilih Salah Satu')" <?= (old('jenjang_sekolah') == 'MA' ? 'checked' : '') ?>>
+                        <label class="form-check-label" for="jenjang_sekolah2">MA</label>
+                      </div>
+                      <div class="form-check mb-3">
+                        <input type="radio" class="form-check-input <?= validation_show_error('jenjang_sekolah') ? 'is-invalid' : '' ?>" id="jenjang_sekolah3" name="jenjang_sekolah" value="MTS" oninvalid="this.setCustomValidity('Pilih Salah Satu')" <?= (old('jenjang_sekolah') == 'MTS' ? 'checked' : '') ?>>
+                        <label class="form-check-label" for="jenjang_sekolah3">MTS</label>
+                      </div>
+                    </div>
+                    <div class="invalid-feedback">
+                      <?= validation_show_error('jenjang_sekolah') ?>
                     </div>
                   </div>
                 </div>

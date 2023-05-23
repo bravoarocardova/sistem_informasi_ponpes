@@ -4,7 +4,9 @@ namespace App\Controllers\Admin;
 
 use App\Controllers\BaseController;
 use App\Models\GaleryM;
+use App\Models\KegiatanKeasramaanM;
 use App\Models\KegiatanM;
+use App\Models\NilaiKeasramaanM;
 use App\Models\SantriM;
 use App\Models\UstadzM;
 use App\Models\PengumumanM;
@@ -21,6 +23,8 @@ class DataC extends BaseController
   private $galeryM;
   private $pendaftaranM;
   private $kegiatanM;
+  private $kegiatanKeasramaanM;
+  private $nilaiKeasramaanM;
 
   public function __construct()
   {
@@ -31,6 +35,8 @@ class DataC extends BaseController
     $this->galeryM = new GaleryM();
     $this->pendaftaranM = new PendaftaranM();
     $this->kegiatanM = new KegiatanM();
+    $this->kegiatanKeasramaanM = new KegiatanKeasramaanM();
+    $this->nilaiKeasramaanM = new NilaiKeasramaanM();
   }
 
   private function ruleSantri($is_unique = true)
@@ -117,6 +123,15 @@ class DataC extends BaseController
           'required' => '{field} Harus diisi',
           'min_length' => '{field} Minimal 1 Karakter',
           'max_length' => '{field} Maksimal 100 Karakter',
+        ],
+      ],
+      'jenjang_sekolah' => [
+        'label' => 'Jenjang Sekolah',
+        'rules' => 'required|min_length[1]|max_length[5]',
+        'errors' => [
+          'required' => '{field} Harus diisi',
+          'min_length' => '{field} Minimal 1 Karakter',
+          'max_length' => '{field} Maksimal 5 Karakter',
         ],
       ],
     ];
@@ -249,6 +264,77 @@ class DataC extends BaseController
     return $ruleKegiatan;
   }
 
+  private function ruleKegiatanKeasramaan($is_unique = true)
+  {
+
+    $ruleKegiatanKeasramaan =  [
+      'kegiatan_keasramaan' => [
+        'label' => 'Kegiatan Keasramaan',
+        'rules' => ($is_unique) ? 'required|min_length[4]|max_length[100]|is_unique[kegiatan_keasramaan.nama_kegiatan_keasramaan]' : 'required|min_length[4]|max_length[100]',
+        'errors' => [
+          'required' => '{field} Harus diisi',
+          'min_length' => '{field} Minimal 4 Karakter',
+          'max_length' => '{field} Maksimal 100 Karakter',
+          'is_unique' => '{field} Sudah Ada'
+        ],
+      ],
+      'kd_ustadz' => [
+        'label' => 'kd_ustadz',
+        'rules' => 'required|min_length[1]',
+        'errors' => [
+          'required' => '{field} Harus diisi',
+          'min_length' => '{field} Minimal 1 Karakter',
+        ],
+      ],
+    ];
+
+    return $ruleKegiatanKeasramaan;
+  }
+
+  private function ruleNilaiKeasramaan($is_unique = true)
+  {
+
+    $ruleNilaiKeasramaan =  [
+      'nis' => [
+        'label' => 'NIS',
+        'rules' => ($is_unique) ? 'required|min_length[4]|max_length[100]|is_unique[nilai_keasramaan.nis]' : 'required|min_length[1]|max_length[100]',
+        'errors' => [
+          'required' => '{field} Harus diisi',
+          'min_length' => '{field} Minimal 1 Karakter',
+          'max_length' => '{field} Maksimal 100 Karakter',
+          'is_unique' => '{field} Sudah Ada'
+        ],
+      ],
+      'nilai' => [
+        'label' => 'Nilai',
+        'rules' => 'required|min_length[1]',
+        'errors' => [
+          'required' => '{field} Harus diisi',
+          'min_length' => '{field} Minimal 1 Karakter',
+        ],
+      ],
+    ];
+
+    return $ruleNilaiKeasramaan;
+  }
+
+  private function ruleNilaiKeasramaan2()
+  {
+
+    $ruleNilaiKeasramaan2 =  [
+      'nilai' => [
+        'label' => 'Nilai',
+        'rules' => 'required|min_length[1]',
+        'errors' => [
+          'required' => '{field} Harus diisi',
+          'min_length' => '{field} Minimal 1 Karakter',
+        ],
+      ],
+    ];
+
+    return $ruleNilaiKeasramaan2;
+  }
+
   private function ruleSlideshow($is_valid_slideshow = true)
   {
 
@@ -332,9 +418,42 @@ class DataC extends BaseController
 
   public function data_santri()
   {
+    $santri = $this->santriM->where('status', 'Aktif')->find();
+    $list_tahun = $this->santriM->select('YEAR(tgl_masuk) as tahun_masuk')->distinct()->orderBy('tahun_masuk', 'DESC')->find();
+
+    $post = $this->request->getPost();
+    $filter_jk = 'ALL';
+    $filter_jenjang = 'ALL';
+    $filter_tahun = 'ALL';
+
+    if ($this->request->is('post')) {
+
+      $where['status'] = 'Aktif';
+
+      if ($post['filter_jk'] != 'ALL') {
+        $where['jk'] = $post['filter_jk'];
+        $filter_jk = $post['filter_jk'];
+      }
+
+      if ($post['filter_jenjang'] != 'ALL') {
+        $where['jenjang_sekolah'] = $post['filter_jenjang'];
+        $filter_jenjang = $post['filter_jenjang'];
+      }
+
+      if ($post['filter_tahun'] != 'ALL') {
+        $where['YEAR(tgl_masuk)'] = $post['filter_tahun'];
+        $filter_tahun = $post['filter_tahun'];
+      }
+
+      $santri = $this->santriM->where($where)->find();
+    }
     return view('admin/data/santri/data_santri_v', [
-      'santri' => $this->santriM->where('status', 'Aktif')->find(),
-      'profilApp' => $this->profilApp
+      'profilApp' => $this->profilApp,
+      'santri' => $santri,
+      'filter_jk' => $filter_jk,
+      'filter_jenjang' => $filter_jenjang,
+      'filter_tahun' => $filter_tahun,
+      'list_tahun' => $list_tahun,
     ]);
   }
 
@@ -363,6 +482,7 @@ class DataC extends BaseController
         'status' => 'Aktif',
         'no_telp_wali' => $post['no_telp_wali'],
         'wali' => $post['wali'],
+        'jenjang_sekolah' => $post['jenjang_sekolah'],
       ];
       $simpan = $this->santriM->save($data);
       if ($simpan) {
@@ -408,6 +528,7 @@ class DataC extends BaseController
         'alamat_lengkap' => $post['alamat_lengkap'],
         'no_telp_wali' => $post['no_telp_wali'],
         'wali' => $post['wali'],
+        'jenjang_sekolah' => $post['jenjang_sekolah'],
       ];
 
       $simpan = $this->santriM->update(['nis' => $nis], $data);
@@ -477,9 +598,17 @@ class DataC extends BaseController
 
   public function data_ustadz()
   {
+    $ustadz = $this->ustadzM->findAll();
+    $post = $this->request->getPost();
+    $filter_jk = 'ALL';
+    if ($this->request->is('post') && $post['filter_jk'] != 'ALL') {
+      $ustadz = $this->ustadzM->where('jk', $post['filter_jk'])->find();
+      $filter_jk = $post['filter_jk'];
+    }
     return view('admin/data/ustadz/data_ustadz_v', [
-      'ustadz' => $this->ustadzM->findAll(),
-      'profilApp' => $this->profilApp
+      'ustadz' => $ustadz,
+      'profilApp' => $this->profilApp,
+      'filter_jk' => $filter_jk
     ]);
   }
 
@@ -677,6 +806,192 @@ class DataC extends BaseController
     $dataPengumuman = $this->pengumumanM->find($id_pengumuman);
     $hapus = $this->pengumumanM->delete($id_pengumuman);
     unlink(FCPATH . '/img/pengumuman/' . $dataPengumuman['gambar']);
+    if ($hapus) {
+      $type = 'success';
+      $msg = 'Berhasil dihapus.';
+    } else {
+      $type = 'danger';
+      $msg = 'Gagal dihapus.';
+    }
+    return redirect()->back()->with('msg', myAlert($type, $msg));
+  }
+
+  // keasramaan
+  public function data_keasramaan()
+  {
+    return view('admin/data/keasramaan/data_keasramaan_v', [
+      'kegiatan_keasramaan' => $this->kegiatanKeasramaanM->findAll(),
+      'profilApp' => $this->profilApp
+    ]);
+  }
+
+  public function tambah_keasramaan()
+  {
+    return view('admin/data/keasramaan/tambah_keasramaan_form', [
+      'profilApp' => $this->profilApp,
+      'ustadz' => $this->ustadzM->findAll(),
+    ]);
+  }
+
+  public function proses_tambah_keasramaan()
+  {
+    if (!$this->validate($this->ruleKegiatanKeasramaan())) {
+      return redirect()->back()->withInput();
+    } else {
+      $post = $this->request->getPost();
+
+      $data = [
+        'nama_kegiatan_keasramaan' => $post['kegiatan_keasramaan'],
+        'kd_ustadz' => $post['kd_ustadz'],
+      ];
+
+      $simpan = $this->kegiatanKeasramaanM->save($data);
+      if ($simpan) {
+        $type = 'success';
+        $msg = 'Berhasil tambah data.';
+      } else {
+        $type = 'danger';
+        $msg = 'Gagal tambah data.';
+      }
+      return redirect()->to(base_url() . 'admin/keasramaan')->with('msg', myAlert($type, $msg));
+    }
+  }
+
+  public function edit_keasramaan($id_kegiatan_keasramaan)
+  {
+    return view('admin/data/keasramaan/edit_keasramaan_form', [
+      'kegiatan_keasramaan' => $this->kegiatanKeasramaanM->find($id_kegiatan_keasramaan),
+      'profilApp' => $this->profilApp,
+      'ustadz' => $this->ustadzM->findAll(),
+    ]);
+  }
+
+  public function proses_edit_keasramaan($id_kegiatan_keasramaan)
+  {
+    $dataLama = $this->kegiatanKeasramaanM->find($id_kegiatan_keasramaan);
+
+    $post = $this->request->getPost();
+
+    $is_unique = true;
+    if ($dataLama['nama_kegiatan_keasramaan'] == $post['kegiatan_keasramaan']) {
+      $is_unique = false;
+    }
+
+    if (!$this->validate($this->ruleKegiatanKeasramaan($is_unique))) {
+      return redirect()->back()->withInput();
+    } else {
+      $data = [
+        'id_kegiatan_keasramaan' => $id_kegiatan_keasramaan,
+        'nama_kegiatan_keasramaan' => $post['kegiatan_keasramaan'],
+        'kd_ustadz' => $post['kd_ustadz'],
+      ];
+
+      $simpan = $this->kegiatanKeasramaanM->save($data);
+      if ($simpan) {
+        $type = 'success';
+        $msg = 'Berhasil ubah data.';
+      } else {
+        $type = 'danger';
+        $msg = 'Gagal ubah data.';
+      }
+      return redirect()->to(base_url() . 'admin/keasramaan')->with('msg', myAlert($type, $msg));
+    }
+  }
+
+  public function hapus_keasramaan($id_kegiatan_keasramaan)
+  {
+    $hapus = $this->kegiatanKeasramaanM->delete($id_kegiatan_keasramaan);
+    if ($hapus) {
+      $type = 'success';
+      $msg = 'Berhasil dihapus.';
+    } else {
+      $type = 'danger';
+      $msg = 'Gagal dihapus.';
+    }
+    return redirect()->back()->with('msg', myAlert($type, $msg));
+  }
+
+  // detail
+  public function detail_keasramaan($id_kegiatan_keasramaan)
+  {
+    return view('admin/data/keasramaan/nilai/data_nilai_keasramaan_v', [
+      'kegiatan_keasramaan' => $this->kegiatanKeasramaanM->find($id_kegiatan_keasramaan),
+      'nilai_keasramaan' => $this->nilaiKeasramaanM->select('nilai_keasramaan.*, santri.nama_santri')->where('id_kegiatan_keasramaan', $id_kegiatan_keasramaan)->join('santri', 'nilai_keasramaan.nis = santri.nis')->find(),
+      'profilApp' => $this->profilApp
+    ]);
+  }
+
+  public function tambah_detail_keasramaan()
+  {
+    return view('admin/data/keasramaan/nilai/tambah_nilai_keasramaan_form', [
+      'profilApp' => $this->profilApp,
+      'santri' => $this->santriM->where('status', 'Aktif')->findAll(),
+    ]);
+  }
+
+  public function proses_tambah_detail_keasramaan($id_kegiatan_keasramaan)
+  {
+    if (!$this->validate($this->ruleNilaiKeasramaan())) {
+      return redirect()->back()->withInput();
+    } else {
+      $post = $this->request->getPost();
+
+      $data = [
+        'id_kegiatan_keasramaan' => $id_kegiatan_keasramaan,
+        'nis' => $post['nis'],
+        'nilai' => $post['nilai'],
+        'keterangan' => $post['keterangan'],
+      ];
+      // dd($data);
+      $simpan = $this->nilaiKeasramaanM->save($data);
+      if ($simpan) {
+        $type = 'success';
+        $msg = 'Berhasil tambah data.';
+      } else {
+        $type = 'danger';
+        $msg = 'Gagal tambah data.';
+      }
+      return redirect()->to(base_url() . 'admin/keasramaan/detail/' . $id_kegiatan_keasramaan)->with('msg', myAlert($type, $msg));
+    }
+  }
+
+  public function edit_detail_keasramaan($id_kegiatan_keasramaan, $id_nilai_keasramaan)
+  {
+    return view('admin/data/keasramaan/nilai/edit_nilai_keasramaan_form', [
+      'profilApp' => $this->profilApp,
+      'nilai_keasramaan' => $this->nilaiKeasramaanM->join('santri', 'santri.nis = nilai_keasramaan.nis')->find($id_nilai_keasramaan),
+    ]);
+  }
+
+  public function proses_edit_detail_keasramaan($id_kegiatan_keasramaan, $id_nilai_keasramaan)
+  {
+
+    $post = $this->request->getPost();
+
+    if (!$this->validate($this->ruleNilaiKeasramaan2())) {
+      return redirect()->back()->withInput();
+    } else {
+      $data = [
+        'id_nilai_keasramaan' => $id_nilai_keasramaan,
+        'nilai' => $post['nilai'],
+        'keterangan' => $post['keterangan'],
+      ];
+
+      $simpan = $this->nilaiKeasramaanM->save($data);
+      if ($simpan) {
+        $type = 'success';
+        $msg = 'Berhasil ubah data.';
+      } else {
+        $type = 'danger';
+        $msg = 'Gagal ubah data.';
+      }
+      return redirect()->to(base_url() . 'admin/keasramaan/detail/' . $id_kegiatan_keasramaan)->with('msg', myAlert($type, $msg));
+    }
+  }
+
+  public function hapus_detail_keasramaan($id_kegiatan_keasramaan, $id_nilai_keasramaan)
+  {
+    $hapus = $this->nilaiKeasramaanM->delete($id_nilai_keasramaan);
     if ($hapus) {
       $type = 'success';
       $msg = 'Berhasil dihapus.';
@@ -1011,7 +1326,7 @@ class DataC extends BaseController
   public function data_penerimaan()
   {
     return view('admin/data/penerimaan/data_penerimaan_v', [
-      'pendaftaran' => $this->pendaftaranM->findAll(),
+      'pendaftaran' => $this->pendaftaranM->select('pendaftaran.*, admin.nama as nama_admin')->join('admin', 'admin.id_admin = pendaftaran.id_admin', 'left')->findAll(),
       'profilApp' => $this->profilApp
     ]);
   }
@@ -1021,6 +1336,7 @@ class DataC extends BaseController
     $data = [
       'id_pendaftaran' => $id_pendaftaran,
       'status' => 'Lulus',
+      'id_admin' => session()->get('admin')['id_admin'],
     ];
 
     $simpan = $this->pendaftaranM->save($data);

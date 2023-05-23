@@ -6,6 +6,7 @@
     <!-- Main row -->
     <div class="row mt-5">
       <div class="col-8">
+        <?= session()->get('msg') ?>
         <div class="card" id="printDiv">
           <div class="card-header bg-white">
             <div class="row mt-n5">
@@ -136,6 +137,14 @@
                   <input disabled type="text" class="form-control <?= validation_show_error('email') ? 'is-invalid' : '' ?>" id="inputemail" name="email" placeholder="Email" value="<?= old('email', $santri_daftar['email']) ?>">
                   <div class="invalid-feedback">
                     <?= validation_show_error('email') ?>
+                  </div>
+                </div>
+
+                <div class=" mb-3">
+                  <label class="form-label" for="inputjenjang_sekolah">Jenjang Sekolah didaftar</label>
+                  <input disabled type="text" class="form-control <?= validation_show_error('jenjang_sekolah') ? 'is-invalid' : '' ?>" id="inputjenjang_sekolah" name="jenjang_sekolah" placeholder="Email" value="<?= old('jenjang_sekolah', $santri_daftar['jenjang_sekolah']) ?>">
+                  <div class="invalid-feedback">
+                    <?= validation_show_error('jenjang_sekolah') ?>
                   </div>
                 </div>
               </div>

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Waktu pembuatan: 15 Bulan Mei 2023 pada 19.59
+-- Waktu pembuatan: 23 Bulan Mei 2023 pada 21.18
 -- Versi server: 8.0.32-0ubuntu0.22.04.2
 -- Versi PHP: 8.1.2-1ubuntu2.11
 
@@ -47,8 +47,8 @@ CREATE TABLE `admin` (
 
 INSERT INTO `admin` (`id_admin`, `username`, `nama`, `email`, `no_telp`, `password`, `foto`, `role`, `is_active`, `created_at`, `updated_at`) VALUES
 (1, 'Admin', 'Admin', 'admin@gmail.com', '08323332', '$2y$10$yRVNJ8SP0jxuU0wR98icJuUIBQSbEAvrQaRgmrmBgxjOH.t96y1ea', '1680968438_fa05fcfaa9a1fe5e326b.png', 'admin', '1', '2023-02-25 13:59:10', '2023-04-15 04:52:24'),
-(2, 'Admin2', 'Nama Admin 2', 'kasir@gmail.com', '0008323332323', '$2y$10$nVtT8jP.UAQ5nLbzCBiVCOvcXvF5DlvvNeuENWya17gjgO.6H2Z.q', '1678891178_4f5e0b49866c3d947d0d.png', 'admin', '1', '2023-02-25 13:59:10', '2023-04-09 06:13:47'),
-(3, 'teknisi', 'Nama Teknisi', 'teknisi@gmail.com', '08323332323', '$2y$10$MPLiipuiWyWLgn9C8SxcVuEIkHr9DaeNp3nHRS8xo0PNQ9xMG5Oum', 'default.jpg', 'admin', '1', '2023-02-25 13:59:10', '2023-03-12 14:18:58');
+(2, 'Admin2', 'Admin 2', 'admin2@gmail.com', '0008323332323', '$2y$10$nVtT8jP.UAQ5nLbzCBiVCOvcXvF5DlvvNeuENWya17gjgO.6H2Z.q', '1678891178_4f5e0b49866c3d947d0d.png', 'admin', '1', '2023-02-25 13:59:10', '2023-04-09 06:13:47'),
+(3, 'Admin3', 'Admin 3', 'admin3@gmail.com', '08323332323', '$2y$10$MPLiipuiWyWLgn9C8SxcVuEIkHr9DaeNp3nHRS8xo0PNQ9xMG5Oum', 'default.jpg', 'admin', '1', '2023-02-25 13:59:10', '2023-03-12 14:18:58');
 
 -- --------------------------------------------------------
 
@@ -107,6 +107,52 @@ INSERT INTO `kegiatan` (`id_kegiatan`, `hari_kegiatan`, `kegiatan`, `created_at`
 -- --------------------------------------------------------
 
 --
+-- Struktur dari tabel `kegiatan_keasramaan`
+--
+
+CREATE TABLE `kegiatan_keasramaan` (
+  `id_kegiatan_keasramaan` int NOT NULL,
+  `nama_kegiatan_keasramaan` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
+  `kd_ustadz` varchar(50) COLLATE utf8mb4_general_ci NOT NULL,
+  `created_at` timestamp NOT NULL,
+  `updated_at` timestamp NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data untuk tabel `kegiatan_keasramaan`
+--
+
+INSERT INTO `kegiatan_keasramaan` (`id_kegiatan_keasramaan`, `nama_kegiatan_keasramaan`, `kd_ustadz`, `created_at`, `updated_at`) VALUES
+(1, 'Setoran Hafalan', 'abcdddd', '2023-05-22 13:05:53', '2023-05-22 14:00:37'),
+(4, 'Menghafal Setoran lagi', 'abcdddd', '2023-05-22 13:50:16', '2023-05-22 13:50:16');
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `nilai_keasramaan`
+--
+
+CREATE TABLE `nilai_keasramaan` (
+  `id_nilai_keasramaan` int NOT NULL,
+  `id_kegiatan_keasramaan` int NOT NULL,
+  `nis` varchar(50) COLLATE utf8mb4_general_ci NOT NULL,
+  `nilai` int NOT NULL,
+  `keterangan` text COLLATE utf8mb4_general_ci NOT NULL,
+  `created_at` timestamp NOT NULL,
+  `updated_at` timestamp NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data untuk tabel `nilai_keasramaan`
+--
+
+INSERT INTO `nilai_keasramaan` (`id_nilai_keasramaan`, `id_kegiatan_keasramaan`, `nis`, `nilai`, `keterangan`, `created_at`, `updated_at`) VALUES
+(2, 1, '2147483647', 80, 'dddddafdfd', '2023-05-22 14:48:46', '2023-05-22 15:46:00'),
+(4, 1, '12345678922', 80, 'kerangan', '2023-05-22 15:29:44', '2023-05-22 15:29:44');
+
+-- --------------------------------------------------------
+
+--
 -- Struktur dari tabel `pendaftaran`
 --
 
@@ -123,9 +169,20 @@ CREATE TABLE `pendaftaran` (
   `asal_sekolah` varchar(100) COLLATE utf8mb4_general_ci NOT NULL,
   `lulus_tahun` year NOT NULL,
   `status` varchar(20) COLLATE utf8mb4_general_ci NOT NULL,
+  `jenjang_sekolah` varchar(5) COLLATE utf8mb4_general_ci NOT NULL,
+  `id_admin` int DEFAULT NULL,
   `created_at` timestamp NOT NULL,
   `updated_at` timestamp NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data untuk tabel `pendaftaran`
+--
+
+INSERT INTO `pendaftaran` (`id_pendaftaran`, `nama`, `photo`, `jk`, `no_telp`, `email`, `tempat_lahir`, `tgl_lahir`, `alamat`, `asal_sekolah`, `lulus_tahun`, `status`, `jenjang_sekolah`, `id_admin`, `created_at`, `updated_at`) VALUES
+('PDS-00000000', 'tes', '1684757654_dccfbb65297f175e24e0.jpg', 'L', '080808', 'popo@gmail.com', 'jambi', '2023-05-23', 'sdfasd', 'sma', 2004, 'Lulus', 'MA', 1, '2023-05-22 12:10:19', '2023-05-22 12:41:15'),
+('PDS-00000001', 'bro', '1684756538_7522e70b09af3b5453fa.jpg', 'L', '123456', 'bro@gmail.com', 'Jambi', '2023-05-22', 'sdfa', 'sma', 2004, '', 'MA', NULL, '2023-05-22 11:55:38', '2023-05-22 11:55:38'),
+('PDS-00000002', 'popo', '1684758071_32564211e29bc3d45f1c.jpg', 'L', '123222', 'user1@mail.com', 'jambi', '2023-05-22', 'dsafd', 'sma', 2004, '', 'MA', NULL, '2023-05-22 12:21:11', '2023-05-22 12:21:11');
 
 -- --------------------------------------------------------
 
@@ -165,28 +222,28 @@ INSERT INTO `pengumuman` (`id_pengumuman`, `judul`, `isi`, `gambar`, `penulis`, 
 
 CREATE TABLE `profil` (
   `id` int NOT NULL,
-  `logo` varchar(100) COLLATE utf8mb4_general_ci NOT NULL,
-  `nama_aplikasi` varchar(100) COLLATE utf8mb4_general_ci NOT NULL,
-  `nama_pondok` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
-  `alamat_pondok` text COLLATE utf8mb4_general_ci NOT NULL,
-  `telepon_pondok` varchar(15) COLLATE utf8mb4_general_ci NOT NULL,
-  `email_pondok` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
-  `lokasi_pondok` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
-  `sejarah` text COLLATE utf8mb4_general_ci NOT NULL,
-  `visi` text COLLATE utf8mb4_general_ci NOT NULL,
-  `misi` text COLLATE utf8mb4_general_ci NOT NULL,
-  `struktur_pondok` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
-  `peraturan_pondok` text COLLATE utf8mb4_general_ci NOT NULL,
-  `created_at` timestamp NOT NULL,
-  `updated_at` timestamp NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+  `logo` varchar(100) NOT NULL,
+  `nama_aplikasi` varchar(100) NOT NULL,
+  `nama_pondok` varchar(255) NOT NULL,
+  `alamat_pondok` text NOT NULL,
+  `telepon_pondok` varchar(15) NOT NULL,
+  `email_pondok` varchar(255) NOT NULL,
+  `lokasi_pondok` text NOT NULL,
+  `sejarah` text NOT NULL,
+  `visi` text NOT NULL,
+  `misi` text NOT NULL,
+  `struktur_pondok` varchar(255) NOT NULL,
+  `peraturan_pondok` text NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Dumping data untuk tabel `profil`
 --
 
 INSERT INTO `profil` (`id`, `logo`, `nama_aplikasi`, `nama_pondok`, `alamat_pondok`, `telepon_pondok`, `email_pondok`, `lokasi_pondok`, `sejarah`, `visi`, `misi`, `struktur_pondok`, `peraturan_pondok`, `created_at`, `updated_at`) VALUES
-(1, '1680861998_872c521f703ffe240828.png', 'Ponpes', 'Ponpes Madinatul U\'lum', 'VGCM+F3X, Pamenang, Merangin Regency, Jambi 37352', '0820983923', 'ponpesmadinatul@gmail.com', 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d15948.259472377551!2d102.53273770000003!3d-2.1287507999999966!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e2e38d4657ddcdb%3A0x5f3704b8d0d00e42!2sPONDOK%20PESANTREN%20MADINATU%20\'ULUM%20KEMANG%20MANIS%20PAMENANG!5e0!3m2!1sen!2sid!4v1680817848874!5m2!1sen!2sid', '<p style=\"margin-bottom: 15px; line-height: 1.7; font-size: 18px; color: rgb(48, 48, 48); font-family: Amiri !important;\">Sejarah pendidikan di Indonesia mencatat, bahwa pondok pesantren merupakan bentuk lembaga pendidikan pribumi tertua di Indonesia. Ada dua pendapat mengenai awal berdirinya pondok pesantren di Indonesia. Pendapat pertama menyebutkan bahwa pondok pesantren berakar pada tradisi Islam sendiri, dan pendapat kedua mengatakan bahwa sistem pendidikan model pondok pesantren adalah asli Indonesia.</p><p style=\"margin-bottom: 15px; line-height: 1.7; font-size: 18px; color: rgb(48, 48, 48); font-family: Amiri !important;\">Menurut pendapat pertama ada dua versi, yang berpendapat bahwa pondok pesantren berawal sejak zaman Nabi masih hidup. Dalam awal-awal dakwahnya, Nabi melakukan dengan sembunyi-sembunyi dengan peserta sekelompok orang, dilakukan di rumah-rumah, seperti yang tercatat di dalam sejarah, salah satunya adalah rumah Arqam bin Abu Arqam. Sekelompok orang yang tergolong dalam As-Sabiqunal Awwalun inilah yang kelak menjadi perintis dan pembuka jalan penyebaran agama Islam di Arab, Afrika, dan akhirnya menyebar ke seluruh dunia.</p><p style=\"margin-bottom: 15px; line-height: 1.7; font-size: 18px; color: rgb(48, 48, 48); font-family: Amiri !important;\">Versi kedua menyebutkan bahwa pondok pesantren mempunyai kaitan yang erat dengan tempat pendidikan yang khas bagi kaum sufi. Pendapat ini berdasarkan fakta bahwa penyiaran Islam di Indonesia pada awalnya lebih banyak dikenal dalam bentuk kegiatan tarekat yang melaksanakan amalan-amalan dzikir dan wirid tertentu.&nbsp;Pemimpin tarekat itu disebut kiai, yang mewajibkan pengikutnya melakukan suluk selama 40 hari dalam satu tahun dengan cara tinggal bersama sesama&nbsp;anggota tarekat dalam sebuah masjid untuk melakukan ibadah-ibadah di bawah bimbingan kiai. Untuk keperluan suluk ini, para&nbsp;kiai menyediakan ruangan khusus untuk penginapan dan tempat memasak yang terdapat di kiri kanan masjid.</p><p style=\"margin-bottom: 15px; line-height: 1.7; font-size: 18px; color: rgb(48, 48, 48); font-family: Amiri !important;\">Pendapat kedua mengatakan, pondok pesantren yang dikenal saat ini pada mulanya merupakan pengambilalihan dari sistem pondok pesantren yang diadakan orang-orang Hindu di Nusantara. Hal ini didasarkan pada fakta bahwa jauh sebelum datangnya Islam ke Indonesia, lembaga pondok pesantren pada masa itu dimaksudkan sebagai tempat mengajarkan ajaranajaran agama Hindu.</p><p style=\"margin-bottom: 15px; line-height: 1.7; font-size: 18px; color: rgb(48, 48, 48); font-family: Amiri !important;\">Pondok pesantren di Indonesia baru diketahui keberadaan dan perkembangannya setelah abad ke-16. Karya-karya Jawa Klasik seperti Serat Cobolek dan Serat Centini mengungkapkan dijumpai lembaga-lembaga yang mengajarkan berbagai kitab Islam Klasik dalam bidang Fiqih, Tasawuf, dan menjadi pusat-pusat penyiaran Islam yaitu pondok pesantren.</p>', '<p>visi</p><p>sda fdsaf d</p><p>asd&nbsp;</p>', '<p>misi</p><p>dsa fsda f</p><p>&nbsp;asdf sda df a</p><p>f das</p>', '1680803378_132c59f7e7efb7574098.png', '<ol><li>peraturan 1</li></ol>', '2023-04-06 17:08:53', '2023-04-10 15:29:51');
+(1, '1680861998_872c521f703ffe240828.png', 'Ponpes', 'Ponpes Madinatul U\'lum', 'VGCM+F3X, Pamenang, Merangin Regency, Jambi 37352', '0820983923', 'ponpesmadinatul@gmail.com', 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d15948.259472377551!2d102.53273770000003!3d-2.1287507999999966!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e2e38d4657ddcdb%3A0x5f3704b8d0d00e42!2sPONDOK%20PESANTREN%20MADINATU%20\'ULUM%20KEMANG%20MANIS%20PAMENANG!5e0!3m2!1sen!2sid!4v1680817848874!5m2!1sen!2sid', '<p style=\"margin-bottom: 15px; line-height: 1.7; font-size: 18px; color: rgb(48, 48, 48); font-family: Amiri !important;\">Pondok Pesantren Madinatul „Ulum didirikan pada tanggal 16 September \r\n2012 dengan dana Swadaya Masyarakat Kelurahan Pamenang. Tanah yang di \r\ngunakan oleh Pesantren ini merupakan wakaf dari H. Sulaiman Abdul Rauf dan \r\nsekarang sudah menjadi milik Yayasan Pendidikan Madinatul Ulum.Berdirinya \r\nPondok Pesantren ini atas permintaan masyarakat Pamenang agar adanya lembaga \r\npendidikan berbasis pesantren di Kecamatan Pamenang khususnya di Kelurahan \r\nPamenang, sehingga masyarakat tidak lagi harus menempuh jarak yang jauh \r\napabila hendak memasukan anaknya ke Pondok Pesantren.</p><p style=\"margin-bottom: 15px; line-height: 1.7; font-size: 18px; color: rgb(48, 48, 48); font-family: Amiri !important;\">&nbsp; &nbsp; &nbsp;Alasan yang kuat mengapa pondok pesantren modern madinatul‟ulum \r\ndidirikan pertama, khususnya wilayah pamenang itu banyak pondok yang \r\nsalafiyah ketika itu ada 2 pondok salfiyah di pamenang ini. Saya melihat di \r\npamenang ini belum ada pondok yang asriyah atau modern maka dari itu saya \r\ningin mendirikan pondok pesantren ini menjadi pondok pesantren yang modern \r\nberbeda dari yang lainnya.kedua, pondok pesantren ini didirikan atas swadaya \r\nmasyarakat di kecamatan pamennang karna waktu itu kami tidak memiliki dana \r\nyang banyak untuk mendirikan pondok pesantren ini.&nbsp;</p>', 'Menjadi lembaga pendidikan Islam yang berkualitas sebagai \r\nkontributor terdepan dalam mencetak sumber daya muslim yang sholeh, \r\nmuslih (reformer) dan kader ummat dan khusyu‟ berzikir, cerdas berpikir \r\ndan terampil dalam ilmu kemasyarakatan.', '<p>a. Transformasi ilmu pengetahuan.\r\n</p><p>b. Menanamkan akhlakul karimah dan nilai-nilai Islam.\r\n</p><p>c. Berakidah benar sesuai dengan manhaj Ahlu Sunnah Wal Jama’ah.\r\n</p><p>d. Mampu berkomunikasi dalam bahasa Arab dan Inggris.\r\n</p><p>e. Memiliki talenta dalam berda‟wah dan mengarahkan masyarakat \r\nmenuju kehidupan yang Islami.\r\n</p><p>f. Menghasilkan siswa siswi yang teladan dan berakhlakul karimah.\r\n</p><p>g. Mencetak siswa siswi yang terampil dalam ilmu kemasyarakatan baik \r\nagama maupun umum.&nbsp;</p>', '1684292870_02e344d6422f38fe4cf2.png', '<ol><li>peraturan 1</li></ol>', '2023-05-16 20:07:50', '2023-05-17 03:07:50');
 
 -- --------------------------------------------------------
 
@@ -205,9 +262,18 @@ CREATE TABLE `santri` (
   `wali` varchar(100) COLLATE utf8mb4_general_ci NOT NULL,
   `tempat_lahir` varchar(20) COLLATE utf8mb4_general_ci NOT NULL,
   `tgl_lahir` date NOT NULL,
+  `jenjang_sekolah` varchar(5) COLLATE utf8mb4_general_ci NOT NULL,
   `created_at` timestamp NOT NULL,
   `updated_at` timestamp NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data untuk tabel `santri`
+--
+
+INSERT INTO `santri` (`nis`, `nama_santri`, `jk`, `tgl_masuk`, `alamat_lengkap`, `status`, `no_telp_wali`, `wali`, `tempat_lahir`, `tgl_lahir`, `jenjang_sekolah`, `created_at`, `updated_at`) VALUES
+('12345678922', 'Santri', 'L', '2023-05-22', 'dsafasdf', 'Aktif', 832984324, 'wali', 'Jambi', '2023-05-22', 'MA', '2023-05-22 14:11:44', '2023-05-22 14:11:44'),
+('2147483647', 'Santri3333', 'L', '2022-05-23', 'sdfsadf', 'Aktif', 2147483647, 'wali', 'jambi', '2023-05-22', 'MA', '2023-05-22 14:12:36', '2023-05-22 14:12:36');
 
 -- --------------------------------------------------------
 
@@ -257,7 +323,7 @@ CREATE TABLE `ustadz` (
 --
 
 INSERT INTO `ustadz` (`kd_ustadz`, `nama_ustadz`, `jk`, `status`, `alamat`, `tgl_lahir`, `no_telp`, `created_at`, `updated_at`) VALUES
-('abcdddd', 'abcddddd', 'L', 'Aktif', 'aafds', '2023-04-04', 123456222, '2023-04-02 05:04:47', '2023-04-11 16:30:20');
+('abcdddd', 'abdef', 'L', 'Aktif', 'aafds', '2023-04-04', 123456222, '2023-04-02 05:04:47', '2023-05-22 13:31:13');
 
 --
 -- Indexes for dumped tables
@@ -282,6 +348,18 @@ ALTER TABLE `kegiatan`
   ADD PRIMARY KEY (`id_kegiatan`);
 
 --
+-- Indeks untuk tabel `kegiatan_keasramaan`
+--
+ALTER TABLE `kegiatan_keasramaan`
+  ADD PRIMARY KEY (`id_kegiatan_keasramaan`);
+
+--
+-- Indeks untuk tabel `nilai_keasramaan`
+--
+ALTER TABLE `nilai_keasramaan`
+  ADD PRIMARY KEY (`id_nilai_keasramaan`);
+
+--
 -- Indeks untuk tabel `pendaftaran`
 --
 ALTER TABLE `pendaftaran`
@@ -292,12 +370,6 @@ ALTER TABLE `pendaftaran`
 --
 ALTER TABLE `pengumuman`
   ADD PRIMARY KEY (`id_pengumuman`);
-
---
--- Indeks untuk tabel `profil`
---
-ALTER TABLE `profil`
-  ADD PRIMARY KEY (`id`);
 
 --
 -- Indeks untuk tabel `santri`
@@ -338,6 +410,18 @@ ALTER TABLE `galery`
 --
 ALTER TABLE `kegiatan`
   MODIFY `id_kegiatan` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+
+--
+-- AUTO_INCREMENT untuk tabel `kegiatan_keasramaan`
+--
+ALTER TABLE `kegiatan_keasramaan`
+  MODIFY `id_kegiatan_keasramaan` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- AUTO_INCREMENT untuk tabel `nilai_keasramaan`
+--
+ALTER TABLE `nilai_keasramaan`
+  MODIFY `id_nilai_keasramaan` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT untuk tabel `pengumuman`

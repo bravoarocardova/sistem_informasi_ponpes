@@ -119,10 +119,10 @@ class Home extends BaseController
       ],
       'nama' => [
         'label' => 'Nama Calon Santri',
-        'rules' => 'required|min_length[4]|max_length[100]',
+        'rules' => 'required|min_length[2]|max_length[100]',
         'errors' => [
           'required' => '{field} Harus diisi',
-          'min_length' => '{field} Minimal 4 Karakter',
+          'min_length' => '{field} Minimal 2 Karakter',
           'max_length' => '{field} Maksimal 100 Karakter',
         ],
       ],
@@ -200,6 +200,15 @@ class Home extends BaseController
           'max_length' => '{field} Maksimal 100 Karakter',
         ],
       ],
+      'jenjang_sekolah' => [
+        'label' => 'Jenjang Sekolah',
+        'rules' => 'required|min_length[1]|max_length[5]',
+        'errors' => [
+          'required' => '{field} Harus diisi',
+          'min_length' => '{field} Minimal 1 Karakter',
+          'max_length' => '{field} Maksimal 5 Karakter',
+        ],
+      ],
     ];
 
     return $ruleCalonSantri;
@@ -221,7 +230,7 @@ class Home extends BaseController
 
         $newPhoto = $photo->getRandomName();
 
-        $id_pendaftaran = createInvoice('PDS-', $this->pendaftaranM, 'id_pendaftaran');
+        $id_pendaftaran = createInvoice('PDS-', $this->pendaftaranM, 'id_pendaftaran', 4);
         $data = [
           'id_pendaftaran' => $id_pendaftaran,
           'photo' => $newPhoto,
@@ -234,16 +243,17 @@ class Home extends BaseController
           'alamat' => $post['alamat'],
           'no_telp' => $post['no_telp'],
           'email' => $post['email'],
+          'jenjang_sekolah' => $post['jenjang_sekolah'],
         ];
-        d($data);
+
         $simpan = $this->pendaftaranM->save($data);
         if ($simpan) {
           $photo->move('img/pendaftaran/', $newPhoto);
-          $type = 'success';
-          $msg = 'Berhasil tambah data.';
+          $type = 'success mb-5';
+          $msg = 'Pendaftaran Berhasil Silahkan cetak dokumen pendaftaran ini.';
         } else {
-          $type = 'danger';
-          $msg = 'Gagal tambah data.';
+          $type = 'danger mb-5';
+          $msg = 'Pendaftaran Gagal.';
         }
         return redirect()->to(base_url() . 'pendaftaran/' . $id_pendaftaran)->with('msg', myAlert($type, $msg));
       }
