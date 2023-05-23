@@ -56,7 +56,8 @@
         ['fontsize', ['fontsize']],
         ['color', ['color']],
         ['para', ['ul', 'ol', 'paragraph']],
-        ['height', ['height']]
+        ['height', ['height']],
+        ['table', ['table']]
       ],
     });
     $('#summernote').summernote('fontSize', 12);
