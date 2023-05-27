@@ -72,16 +72,6 @@
                     </tr>
                   <?php endforeach ?>
                 </tbody>
-                <tfoot>
-                  <tr>
-                    <th>HARI KEGIATAN</th>
-                    <th>KEGIATAN</th>
-                    <th>TANGGAL DIBUAT</th>
-                    <th>TANGGAL UPDATE</th>
-                    <th>AKSI</th>
-                  </tr>
-                  </tr>
-                </tfoot>
               </table>
             </div>
             <!-- /.card-body -->

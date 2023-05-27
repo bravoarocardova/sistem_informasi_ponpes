@@ -168,69 +168,123 @@
 <!-- End Pengumuman -->
 
 <!-- galeri -->
-<div class="container">
-  <div class="p-4" id="galeri">
-    <div class="card p-3 bg-light">
-      <div class="row text-center">
-        <h4 class="fw-bold ">Galeri</h4>
-        <p class="text-dark">Galeri Pondok kami</p>
-      </div>
+<div class="container mt-4" id="galeri">
+  <div class="p-3 card bg-light">
+    <div class="row text-center">
+      <h4 class="fw-bold ">Galeri</h4>
+      <p class="text-dark">Galeri Pondok kami</p>
     </div>
-    <div class="row mt-2">
-      <?php foreach ($galery as $r) : ?>
-        <div class="col-12  col-md-6 col-lg-4 ">
-          <div class="card mb-2">
-            <div class="text-center">
-              <img src="<?= base_url() . 'img/galery/' . $r['file'] ?>" class="img-fluid card-img-top rounded" style="min-height:200px; max-height:200px; object-fit:fill">
-              <h6 class="p-2"><?= $r['caption'] ?></h6>
-            </div>
+  </div>
+  <div class="row mt-2">
+    <?php foreach ($galery as $r) : ?>
+      <div class="col-12  col-md-6 col-lg-4 ">
+        <div class="card mb-2">
+          <div class="text-center">
+            <img src="<?= base_url() . 'img/galery/' . $r['file'] ?>" class="img-fluid card-img-top rounded" style="min-height:200px; max-height:200px; object-fit:fill">
+            <h6 class="p-2"><?= $r['caption'] ?></h6>
           </div>
         </div>
-      <?php endforeach ?>
-    </div>
+      </div>
+    <?php endforeach ?>
   </div>
 </div>
 <!-- end galeri -->
 
-<div class="bg-light">
-  <div class="container p-4">
-    <div class="row">
-      <div class="col-md-10 offset-md-1">
-        <div class="card p-3">
-          <div class="row text-center">
-            <h4 class="fw-bold ">Lokasi</h4>
-            <p class="text-dark">Lokasi Pondok kami</p>
-          </div>
-        </div>
-        <div class="row mt-4">
-          <div class="col-md-8">
-            <iframe src="<?= $profilApp['lokasi_pondok'] ?>" width="100%" height="300" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-          </div>
-          <div class="col-md-4">
-            <div class="row">
-              <h5 class="fw-bolder ">Alamat</h5>
-              <p class="">
-                <?= $profilApp['alamat_pondok'] ?>
-              </p>
-            </div>
-            <div class="row">
-              <h5 class="fw-bolder ">Kontak</h5>
-              <p class="">
-                <i class="fa fa-phone"></i>
-                <?= $profilApp['telepon_pondok'] ?>
-              </p>
-              <p class="">
-                <i class="fa fa-envelope"></i>
-                <?= $profilApp['email_pondok'] ?>
-              </p>
-            </div>
-          </div>
-        </div>
-
+<!-- Perbandingan Siswa -->
+<div class="bg-light p-3">
+  <div class="container mt-4" id="perbandingan_siswa">
+    <div class="p-3 card">
+      <div class="row text-center">
+        <h4 class="fw-bold ">Perbandingan Siswa</h4>
+        <p class="text-dark">Grafik Perbandingan Siswa MA dan MTS</p>
+      </div>
+    </div>
+    <div class="row mt-2 d-flex justify-content-center">
+      <div class="col-5">
+        <canvas id="perbandingan" width="100" height="100"></canvas>
       </div>
     </div>
   </div>
+</div>
+<!-- end Perbandingan Siswa -->
 
+<div class="container p-4">
+  <div class="row">
+    <div class="col-md-10 offset-md-1">
+      <div class="card bg-light p-3">
+        <div class="row text-center">
+          <h4 class="fw-bold ">Lokasi</h4>
+          <p class="text-dark">Lokasi Pondok kami</p>
+        </div>
+      </div>
+      <div class="row mt-4">
+        <div class="col-md-8">
+          <iframe src="<?= $profilApp['lokasi_pondok'] ?>" width="100%" height="300" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+        </div>
+        <div class="col-md-4">
+          <div class="row">
+            <h5 class="fw-bolder ">Alamat</h5>
+            <p class="">
+              <?= $profilApp['alamat_pondok'] ?>
+            </p>
+          </div>
+          <div class="row">
+            <h5 class="fw-bolder ">Kontak</h5>
+            <p class="">
+              <i class="fa fa-phone"></i>
+              <?= $profilApp['telepon_pondok'] ?>
+            </p>
+            <p class="">
+              <i class="fa fa-envelope"></i>
+              <?= $profilApp['email_pondok'] ?>
+            </p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
 </div>
 
+<?= $this->endSection() ?>
+
+<?= $this->section('script') ?>
+<?php
+$santri_data['jenjang_sekolah'] = [];
+$santri_data['jumlah'] = [];
+foreach ($santri as $s) {
+  $santri_data['jenjang_sekolah'][] = $s['jenjang_sekolah'];
+  $santri_data['jumlah'][] = $s['jumlah'];
+}
+
+?>
+<script>
+  var ctx = document.getElementById('perbandingan');
+  var myChart = new Chart(ctx, {
+    type: 'pie',
+    data: {
+      labels: <?= json_encode($santri_data['jenjang_sekolah']) ?>,
+      datasets: [{
+
+        data: <?= json_encode($santri_data['jumlah']) ?>,
+        backgroundColor: [
+          'rgba(54, 162, 235, 0.2)',
+          'rgba(255, 206, 86, 0.2)',
+        ],
+        borderColor: [
+          'rgba(54, 162, 235, 1)',
+          'rgba(255, 206, 86, 1)',
+        ],
+        borderWidth: 1
+      }]
+    },
+    options: {
+      scales: {
+        yAxes: [{
+          display: false,
+        }]
+      }
+    }
+  });
+</script>
 <?= $this->endSection() ?>

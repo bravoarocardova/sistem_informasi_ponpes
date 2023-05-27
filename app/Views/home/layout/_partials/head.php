@@ -10,3 +10,4 @@
 <link href="<?= base_url() ?>css/home.css" rel="stylesheet">
 
 <link rel="stylesheet" href="<?= base_url() ?>plugins/fontawesome-free/css/all.min.css">
+<link rel="stylesheet" href="<?= base_url() ?>plugins/chart.js/Chart.min.css">

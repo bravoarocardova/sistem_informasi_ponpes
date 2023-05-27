@@ -2,6 +2,7 @@
 
 <!-- Option 1: Bootstrap Bundle with Popper -->
 <script src="<?= base_url() ?>js/bootstrap.bundle.min.js"></script>
+<script src="<?= base_url() ?>plugins/chart.js/Chart.min.js"></script>
 
 <script type="text/javascript">
   document.addEventListener("DOMContentLoaded", function() {

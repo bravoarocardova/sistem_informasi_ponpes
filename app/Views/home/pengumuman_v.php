@@ -6,8 +6,8 @@
   <div class="container">
     <div class="card p-3 bg-light">
       <div class="row text-center">
-        <h4 class="fw-bold ">Pengumuman</h4>
-        <p class="text-dark">Pengumuman Pondok kami</p>
+        <h4 class="fw-bold ">Pengumuman <?= $kategori ?></h4>
+        <p class="text-dark">Pengumuman <?= $kategori ?> Pondok kami</p>
       </div>
     </div>
     <div class="row mt-2">

@@ -80,16 +80,6 @@
                     </tr>
                   <?php endforeach ?>
                 </tbody>
-                <tfoot>
-                  <tr>
-                    <th>SANTRI</th>
-                    <th>NILAI</th>
-                    <th>KETERANGAN</th>
-                    <th>TANGGAL DIBUAT</th>
-                    <th>TANGGAL UPDATE</th>
-                    <th>AKSI</th>
-                  </tr>
-                </tfoot>
               </table>
             </div>
             <!-- /.card-body -->

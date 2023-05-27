@@ -48,6 +48,7 @@
                     <th>JUDUL</th>
                     <th>ISI</th>
                     <th>PENULIS</th>
+                    <th>KATEGORI</th>
                     <th>TANGGAL UPDATE</th>
                     <th>AKSI</th>
                   </tr>
@@ -62,6 +63,7 @@
                       <td><?= $r['judul'] ?></td>
                       <td><?= $r['isi'] ?></td>
                       <td><?= $r['penulis'] ?></td>
+                      <td><?= $r['kategori'] ?></td>
                       <td><?= $r['updated_at'] ?></td>
                       <td>
                         <a href="<?= base_url() ?>admin/pengumuman/edit/<?= $r['id_pengumuman'] ?>" class="btn btn-warning" title="edit">
@@ -78,17 +80,7 @@
                     </tr>
                   <?php endforeach ?>
                 </tbody>
-                <tfoot>
-                  <tr>
-                    <th>TANGGAL DIBUAT</th>
-                    <th>Gambar</th>
-                    <th>JUDUL</th>
-                    <th>ISI</th>
-                    <th>PENULIS</th>
-                    <th>TANGGAL UPDATE</th>
-                    <th>AKSI</th>
-                  </tr>
-                </tfoot>
+
               </table>
             </div>
             <!-- /.card-body -->
@@ -109,7 +101,7 @@
       "autoWidth": false,
       "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"],
       "columnDefs": [{
-        "targets": [1, 3, 5],
+        "targets": [1, 3, 6],
         "visible": false
 
       }]

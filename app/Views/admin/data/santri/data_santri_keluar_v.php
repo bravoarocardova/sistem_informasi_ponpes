@@ -92,23 +92,6 @@
                     </tr>
                   <?php endforeach ?>
                 </tbody>
-                <tfoot>
-                  <tr>
-                    <th>NIS</th>
-                    <th>NAMA SANTRI</th>
-                    <th>JK</th>
-                    <th>TGL MASUK</th>
-                    <th>ALAMAT LENGKAP</th>
-                    <th>STATUS</th>
-                    <th>WALI</th>
-                    <th>NO TELP WALI</th>
-                    <th>TEMPAT LAHIR</th>
-                    <th>TANGGAL LAHIR</th>
-                    <th>TANGGAL DIBUAT</th>
-                    <th>TANGGAL UPDATE</th>
-                    <th>AKSI</th>
-                  </tr>
-                </tfoot>
               </table>
             </div>
             <!-- /.card-body -->
@@ -176,23 +159,6 @@
               </tr>
             <?php endforeach ?>
           </tbody>
-          <tfoot>
-            <tr>
-              <th>NIS</th>
-              <th>NAMA SANTRI</th>
-              <th>JK</th>
-              <th>TGL MASUK</th>
-              <th>ALAMAT LENGKAP</th>
-              <th>STATUS</th>
-              <th>WALI</th>
-              <th>NO TELP WALI</th>
-              <th>TEMPAT LAHIR</th>
-              <th>TANGGAL LAHIR</th>
-              <th>TANGGAL DIBUAT</th>
-              <th>TANGGAL UPDATE</th>
-              <th>AKSI</th>
-            </tr>
-          </tfoot>
         </table>
       </div>
       <div class="modal-footer justify-content-between">

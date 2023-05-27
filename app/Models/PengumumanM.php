@@ -13,7 +13,7 @@ class PengumumanM extends Model
 
   protected $returnType     = 'array';
 
-  protected $allowedFields = ['judul',  'isi',  'gambar',  'penulis'];
+  protected $allowedFields = ['judul',  'isi',  'gambar',  'penulis', 'kategori'];
 
   // Dates
   protected $useTimestamps = true;

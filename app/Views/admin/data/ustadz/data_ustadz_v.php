@@ -103,20 +103,6 @@
                     </tr>
                   <?php endforeach ?>
                 </tbody>
-                <tfoot>
-                  <tr>
-                    <th>KODE USTADZ</th>
-                    <th>NAMA USTADZ</th>
-                    <th>JK</th>
-                    <th>ALAMAT LENGKAP</th>
-                    <th>STATUS</th>
-                    <th>NO TELP</th>
-                    <th>TANGGAL LAHIR</th>
-                    <th>TANGGAL DIBUAT</th>
-                    <th>TANGGAL UPDATE</th>
-                    <th>AKSI</th>
-                  </tr>
-                </tfoot>
               </table>
             </div>
             <!-- /.card-body -->

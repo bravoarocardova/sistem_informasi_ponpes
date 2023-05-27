@@ -16,6 +16,7 @@
 
 
   <?= $this->include('home/layout/_partials/js'); ?>
+  <?= $this->renderSection('script') ?>
 
 </body>
 

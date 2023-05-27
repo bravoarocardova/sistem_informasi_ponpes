@@ -6,6 +6,7 @@ use App\Models\GaleryM;
 use App\Models\KegiatanM;
 use App\Models\PendaftaranM;
 use App\Models\PengumumanM;
+use App\Models\SantriM;
 use App\Models\SlideshowM;
 
 class Home extends BaseController
@@ -26,13 +27,15 @@ class Home extends BaseController
 
   public function index()
   {
+    $santriM = new SantriM();
+
     return view('home/home_v', [
       'profilApp' => $this->profilApp,
       'slideshow' => $this->slideshowM->findAll(),
       'galery' => $this->galeryM->orderBy('id_galery', 'DESC')->findAll(6),
       'pengumuman' => $this->pengumumanM->orderBy('id_pengumuman', 'DESC')->findAll(4),
       'pengumuman_aside' => $this->pengumumanM->orderBy('id_pengumuman', 'RANDOM')->findAll(5),
-
+      'santri' => $santriM->select('jenjang_sekolah, count(*) as jumlah')->groupBy('jenjang_sekolah')->find(),
     ]);
   }
 
@@ -48,8 +51,26 @@ class Home extends BaseController
   {
     return view('home/pengumuman_v', [
       'profilApp' => $this->profilApp,
-      'pengumuman' => $this->pengumumanM->orderBy('id_pengumuman', 'DESC')->findAll()
+      'pengumuman' => $this->pengumumanM->orderBy('id_pengumuman', 'DESC')->findAll(),
+      'kategori' => ''
+    ]);
+  }
 
+  public function pengumuman_berita()
+  {
+    return view('home/pengumuman_v', [
+      'profilApp' => $this->profilApp,
+      'pengumuman' => $this->pengumumanM->where('kategori', 'berita')->orderBy('id_pengumuman', 'DESC')->findAll(),
+      'kategori' => 'Berita'
+    ]);
+  }
+
+  public function pengumuman_kelulusan()
+  {
+    return view('home/pengumuman_v', [
+      'profilApp' => $this->profilApp,
+      'pengumuman' => $this->pengumumanM->where('kategori', 'kelulusan')->orderBy('id_pengumuman', 'DESC')->findAll(),
+      'kategori' => 'Kelulusan'
     ]);
   }
 

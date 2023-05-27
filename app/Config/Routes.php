@@ -32,6 +32,8 @@ $routes->set404Override();
 $routes->get('/', 'Home::index');
 $routes->get('/galery', 'Home::galery');
 $routes->get('/pengumuman', 'Home::pengumuman');
+$routes->get('/pengumuman/berita', 'Home::pengumuman_berita');
+$routes->get('/pengumuman/kelulusan', 'Home::pengumuman_kelulusan');
 $routes->get('/pengumuman/(:num)', 'Home::detail_pengumuman/$1');
 
 $routes->get('/sejarah', 'Home::sejarah');

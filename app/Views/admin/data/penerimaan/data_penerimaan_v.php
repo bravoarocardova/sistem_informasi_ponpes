@@ -110,27 +110,6 @@
                     </tr>
                   <?php endforeach ?>
                 </tbody>
-                <tfoot>
-                  <tr>
-                    <th>TERIMA</th>
-                    <th>ID PENDAFTARAN</th>
-                    <th>NAMA</th>
-                    <th>PHOTO</th>
-                    <th>JK</th>
-                    <th>NO TELP</th>
-                    <th>EMAIL</th>
-                    <th>TEMPAT LAHIR</th>
-                    <th>TANGGAL LAHIR</th>
-                    <th>ALAMAT LENGKAP</th>
-                    <th>ASAL SEKOLAH</th>
-                    <th>PENANGGUNG JAWAB</th>
-                    <th>LULUS TAHUN</th>
-                    <th>STATUS</th>
-                    <th>TANGGAL DIBUAT</th>
-                    <th>TANGGAL UPDATE</th>
-                    <th>AKSI</th>
-                  </tr>
-                </tfoot>
               </table>
             </div>
             <!-- /.card-body -->

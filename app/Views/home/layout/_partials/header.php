@@ -18,10 +18,18 @@
             <li><a class="dropdown-item" href="<?= base_url() . 'peraturan-pondok' ?>">Peraturan Pondok</a></li>
           </ul>
         </li>
-        <li class="nav-item"><a href="<?= base_url() . 'pengumuman' ?>" class="nav-link <?= ($uri->getSegment(1) == 'pengumuman') ? 'link-secondary' : 'link-dark' ?>">Pengumuman</a></li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle <?= ($uri->getSegment(1) == 'pengumuman') ? 'link-secondary' : 'link-dark' ?>" href="#" id="dropdown04" data-bs-toggle="dropdown" aria-expanded="false">Pengumuman</a>
+          <ul class="dropdown-menu" aria-labelledby="dropdown04">
+            <li><a class="dropdown-item" href="<?= base_url() . 'pengumuman' ?>">Semua</a></li>
+            <li><a class="dropdown-item" href="<?= base_url() . 'pengumuman/berita' ?>">Berita</a></li>
+            <li><a class="dropdown-item" href="<?= base_url() . 'pengumuman/kelulusan' ?>">Kelulusan</a></li>
+          </ul>
+        </li>
         <li class="nav-item"><a href="<?= base_url() . 'pendaftaran' ?>" class="nav-link <?= ($uri->getSegment(1) == 'pendaftaran') ? 'link-secondary' : 'link-dark' ?>">Pendaftaran</a></li>
         <li class="nav-item"><a href="<?= base_url() . 'kegiatan' ?>" class="nav-link <?= ($uri->getSegment(1) == 'kegiatan') ? 'link-secondary' : 'link-dark' ?>">Kegiatan</a></li>
         <li class="nav-item"><a href="<?= base_url() . 'galery' ?>" class="nav-link <?= ($uri->getSegment(1) == 'galery') ? 'link-secondary' : 'link-dark' ?>">Galeri</a></li>
+        <li class="nav-item"><a href="<?= base_url() . 'login' ?>" class="nav-link link-dark "><i class="fa fa-sign-in-alt"></i> Login</a></li>
       </ul>
     </div>
   </nav>

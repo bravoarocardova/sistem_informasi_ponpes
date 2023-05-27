@@ -66,6 +66,20 @@
                         <?= validation_show_error('isi') ?>
                       </div>
                     </div>
+                    <div class="mb-3">
+                      <label for="" class="form-label">Kategori</label>
+                      <div class="form-check ">
+                        <input type="radio" class="form-check-input <?= validation_show_error('kategori') ? 'is-invalid' : '' ?>" id="kategori2" name="kategori" value="berita" oninvalid="this.setCustomValidity('Pilih Salah Satu')" <?= (old('kategori', $pengumuman['kategori']) == 'berita' ? 'checked' : '') ?> checked>
+                        <label class="form-check-label" for="kategori2">Berita</label>
+                      </div>
+                      <div class="form-check mb-3">
+                        <input type="radio" class="form-check-input <?= validation_show_error('kategori') ? 'is-invalid' : '' ?>" id="kategori3" name="kategori" value="kelulusan" oninvalid="this.setCustomValidity('Pilih Salah Satu')" <?= (old('kategori', $pengumuman['kategori']) == 'kelulusan' ? 'checked' : '') ?>>
+                        <label class="form-check-label" for="kategori3">Kelulusan</label>
+                        <div class="invalid-feedback">
+                          <?= validation_show_error('kategori') ?>
+                        </div>
+                      </div>
+                    </div>
                   </div>
                 </div>
                 <a href="javascript:history.back()" class="btn btn-danger">Cancel</a>

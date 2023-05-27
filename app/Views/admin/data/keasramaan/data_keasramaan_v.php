@@ -75,16 +75,6 @@
                     </tr>
                   <?php endforeach ?>
                 </tbody>
-                <tfoot>
-                  <tr>
-                    <th>KEGIATAN KEASRAMAAN</th>
-                    <th>KODE USTADZ</th>
-                    <th>TANGGAL DIBUAT</th>
-                    <th>TANGGAL UPDATE</th>
-                    <th>AKSI</th>
-                  </tr>
-                  </tr>
-                </tfoot>
               </table>
             </div>
             <!-- /.card-body -->

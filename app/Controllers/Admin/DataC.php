@@ -232,6 +232,14 @@ class DataC extends BaseController
           'min_length' => '{field} Minimal 1 Karakter',
         ],
       ],
+      'kategori' => [
+        'label' => 'Kategori',
+        'rules' => 'required|min_length[1]',
+        'errors' => [
+          'required' => '{field} Harus diisi',
+          'min_length' => '{field} Minimal 1 Karakter',
+        ],
+      ],
     ];
 
     return $rulePengumuman;
@@ -735,6 +743,7 @@ class DataC extends BaseController
         'isi' => $post['isi'],
         'gambar' => $newGambar,
         'penulis' => session()->get('admin')['nama'],
+        'kategori' => $post['kategori'],
       ];
 
       $simpan = $this->pengumumanM->save($data);
@@ -781,6 +790,7 @@ class DataC extends BaseController
         'judul' => $post['judul'],
         'isi' => $post['isi'],
         'penulis' => session()->get('admin')['nama'],
+        'kategori' => $post['kategori'],
       ];
       if ($gambar->isValid()) {
         $newGambar = $gambar->getRandomName();
