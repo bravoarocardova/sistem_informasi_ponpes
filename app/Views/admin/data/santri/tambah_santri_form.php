@@ -49,6 +49,14 @@
                       </div>
                     </div>
                     <div class="mb-3">
+                      <label class="form-label" for="password">Password</label>
+                      <input type="password" class="form-control <?= validation_show_error('password') ? 'is-invalid' : '' ?>" id="password" name="password" placeholder="Password" value="<?= old('password') ?>">
+                      <div class="invalid-feedback">
+                        <?= validation_show_error('password')
+                        ?>
+                      </div>
+                    </div>
+                    <div class="mb-3">
                       <label class="form-label" for="inputnama_santri">Nama Santri</label>
                       <input type="text" class="form-control <?= validation_show_error('nama_santri') ? 'is-invalid' : '' ?>" id="inputnama_santri" name="nama_santri" placeholder="Nama Santri" value="<?= old('nama_santri') ?>">
                       <div class="invalid-feedback">

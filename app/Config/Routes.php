@@ -44,6 +44,17 @@ $routes->add('/pendaftaran', 'Home::pendaftaran');
 $routes->get('/pendaftaran/(:segment)', 'Home::detail_pendaftaran/$1');
 $routes->get('/kegiatan', 'Home::kegiatan');
 
+$routes->add('/login', 'Santri::login');
+$routes->add('/logout', 'Santri::logout');
+
+// Santri
+$routes->group('santri', ['filter' => 'isLoggedInSantri'], function ($routes) {
+  $routes->get('dashboard', 'Santri');
+  $routes->get('keasramaan', 'Santri::keasramaan');
+  $routes->get('pengguna', 'Santri::pengguna');
+  $routes->put('pengguna', 'Santri::edit_pengguna');
+});
+
 
 // Admin
 

@@ -48,6 +48,13 @@
                       </div>
                     </div>
                     <div class="mb-3">
+                      <label class="form-label" for="password">Password (kosongkan jika tidak ingin diubah)</label>
+                      <input type="password" class="form-control <?= validation_show_error('password') ? 'is-invalid' : '' ?>" id="password" name="password" placeholder="Password" value="">
+                      <div class="invalid-feedback">
+                        <?= validation_show_error('password') ?>
+                      </div>
+                    </div>
+                    <div class="mb-3">
                       <label class="form-label" for="inputnama_santri">Nama Santri</label>
                       <input type="text" class="form-control <?= validation_show_error('nama_santri') ? 'is-invalid' : '' ?>" id="inputnama_santri" name="nama_santri" placeholder="Nama Santri" value="<?= old('nama_santri', $santri['nama_santri']) ?>">
                       <div class=" invalid-feedback">
@@ -113,6 +120,20 @@
                       <input type="text" class="form-control <?= validation_show_error('no_telp_wali') ? 'is-invalid' : '' ?>" id="inputno_telp_wali" name="no_telp_wali" placeholder="No Telp Wali" value="<?= old('no_telp_wali', $santri['no_telp_wali']) ?>">
                       <div class=" invalid-feedback">
                         <?= validation_show_error('no_telp_wali') ?>
+                      </div>
+                    </div>
+                    <div class="mb-3">
+                      <label for="" class="form-label">Jenjang Sekolah</label>
+                      <div class="form-check ">
+                        <input type="radio" class="form-check-input <?= validation_show_error('jenjang_sekolah') ? 'is-invalid' : '' ?>" id="jenjang_sekolah2" name="jenjang_sekolah" value="MA" oninvalid="this.setCustomValidity('Pilih Salah Satu')" <?= (old('jenjang_sekolah', $santri['jenjang_sekolah']) == 'MA' ? 'checked' : '') ?>>
+                        <label class="form-check-label" for="jenjang_sekolah2">MA</label>
+                      </div>
+                      <div class="form-check mb-3">
+                        <input type="radio" class="form-check-input <?= validation_show_error('jenjang_sekolah') ? 'is-invalid' : '' ?>" id="jenjang_sekolah3" name="jenjang_sekolah" value="MTS" oninvalid="this.setCustomValidity('Pilih Salah Satu')" <?= (old('jenjang_sekolah', $santri['jenjang_sekolah']) == 'MTS' ? 'checked' : '') ?>>
+                        <label class="form-check-label" for="jenjang_sekolah3">MTS</label>
+                        <div class="invalid-feedback">
+                          <?= validation_show_error('jenjang_sekolah') ?>
+                        </div>
                       </div>
                     </div>
                   </div>

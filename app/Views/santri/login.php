@@ -26,11 +26,11 @@
         <a href="<?= base_url() ?>" class="h1"><?= $profilApp['nama_pondok'] ?></a>
       </div>
       <div class="card-body">
-        <p class="login-box-msg">Selamat Datang Admin</p>
+        <p class="login-box-msg">Selamat Datang Santri/Wali Santri</p>
         <?php echo session()->get('msg') ?>
         <form action="" method="post">
           <div class="input-group mb-3">
-            <input type="text" class="form-control" name="username" placeholder="Username">
+            <input type="text" class="form-control" name="nis" placeholder="Nis">
             <div class="input-group-append">
               <div class="input-group-text">
                 <span class="fas fa-user"></span>

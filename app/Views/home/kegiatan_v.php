@@ -52,14 +52,6 @@
               </tr>
             <?php endforeach ?>
           </tbody>
-          <tfoot>
-            <tr>
-              <th>HARI KEGIATAN</th>
-              <th>KEGIATAN</th>
-              <th>TANGGAL UPDATE</th>
-            </tr>
-            </tr>
-          </tfoot>
         </table>
 
       </div>
@@ -95,25 +87,7 @@
             <?php endforeach ?>
           </div>
         </div>
-        <!-- <div class="card">
-          <div class="card-title p-2 ">
-            <h3>Profil</h3>
-          </div>
-          <div class="card-body">
-            <div class="row border-top p-3">
-              <a href="<?= base_url() . 'sejarah' ?>" class="text-decoration-none link-dark">Sejarah</a>
-            </div>
-            <div class="row border-top p-3">
-              <a href="<?= base_url() . 'visi-misi' ?>" class="text-decoration-none">Visi & Misi</a>
-            </div>
-            <div class="row border-top p-3">
-              <a href="<?= base_url() . 'struktur-organisasi' ?>" class="text-decoration-none">Struktur Organisasi</a>
-            </div>
-            <div class="row border-top p-3">
-              <a href="<?= base_url() . 'peraturan-pondok' ?>" class="text-decoration-none">Peraturan Pondok</a>
-            </div>
-          </div>
-        </div> -->
+
       </div>
     </div>
   </div>

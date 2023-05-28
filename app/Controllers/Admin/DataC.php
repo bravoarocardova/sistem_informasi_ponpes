@@ -39,7 +39,7 @@ class DataC extends BaseController
     $this->nilaiKeasramaanM = new NilaiKeasramaanM();
   }
 
-  private function ruleSantri($is_unique = true)
+  private function ruleSantri($is_unique = true, $pass_req = true)
   {
 
     $ruleSantri =  [
@@ -51,6 +51,15 @@ class DataC extends BaseController
           'is_unique' => '{field} Sudah Ada',
           'numeric' => '{field} Harus Angka'
         ]
+      ],
+      'password' => [
+        'label' => 'Password',
+        'rules' => ($pass_req) ? 'required|min_length[4]|max_length[100]' : 'max_length[0]',
+        'errors' => [
+          'required' => '{field} Harus diisi',
+          'min_length' => '{field} Minimal 4 Karakter',
+          'max_length' => '{field} Maksimal 100 Karakter',
+        ],
       ],
       'nama_santri' => [
         'label' => 'Nama Santri',
@@ -491,7 +500,10 @@ class DataC extends BaseController
         'no_telp_wali' => $post['no_telp_wali'],
         'wali' => $post['wali'],
         'jenjang_sekolah' => $post['jenjang_sekolah'],
+        'password' => password_hash($post['password'], PASSWORD_DEFAULT),
       ];
+
+
       $simpan = $this->santriM->save($data);
       if ($simpan) {
         $type = 'success';
@@ -522,7 +534,12 @@ class DataC extends BaseController
       $is_unique = false;
     }
 
-    if (!$this->validate($this->ruleSantri($is_unique))) {
+    $pass_req = false;
+    if ($post['password']) {
+      $pass_req = true;
+    }
+
+    if (!$this->validate($this->ruleSantri($is_unique, $pass_req))) {
       return redirect()->back()->withInput();
     } else {
 
@@ -538,6 +555,12 @@ class DataC extends BaseController
         'wali' => $post['wali'],
         'jenjang_sekolah' => $post['jenjang_sekolah'],
       ];
+
+      if ($pass_req) {
+        $data['password'] = password_hash($post['password'], PASSWORD_DEFAULT);
+      }
+
+      // dd($data);
 
       $simpan = $this->santriM->update(['nis' => $nis], $data);
       if ($simpan) {
@@ -689,10 +712,10 @@ class DataC extends BaseController
       $simpan = $this->ustadzM->update(['kd_ustadz' => $kd_ustadz], $data);
       if ($simpan) {
         $type = 'success';
-        $msg = 'Berhasil tambah data.';
+        $msg = 'Berhasil ubah data.';
       } else {
         $type = 'danger';
-        $msg = 'Gagal tambah data.';
+        $msg = 'Gagal ubah data.';
       }
       return redirect()->to(base_url() . 'admin/data/ustadz')->with('msg', myAlert($type, $msg));
     }

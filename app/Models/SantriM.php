@@ -13,7 +13,7 @@ class SantriM extends Model
 
   protected $returnType     = 'array';
 
-  protected $allowedFields = ['nis',  'nama_santri',  'jk',  'tgl_masuk',  'alamat_lengkap',  'status',  'no_telp_wali',  'wali',  'tempat_lahir',  'tgl_lahir', 'jenjang_sekolah'];
+  protected $allowedFields = ['nis',  'nama_santri',  'jk',  'tgl_masuk',  'alamat_lengkap',  'status',  'no_telp_wali',  'wali',  'tempat_lahir',  'tgl_lahir', 'jenjang_sekolah', 'password'];
 
   // Dates
   protected $useTimestamps = true;

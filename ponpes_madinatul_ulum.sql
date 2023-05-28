@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Waktu pembuatan: 27 Bulan Mei 2023 pada 22.32
+-- Waktu pembuatan: 28 Bulan Mei 2023 pada 08.45
 -- Versi server: 8.0.32-0ubuntu0.22.04.2
 -- Versi PHP: 8.1.2-1ubuntu2.11
 
@@ -264,6 +264,7 @@ CREATE TABLE `santri` (
   `tempat_lahir` varchar(20) COLLATE utf8mb4_general_ci NOT NULL,
   `tgl_lahir` date NOT NULL,
   `jenjang_sekolah` varchar(5) COLLATE utf8mb4_general_ci NOT NULL,
+  `password` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
   `created_at` timestamp NOT NULL,
   `updated_at` timestamp NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -272,8 +273,10 @@ CREATE TABLE `santri` (
 -- Dumping data untuk tabel `santri`
 --
 
-INSERT INTO `santri` (`nis`, `nama_santri`, `jk`, `tgl_masuk`, `alamat_lengkap`, `status`, `no_telp_wali`, `wali`, `tempat_lahir`, `tgl_lahir`, `jenjang_sekolah`, `created_at`, `updated_at`) VALUES
-('12345678922', 'Santri', 'L', '2023-05-27', 'dfafddasf', 'Aktif', 832984324, 'wali', 'jambi', '2023-05-27', 'MA', '2023-05-27 15:05:25', '2023-05-27 15:05:25');
+INSERT INTO `santri` (`nis`, `nama_santri`, `jk`, `tgl_masuk`, `alamat_lengkap`, `status`, `no_telp_wali`, `wali`, `tempat_lahir`, `tgl_lahir`, `jenjang_sekolah`, `password`, `created_at`, `updated_at`) VALUES
+('123456789212', 'Santri', 'L', '2023-05-27', 'dsafdsf', 'Aktif', 2147483647, 'wali', 'jambi', '2023-05-27', 'MA', '$2y$10$7PJ7KMSbtVutuiwxWncGuOq7oFLsDPyY27873zMfLnfdTptnWcqim', '2023-05-27 16:06:46', '2023-05-27 16:06:46'),
+('12345678922', 'Santri', 'L', '2023-05-27', 'dfafddasfddddddddd', 'Aktif', 832984324, 'wali', 'jambi', '2023-05-27', 'MTS', '$2y$10$a35DP7fp6.K2UoNLD9GQg.l2K4cGyBkXqMq7B7L6NmhZ/HEfUI4Ry', '2023-05-27 15:05:25', '2023-05-28 01:39:11'),
+('123456789223', 'Santriddd', 'L', '2023-05-27', 'dsfaf', 'Aktif', 2147483647, 'wali', 'jambi', '2023-05-27', 'MA', '$2y$10$aB.dnG5A8sYe9vyqjzw/q.QshS8iFhCCds2SXF38PsffsFcCmP0iS', '2023-05-27 15:49:36', '2023-05-27 15:49:36');
 
 -- --------------------------------------------------------
 
@@ -323,7 +326,7 @@ CREATE TABLE `ustadz` (
 --
 
 INSERT INTO `ustadz` (`kd_ustadz`, `nama_ustadz`, `jk`, `status`, `alamat`, `tgl_lahir`, `no_telp`, `created_at`, `updated_at`) VALUES
-('abcdddd', 'abdef', 'L', 'Aktif', 'aafds', '2023-04-04', 123456222, '2023-04-02 05:04:47', '2023-05-22 13:31:13');
+('abcdddd', 'abde', 'L', 'Aktif', 'aafds', '2023-04-04', 123456222, '2023-04-02 05:04:47', '2023-05-27 16:10:54');
 
 --
 -- Indexes for dumped tables

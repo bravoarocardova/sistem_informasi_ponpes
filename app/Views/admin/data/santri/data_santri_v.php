@@ -94,6 +94,7 @@
                     <th>TEMPAT LAHIR</th>
                     <th>TANGGAL LAHIR</th>
                     <th>JENJANG SEKOLAH</th>
+                    <th>PASSWORD</th>
                     <th>TANGGAL DIBUAT</th>
                     <th>TANGGAL UPDATE</th>
                     <th>AKSI</th>
@@ -113,6 +114,7 @@
                       <td><?= $s['tempat_lahir'] ?></td>
                       <td><?= $s['tgl_lahir'] ?></td>
                       <td><?= $s['jenjang_sekolah'] ?></td>
+                      <td><?= $s['password'] ?></td>
                       <td><?= $s['created_at'] ?></td>
                       <td><?= $s['updated_at'] ?></td>
                       <td>
@@ -150,7 +152,7 @@
       "autoWidth": false,
       "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"],
       "columnDefs": [{
-        "targets": [4, 5, 8, 9, 11, 12],
+        "targets": [4, 5, 8, 9, 11, 12, 13],
         "visible": false
 
       }]

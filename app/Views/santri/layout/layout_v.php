@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-  <?= $this->include('admin/layout/_partials/head') ?>
+  <?= $this->include('santri/layout/_partials/head') ?>
 </head>
 
 <body class="hold-transition sidebar-mini layout-fixed">
@@ -14,19 +14,19 @@
     </div>
 
     <!-- Navbar -->
-    <?= $this->include('admin/layout/_partials/navbar') ?>
+    <?= $this->include('santri/layout/_partials/navbar') ?>
 
     <!-- /.navbar -->
 
     <!-- Main Sidebar Container -->
-    <?= $this->include('admin/layout/_partials/aside') ?>
+    <?= $this->include('santri/layout/_partials/aside') ?>
 
 
     <!-- Content Wrapper. Contains page content -->
     <?= $this->renderSection('content') ?>
     <!-- /.content-wrapper -->
 
-    <?= $this->include('admin/layout/_partials/footer') ?>
+    <?= $this->include('santri/layout/_partials/footer') ?>
 
     <!-- Control Sidebar -->
     <aside class="control-sidebar control-sidebar-dark">
@@ -36,7 +36,7 @@
   </div>
   <!-- ./wrapper -->
 
-  <?= $this->include('admin/layout/_partials/js') ?>
+  <?= $this->include('santri/layout/_partials/js') ?>
 </body>
 
 </html>
