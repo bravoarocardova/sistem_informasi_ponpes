@@ -37,5 +37,7 @@ function createInvoice($kode, Model $model, $field, $offset = 3, $length = 8)
 function jumlah_pendaftar()
 {
   $pendaftar = new PendaftaranM();
-  return $pendaftar->where('status !=', 'Lulus')->countAllResults();
+  $tahun_sekarang = date('Y');
+  $where = "status != 'Lulus' AND status != 'Tidak Lulus' AND YEAR(created_at) = '$tahun_sekarang'";
+  return $pendaftar->where($where)->countAllResults();
 }

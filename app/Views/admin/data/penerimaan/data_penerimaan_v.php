@@ -31,12 +31,54 @@
           <?= session()->get('msg') ?>
           <div class="card">
             <div class="card-header">
-              <h3 class="card-title">
-                <!-- <a href="<?= base_url() ?>admin/penerimaan/tambah" class="btn btn-primary">
-                  <i class="fas fa-plus-square"></i>
-                  Tambah
-                </a> -->
-              </h3>
+              <div class="row">
+                <div class="col-lg-3">
+                  <h3 class="card-title">
+                    <!-- <a href="<?= base_url() ?>admin/data/santri/tambah" class="btn btn-primary">
+                      <i class="fas fa-plus-square"></i>
+                      Tambah
+                    </a> -->
+                  </h3>
+                </div>
+                <div class="col-lg-8 d-flex justify-content-end">
+                  <form action="" method="post" class="d-flex align-items-center">
+                    <div class="mb-3">
+                      <label class="form-label" for="filter_status"></label>
+                      <select name="filter_status" id="filter_status" class="form-control">
+                        <option value="ALL" <?= ($filter_status == 'ALL') ? 'selected' : '' ?>>ALL</option>
+                        <option value="Belum Ditentukan" <?= ($filter_status == 'Belum Ditentukan') ? 'selected' : '' ?>>Belum Ditentukan</option>
+                        <option value="Lulus" <?= ($filter_status == 'Lulus') ? 'selected' : '' ?>>Lulus</option>
+                        <option value="Tidak Lulus" <?= ($filter_status == 'Tidak Lulus') ? 'selected' : '' ?>>Tidak Lulus</option>
+                      </select>
+                    </div>
+                    <div class="mb-3">
+                      <label class="form-label" for="filter_jenjang"></label>
+                      <select name="filter_jenjang" id="filter_jenjang" class="form-control">
+                        <option value="ALL" <?= ($filter_jenjang == 'ALL') ? 'selected' : ''  ?>>ALL</option>
+                        <option value="MA" <?= ($filter_jenjang == 'MA') ? 'selected' : '' ?>>MA</option>
+                        <option value="MTS" <?= ($filter_jenjang == 'MTS') ? 'selected' : '' ?>>MTS</option>
+                      </select>
+                    </div>
+
+                    <div class="mb-3">
+                      <label class="form-label" for="filter_tahun"></label>
+                      <select name="filter_tahun" id="filter_tahun" class="form-control">
+                        <option value="ALL" <?= ($filter_tahun == 'ALL') ? 'selected' : ''  ?>>ALL</option>
+                        <?php foreach ($list_tahun as $t) : ?>
+                          <option value="<?= $t['tahun'] ?>" <?= ($filter_tahun == $t['tahun']) ? 'selected' : '' ?>><?= $t['tahun']  ?></option>
+                        <?php endforeach ?>
+                      </select>
+                    </div>
+                    <div class="mb-n1">
+                      <button type="submit" class="btn btn-info">
+                        <i class="fa fa-search"></i>
+
+                      </button>
+                    </div>
+                  </form>
+
+                </div>
+              </div>
             </div>
             <!-- /.card-header -->
             <div class="card-body">
@@ -66,7 +108,7 @@
                   <?php foreach ($pendaftaran as $r) : ?>
                     <tr>
                       <td>
-                        <?php if ($r['status'] != 'Lulus') : ?>
+                        <?php if (!in_array($r['status'], ['Lulus', 'Tidak Lulus'])) : ?>
                           <form action="<?= base_url() ?>admin/penerimaan/terima/<?= $r['id_pendaftaran'] ?>" method="post" class="d-inline">
                             <?= csrf_field() ?>
                             <input type="hidden" name="_method" value="PUT">
@@ -74,8 +116,15 @@
                               <i class="fas fa-check"></i>
                             </button>
                           </form>
+                          <form action="<?= base_url() ?>admin/penerimaan/tolak/<?= $r['id_pendaftaran'] ?>" method="post" class="d-inline">
+                            <?= csrf_field() ?>
+                            <input type="hidden" name="_method" value="PUT">
+                            <button type="submit" class="btn btn-danger" title="Tolak">
+                              <i class="fas fa-times"></i>
+                            </button>
+                          </form>
                         <?php else : ?>
-                          <span class="text-success">Lulus</span>
+                          <span class="<?= ($r['status'] == 'Lulus') ? 'text-success' : 'text-danger' ?>"><?= $r['status'] ?></span>
                         <?php endif ?>
                       </td>
                       <td><?= $r['id_pendaftaran'] ?></td>

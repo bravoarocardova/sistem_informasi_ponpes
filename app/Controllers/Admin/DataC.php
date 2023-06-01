@@ -1358,9 +1358,42 @@ class DataC extends BaseController
 
   public function data_penerimaan()
   {
+    $list_tahun = $this->pendaftaranM->select('YEAR(created_at) as tahun')->distinct()->orderBy('tahun', 'DESC')->find();
+
+    $pendaftar = $this->pendaftaranM->select('pendaftaran.*, admin.nama as nama_admin')->join('admin', 'admin.id_admin = pendaftaran.id_admin', 'left')->where('YEAR(pendaftaran.created_at)', date('Y'));
+
+    $post = $this->request->getPost();
+    $filter_status = 'ALL';
+    $filter_jenjang = 'ALL';
+    $filter_tahun = date('Y');
+
+    if ($this->request->is('post')) {
+      $where = [];
+
+      if ($post['filter_status'] != 'ALL') {
+        $where['status'] = ($post['filter_status'] == 'Belum Ditentukan') ? '' : $post['filter_status'];
+        $filter_status = $post['filter_status'];
+      }
+
+      if ($post['filter_jenjang'] != 'ALL') {
+        $where['jenjang_sekolah'] = $post['filter_jenjang'];
+        $filter_jenjang = $post['filter_jenjang'];
+      }
+
+      if ($post['filter_tahun'] != 'ALL') {
+        $where['YEAR(pendaftaran.created_at)'] = $post['filter_tahun'];
+        $filter_tahun = $post['filter_tahun'];
+      }
+
+      $pendaftar = $pendaftar->where($where);
+    }
     return view('admin/data/penerimaan/data_penerimaan_v', [
-      'pendaftaran' => $this->pendaftaranM->select('pendaftaran.*, admin.nama as nama_admin')->join('admin', 'admin.id_admin = pendaftaran.id_admin', 'left')->findAll(),
-      'profilApp' => $this->profilApp
+      'pendaftaran' => $pendaftar->find(),
+      'profilApp' => $this->profilApp,
+      'list_tahun' => $list_tahun,
+      'filter_status' => $filter_status,
+      'filter_jenjang' => $filter_jenjang,
+      'filter_tahun' => $filter_tahun,
     ]);
   }
 
@@ -1375,13 +1408,33 @@ class DataC extends BaseController
     $simpan = $this->pendaftaranM->save($data);
     if ($simpan) {
       $type = 'success';
-      $msg = 'Berhasil tambah data.';
+      $msg = 'Berhasil Simpan data.';
     } else {
       $type = 'danger';
-      $msg = 'Gagal tambah data.';
+      $msg = 'Gagal Simpan data.';
     }
     return redirect()->to(base_url() . 'admin/penerimaan')->with('msg', myAlert($type, $msg));
   }
+
+  public function tolak_penerimaan($id_pendaftaran)
+  {
+    $data = [
+      'id_pendaftaran' => $id_pendaftaran,
+      'status' => 'Tidak Lulus',
+      'id_admin' => session()->get('admin')['id_admin'],
+    ];
+
+    $simpan = $this->pendaftaranM->save($data);
+    if ($simpan) {
+      $type = 'success';
+      $msg = 'Berhasil Simpan data.';
+    } else {
+      $type = 'danger';
+      $msg = 'Gagal Simpan data.';
+    }
+    return redirect()->to(base_url() . 'admin/penerimaan')->with('msg', myAlert($type, $msg));
+  }
+
 
   public function hapus_penerimaan($id_pendaftaran)
   {

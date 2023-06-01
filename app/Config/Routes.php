@@ -106,12 +106,13 @@ $routes->group('admin', ['namespace' => 'App\Controllers\Admin', 'filter' => 'is
   });
 
   $routes->group('penerimaan', function ($routes) {
-    $routes->get('', 'DataC::data_penerimaan');
+    $routes->add('', 'DataC::data_penerimaan');
 
     // $routes->get('tambah', 'DataC::tambah_penerimaan');
     // $routes->post('tambah', 'DataC::proses_tambah_penerimaan');
 
     $routes->put('terima/(:segment)', 'DataC::terima_penerimaan/$1');
+    $routes->put('tolak/(:segment)', 'DataC::tolak_penerimaan/$1');
     // $routes->put('edit/(:segment)', 'DataC::proses_edit_penerimaan/$1');
 
     $routes->delete('hapus/(:segment)', 'DataC::hapus_penerimaan/$1');
