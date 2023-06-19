@@ -289,14 +289,50 @@ class Home extends BaseController
   public function detail_pendaftaran($id_pendaftaran)
   {
 
-    $santri_daftar = $this->pendaftaranM->find($id_pendaftaran);
-    if ($santri_daftar == null) {
-      throw new \CodeIgniter\Exceptions\PageNotFoundException("Tidak ditemukan");
-    }
+    if ($this->request->is('post')) {
+      if (!$this->validate(
+        [
+          'bukti_pembayaran' => [
+            'label' => 'Bukti Pembayaran',
+            'rules' => 'uploaded[bukti_pembayaran]|mime_in[bukti_pembayaran,image/jpg,image/jpeg,image/png]|max_size[bukti_pembayaran,4096]',
+            'errors' => [
+              'uploaded' => '{field} Harus ada yang diupload',
+              'mime_in' => '{field} Harus [jpg, jpeg, png]',
+              'max_size' => '{field} Maksimal 4mb'
+            ]
+          ],
+        ]
+      )) {
+      } else {
+        $photo = $this->request->getFile('bukti_pembayaran');
 
-    return view('home/detail_pendaftaran_v', [
-      'profilApp' => $this->profilApp,
-      'santri_daftar' => $santri_daftar
-    ]);
+        $buktiPembayaran = $photo->getRandomName();
+        $data = [
+          'id_pendaftaran' => $id_pendaftaran,
+          'bukti_pembayaran' => $buktiPembayaran,
+        ];
+
+        $simpan = $this->pendaftaranM->save($data);
+        if ($simpan) {
+          $photo->move('img/bukti/', $buktiPembayaran);
+          $type = 'success mb-5';
+          $msg = 'Pendaftaran Berhasil Silahkan cetak dokumen pendaftaran ini.';
+        } else {
+          $type = 'danger mb-5';
+          $msg = 'Pendaftaran Gagal.';
+        }
+        return redirect()->to(base_url() . 'pendaftaran/' . $id_pendaftaran)->with('msg', myAlert($type, $msg));
+      }
+    } else {
+      $santri_daftar = $this->pendaftaranM->find($id_pendaftaran);
+      if ($santri_daftar == null) {
+        throw new \CodeIgniter\Exceptions\PageNotFoundException("Tidak ditemukan");
+      }
+
+      return view('home/detail_pendaftaran_v', [
+        'profilApp' => $this->profilApp,
+        'santri_daftar' => $santri_daftar
+      ]);
+    }
   }
 }

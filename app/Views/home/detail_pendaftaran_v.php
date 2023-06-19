@@ -41,18 +41,22 @@
                       </div>
                     </div>
                     <div class="mb-3">
-                      <?php if ($santri_daftar['status'] == '') : ?>
-                        <h3 class="text-">
+                      <?php if ($santri_daftar['bukti_pembayaran'] != NULL) : ?>
+                        <?php if ($santri_daftar['status'] == '') : ?>
+                          <h3 class="text-">
 
-                        </h3>
-                      <?php elseif ($santri_daftar['status'] == 'Lulus') : ?>
-                        <h3 class="text-success">
-                          Selamat Anda Lulus!
-                        </h3>
+                          </h3>
+                        <?php elseif ($santri_daftar['status'] == 'Lulus') : ?>
+                          <h3 class="text-success">
+                            Selamat Anda Lulus!
+                          </h3>
+                        <?php else : ?>
+                          <h3 class="text-danger">
+                            Anda Belum Lulus
+                          </h3>
+                        <?php endif ?>
                       <?php else : ?>
-                        <h3 class="text-danger">
-                          Anda Belum Lulus
-                        </h3>
+                        <p class="text-danger"><?= $profilApp['pembayaran'] ?></p>
                       <?php endif ?>
                     </div>
                   </div>
@@ -159,6 +163,32 @@
           </div>
           <!-- /.card-body -->
         </div>
+        <?php if ($santri_daftar['bukti_pembayaran'] == NULL) : ?>
+          <div class="card mt-4">
+            <div class="card-header">
+              <p class="text-danger"><?= $profilApp['pembayaran'] ?></p>
+            </div>
+            <div class="card-body">
+              <form action="" method="post" enctype="multipart/form-data">
+                <div class="mb-3">
+                  <img alt="" src="" class="rounded img-responsive mt-2" width="128" height="168" id="img-bukti_pembayaran-upload">
+                  <div class="mt-2">
+                    <label for="bukti_pembayaran">
+                      <span class="btn btn-primary"><i class="fas fa-upload"></i> Pilih Bukti Pembayaran</span>
+                    </label>
+                    <input required type="file" name="bukti_pembayaran" id="bukti_pembayaran" class="d-none <?= validation_show_error('bukti_pembayaran') ? 'is-invalid' : '' ?>" onchange="document.getElementById('img-bukti_pembayaran-upload').src = window.URL.createObjectURL(this.files[0])">
+                    <div class=" invalid-feedback">
+                      <?= validation_show_error('bukti_pembayaran') ?>
+                    </div>
+                  </div>
+                </div>
+                <div class="mb-3">
+                  <button type="submit" class="btn btn-success" onclick="return confirm('Konfirmasi')">Konfirmasi</button>
+                </div>
+              </form>
+            </div>
+          </div>
+        <?php endif ?>
       </div>
     </div>
     <!-- /.row (main row) -->

@@ -41,7 +41,7 @@ $routes->get('/visi-misi', 'Home::visi_misi');
 $routes->get('/struktur-organisasi', 'Home::struktur_organisasi');
 $routes->get('/peraturan-pondok', 'Home::peraturan_pondok');
 $routes->add('/pendaftaran', 'Home::pendaftaran');
-$routes->get('/pendaftaran/(:segment)', 'Home::detail_pendaftaran/$1');
+$routes->add('/pendaftaran/(:segment)', 'Home::detail_pendaftaran/$1');
 $routes->get('/kegiatan', 'Home::kegiatan');
 
 $routes->add('/login', 'Santri::login');
@@ -86,6 +86,18 @@ $routes->group('admin', ['namespace' => 'App\Controllers\Admin', 'filter' => 'is
 
       $routes->put('kembalikan/(:num)', 'DataC::proses_kembalikan_santri/$1');
       $routes->put('tambah/(:num)', 'DataC::proses_keluar_santri/$1');
+
+      $routes->delete('hapus/(:num)', 'DataC::hapus_santri_keluar/$1');
+    });
+
+    $routes->group('alumni', function ($routes) {
+      $routes->get('', 'DataC::data_santri_alumni');
+
+      // $routes->get('tambah', 'DataC::tambah_santri');
+      // $routes->post('tambah', 'DataC::proses_tambah_santri');
+
+      $routes->put('kembalikan/(:num)', 'DataC::proses_kembalikan_santri_alumni/$1');
+      $routes->put('tambah/(:num)', 'DataC::proses_tambah_alumni_santri/$1');
 
       $routes->delete('hapus/(:num)', 'DataC::hapus_santri_keluar/$1');
     });

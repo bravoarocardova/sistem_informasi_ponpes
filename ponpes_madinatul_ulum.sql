@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Waktu pembuatan: 28 Bulan Mei 2023 pada 08.45
+-- Waktu pembuatan: 19 Jun 2023 pada 21.32
 -- Versi server: 8.0.32-0ubuntu0.22.04.2
 -- Versi PHP: 8.1.2-1ubuntu2.11
 
@@ -171,6 +171,7 @@ CREATE TABLE `pendaftaran` (
   `status` varchar(20) COLLATE utf8mb4_general_ci NOT NULL,
   `jenjang_sekolah` varchar(5) COLLATE utf8mb4_general_ci NOT NULL,
   `id_admin` int DEFAULT NULL,
+  `bukti_pembayaran` varchar(100) COLLATE utf8mb4_general_ci DEFAULT NULL,
   `created_at` timestamp NOT NULL,
   `updated_at` timestamp NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -179,10 +180,10 @@ CREATE TABLE `pendaftaran` (
 -- Dumping data untuk tabel `pendaftaran`
 --
 
-INSERT INTO `pendaftaran` (`id_pendaftaran`, `nama`, `photo`, `jk`, `no_telp`, `email`, `tempat_lahir`, `tgl_lahir`, `alamat`, `asal_sekolah`, `lulus_tahun`, `status`, `jenjang_sekolah`, `id_admin`, `created_at`, `updated_at`) VALUES
-('PDS-00000000', 'tes', '1684757654_dccfbb65297f175e24e0.jpg', 'L', '080808', 'popo@gmail.com', 'jambi', '2023-05-23', 'sdfasd', 'sma', 2004, 'Lulus', 'MA', 1, '2023-05-22 12:10:19', '2023-05-22 12:41:15'),
-('PDS-00000001', 'bro', '1684756538_7522e70b09af3b5453fa.jpg', 'L', '123456', 'bro@gmail.com', 'Jambi', '2023-05-22', 'sdfa', 'sma', 2004, '', 'MA', NULL, '2023-05-22 11:55:38', '2023-05-22 11:55:38'),
-('PDS-00000002', 'popo', '1684758071_32564211e29bc3d45f1c.jpg', 'L', '123222', 'user1@mail.com', 'jambi', '2023-05-22', 'dsafd', 'sma', 2004, '', 'MA', NULL, '2023-05-22 12:21:11', '2023-05-22 12:21:11');
+INSERT INTO `pendaftaran` (`id_pendaftaran`, `nama`, `photo`, `jk`, `no_telp`, `email`, `tempat_lahir`, `tgl_lahir`, `alamat`, `asal_sekolah`, `lulus_tahun`, `status`, `jenjang_sekolah`, `id_admin`, `bukti_pembayaran`, `created_at`, `updated_at`) VALUES
+('PDS-00000000', 'tes', '1684757654_dccfbb65297f175e24e0.jpg', 'L', '080808', 'popo@gmail.com', 'jambi', '2023-05-23', 'sdfasd', 'sma', 2004, 'Lulus', 'MA', 1, NULL, '2023-05-22 12:10:19', '2023-05-22 12:41:15'),
+('PDS-00000001', 'bro', '1684756538_7522e70b09af3b5453fa.jpg', 'L', '123456', 'bro@gmail.com', 'Jambi', '2023-05-22', 'sdfa', 'sma', 2004, '', 'MA', NULL, '1687184584_9846cfad16535f98e569.jpg', '2023-05-22 11:55:38', '2023-06-19 14:23:04'),
+('PDS-00000002', 'popo', '1684758071_32564211e29bc3d45f1c.jpg', 'L', '123222', 'user1@mail.com', 'jambi', '2023-05-22', 'dsafd', 'sma', 2004, 'Tidak Lulus', 'MA', 1, NULL, '2023-05-22 12:21:11', '2023-06-01 08:27:50');
 
 -- --------------------------------------------------------
 
@@ -235,6 +236,7 @@ CREATE TABLE `profil` (
   `misi` text NOT NULL,
   `struktur_pondok` varchar(255) NOT NULL,
   `peraturan_pondok` text NOT NULL,
+  `pembayaran` text NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
@@ -243,8 +245,8 @@ CREATE TABLE `profil` (
 -- Dumping data untuk tabel `profil`
 --
 
-INSERT INTO `profil` (`id`, `logo`, `nama_aplikasi`, `nama_pondok`, `alamat_pondok`, `telepon_pondok`, `email_pondok`, `lokasi_pondok`, `sejarah`, `visi`, `misi`, `struktur_pondok`, `peraturan_pondok`, `created_at`, `updated_at`) VALUES
-(1, '1680861998_872c521f703ffe240828.png', 'Ponpes', 'Ponpes Madinatul U\'lum', 'VGCM+F3X, Pamenang, Merangin Regency, Jambi 37352', '0820983923', 'ponpesmadinatul@gmail.com', 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d15948.259472377551!2d102.53273770000003!3d-2.1287507999999966!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e2e38d4657ddcdb%3A0x5f3704b8d0d00e42!2sPONDOK%20PESANTREN%20MADINATU%20\'ULUM%20KEMANG%20MANIS%20PAMENANG!5e0!3m2!1sen!2sid!4v1680817848874!5m2!1sen!2sid', '<p style=\"margin-bottom: 15px; line-height: 1.7; font-size: 18px; color: rgb(48, 48, 48); font-family: Amiri !important;\">Pondok Pesantren Madinatul „Ulum didirikan pada tanggal 16 September \r\n2012 dengan dana Swadaya Masyarakat Kelurahan Pamenang. Tanah yang di \r\ngunakan oleh Pesantren ini merupakan wakaf dari H. Sulaiman Abdul Rauf dan \r\nsekarang sudah menjadi milik Yayasan Pendidikan Madinatul Ulum.Berdirinya \r\nPondok Pesantren ini atas permintaan masyarakat Pamenang agar adanya lembaga \r\npendidikan berbasis pesantren di Kecamatan Pamenang khususnya di Kelurahan \r\nPamenang, sehingga masyarakat tidak lagi harus menempuh jarak yang jauh \r\napabila hendak memasukan anaknya ke Pondok Pesantren.</p><p style=\"margin-bottom: 15px; line-height: 1.7; font-size: 18px; color: rgb(48, 48, 48); font-family: Amiri !important;\">&nbsp; &nbsp; &nbsp;Alasan yang kuat mengapa pondok pesantren modern madinatul‟ulum \r\ndidirikan pertama, khususnya wilayah pamenang itu banyak pondok yang \r\nsalafiyah ketika itu ada 2 pondok salfiyah di pamenang ini. Saya melihat di \r\npamenang ini belum ada pondok yang asriyah atau modern maka dari itu saya \r\ningin mendirikan pondok pesantren ini menjadi pondok pesantren yang modern \r\nberbeda dari yang lainnya.kedua, pondok pesantren ini didirikan atas swadaya \r\nmasyarakat di kecamatan pamennang karna waktu itu kami tidak memiliki dana \r\nyang banyak untuk mendirikan pondok pesantren ini.&nbsp;</p>', 'Menjadi lembaga pendidikan Islam yang berkualitas sebagai \r\nkontributor terdepan dalam mencetak sumber daya muslim yang sholeh, \r\nmuslih (reformer) dan kader ummat dan khusyu‟ berzikir, cerdas berpikir \r\ndan terampil dalam ilmu kemasyarakatan.', '<p>a. Transformasi ilmu pengetahuan.\r\n</p><p>b. Menanamkan akhlakul karimah dan nilai-nilai Islam.\r\n</p><p>c. Berakidah benar sesuai dengan manhaj Ahlu Sunnah Wal Jama’ah.\r\n</p><p>d. Mampu berkomunikasi dalam bahasa Arab dan Inggris.\r\n</p><p>e. Memiliki talenta dalam berda‟wah dan mengarahkan masyarakat \r\nmenuju kehidupan yang Islami.\r\n</p><p>f. Menghasilkan siswa siswi yang teladan dan berakhlakul karimah.\r\n</p><p>g. Mencetak siswa siswi yang terampil dalam ilmu kemasyarakatan baik \r\nagama maupun umum.&nbsp;</p>', '1684292870_02e344d6422f38fe4cf2.png', '<ol><li>peraturan 1</li></ol>', '2023-05-16 20:07:50', '2023-05-17 03:07:50');
+INSERT INTO `profil` (`id`, `logo`, `nama_aplikasi`, `nama_pondok`, `alamat_pondok`, `telepon_pondok`, `email_pondok`, `lokasi_pondok`, `sejarah`, `visi`, `misi`, `struktur_pondok`, `peraturan_pondok`, `pembayaran`, `created_at`, `updated_at`) VALUES
+(1, '1680861998_872c521f703ffe240828.png', 'Ponpes', 'Ponpes Madinatul U\'lum', 'VGCM+F3X, Pamenang, Merangin Regency, Jambi 37352', '0820983923', 'ponpesmadinatul@gmail.com', 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d15948.259472377551!2d102.53273770000003!3d-2.1287507999999966!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e2e38d4657ddcdb%3A0x5f3704b8d0d00e42!2sPONDOK%20PESANTREN%20MADINATU%20\'ULUM%20KEMANG%20MANIS%20PAMENANG!5e0!3m2!1sen!2sid!4v1680817848874!5m2!1sen!2sid', '<p style=\"margin-bottom: 15px; line-height: 1.7; font-size: 18px; color: rgb(48, 48, 48); font-family: Amiri !important;\">Pondok Pesantren Madinatul „Ulum didirikan pada tanggal 16 September \r\n2012 dengan dana Swadaya Masyarakat Kelurahan Pamenang. Tanah yang di \r\ngunakan oleh Pesantren ini merupakan wakaf dari H. Sulaiman Abdul Rauf dan \r\nsekarang sudah menjadi milik Yayasan Pendidikan Madinatul Ulum.Berdirinya \r\nPondok Pesantren ini atas permintaan masyarakat Pamenang agar adanya lembaga \r\npendidikan berbasis pesantren di Kecamatan Pamenang khususnya di Kelurahan \r\nPamenang, sehingga masyarakat tidak lagi harus menempuh jarak yang jauh \r\napabila hendak memasukan anaknya ke Pondok Pesantren.</p><p style=\"margin-bottom: 15px; line-height: 1.7; font-size: 18px; color: rgb(48, 48, 48); font-family: Amiri !important;\">&nbsp; &nbsp; &nbsp;Alasan yang kuat mengapa pondok pesantren modern madinatul‟ulum \r\ndidirikan pertama, khususnya wilayah pamenang itu banyak pondok yang \r\nsalafiyah ketika itu ada 2 pondok salfiyah di pamenang ini. Saya melihat di \r\npamenang ini belum ada pondok yang asriyah atau modern maka dari itu saya \r\ningin mendirikan pondok pesantren ini menjadi pondok pesantren yang modern \r\nberbeda dari yang lainnya.kedua, pondok pesantren ini didirikan atas swadaya \r\nmasyarakat di kecamatan pamennang karna waktu itu kami tidak memiliki dana \r\nyang banyak untuk mendirikan pondok pesantren ini.&nbsp;</p>', 'Menjadi lembaga pendidikan Islam yang berkualitas sebagai \r\nkontributor terdepan dalam mencetak sumber daya muslim yang sholeh, \r\nmuslih (reformer) dan kader ummat dan khusyu‟ berzikir, cerdas berpikir \r\ndan terampil dalam ilmu kemasyarakatan.', '<p>a. Transformasi ilmu pengetahuan.\r\n</p><p>b. Menanamkan akhlakul karimah dan nilai-nilai Islam.\r\n</p><p>c. Berakidah benar sesuai dengan manhaj Ahlu Sunnah Wal Jama’ah.\r\n</p><p>d. Mampu berkomunikasi dalam bahasa Arab dan Inggris.\r\n</p><p>e. Memiliki talenta dalam berda‟wah dan mengarahkan masyarakat \r\nmenuju kehidupan yang Islami.\r\n</p><p>f. Menghasilkan siswa siswi yang teladan dan berakhlakul karimah.\r\n</p><p>g. Mencetak siswa siswi yang terampil dalam ilmu kemasyarakatan baik \r\nagama maupun umum.&nbsp;</p>', '1684292870_02e344d6422f38fe4cf2.png', '<ol><li>peraturan 1</li></ol>', 'silahkan lakukan pembayaran pendaftaran sebesar Rp.250.000 ke rekening PONPES 1234567890', '2023-06-19 14:24:48', '2023-06-19 14:24:48');
 
 -- --------------------------------------------------------
 
@@ -258,7 +260,7 @@ CREATE TABLE `santri` (
   `jk` enum('L','P') COLLATE utf8mb4_general_ci NOT NULL,
   `tgl_masuk` date NOT NULL,
   `alamat_lengkap` text COLLATE utf8mb4_general_ci NOT NULL,
-  `status` enum('Aktif','Tidak Aktif') COLLATE utf8mb4_general_ci NOT NULL,
+  `status` enum('Aktif','Tidak Aktif','Alumni') CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `no_telp_wali` int NOT NULL,
   `wali` varchar(100) COLLATE utf8mb4_general_ci NOT NULL,
   `tempat_lahir` varchar(20) COLLATE utf8mb4_general_ci NOT NULL,
@@ -274,9 +276,9 @@ CREATE TABLE `santri` (
 --
 
 INSERT INTO `santri` (`nis`, `nama_santri`, `jk`, `tgl_masuk`, `alamat_lengkap`, `status`, `no_telp_wali`, `wali`, `tempat_lahir`, `tgl_lahir`, `jenjang_sekolah`, `password`, `created_at`, `updated_at`) VALUES
-('123456789212', 'Santri', 'L', '2023-05-27', 'dsafdsf', 'Aktif', 2147483647, 'wali', 'jambi', '2023-05-27', 'MA', '$2y$10$7PJ7KMSbtVutuiwxWncGuOq7oFLsDPyY27873zMfLnfdTptnWcqim', '2023-05-27 16:06:46', '2023-05-27 16:06:46'),
+('123456789212', 'Santri', 'L', '2023-05-27', 'dsafdsf', 'Tidak Aktif', 2147483647, 'wali', 'jambi', '2023-05-27', 'MA', '$2y$10$7PJ7KMSbtVutuiwxWncGuOq7oFLsDPyY27873zMfLnfdTptnWcqim', '2023-05-27 16:06:46', '2023-06-19 13:26:19'),
 ('12345678922', 'Santri', 'L', '2023-05-27', 'dfafddasfddddddddd', 'Aktif', 832984324, 'wali', 'jambi', '2023-05-27', 'MTS', '$2y$10$a35DP7fp6.K2UoNLD9GQg.l2K4cGyBkXqMq7B7L6NmhZ/HEfUI4Ry', '2023-05-27 15:05:25', '2023-05-28 01:39:11'),
-('123456789223', 'Santriddd', 'L', '2023-05-27', 'dsfaf', 'Aktif', 2147483647, 'wali', 'jambi', '2023-05-27', 'MA', '$2y$10$aB.dnG5A8sYe9vyqjzw/q.QshS8iFhCCds2SXF38PsffsFcCmP0iS', '2023-05-27 15:49:36', '2023-05-27 15:49:36');
+('123456789223', 'Santriddd', 'L', '2023-05-27', 'dsfaf', 'Alumni', 2147483647, 'wali', 'jambi', '2023-05-27', 'MA', '$2y$10$aB.dnG5A8sYe9vyqjzw/q.QshS8iFhCCds2SXF38PsffsFcCmP0iS', '2023-05-27 15:49:36', '2023-06-19 13:26:24');
 
 -- --------------------------------------------------------
 

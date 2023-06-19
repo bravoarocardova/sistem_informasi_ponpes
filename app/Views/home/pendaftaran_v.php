@@ -161,7 +161,7 @@
           <div class="card-body">
             <form action="<?= base_url() . 'pendaftaran' ?>" method="get">
               <div class="mb-3">
-                <input type="text" class="form-control" id="key" name="key" placeholder="Cari">
+                <input type="text" class="form-control" id="key" name="key" placeholder="Cari Id Pendaftaran">
               </div>
               <button type="submit" class="btn btn-primary">
                 <i class="fa fa-magnify"></i>

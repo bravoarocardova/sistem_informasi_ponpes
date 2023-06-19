@@ -87,6 +87,7 @@
                   <tr>
                     <th>TERIMA</th>
                     <th>ID PENDAFTARAN</th>
+                    <th>BUKTI PEMBAYARAN</th>
                     <th>NAMA</th>
                     <th>PHOTO</th>
                     <th>JK</th>
@@ -109,25 +110,38 @@
                     <tr>
                       <td>
                         <?php if (!in_array($r['status'], ['Lulus', 'Tidak Lulus'])) : ?>
-                          <form action="<?= base_url() ?>admin/penerimaan/terima/<?= $r['id_pendaftaran'] ?>" method="post" class="d-inline">
-                            <?= csrf_field() ?>
-                            <input type="hidden" name="_method" value="PUT">
-                            <button type="submit" class="btn btn-success" title="Terima">
-                              <i class="fas fa-check"></i>
-                            </button>
-                          </form>
-                          <form action="<?= base_url() ?>admin/penerimaan/tolak/<?= $r['id_pendaftaran'] ?>" method="post" class="d-inline">
-                            <?= csrf_field() ?>
-                            <input type="hidden" name="_method" value="PUT">
-                            <button type="submit" class="btn btn-danger" title="Tolak">
-                              <i class="fas fa-times"></i>
-                            </button>
-                          </form>
+                          <?php if ($r['bukti_pembayaran'] != null) : ?>
+
+                            <form action="<?= base_url() ?>admin/penerimaan/terima/<?= $r['id_pendaftaran'] ?>" method="post" class="d-inline">
+                              <?= csrf_field() ?>
+                              <input type="hidden" name="_method" value="PUT">
+                              <button type="submit" class="btn btn-success" title="Terima">
+                                <i class="fas fa-check"></i>
+                              </button>
+                            </form>
+                            <form action="<?= base_url() ?>admin/penerimaan/tolak/<?= $r['id_pendaftaran'] ?>" method="post" class="d-inline">
+                              <?= csrf_field() ?>
+                              <input type="hidden" name="_method" value="PUT">
+                              <button type="submit" class="btn btn-danger" title="Tolak">
+                                <i class="fas fa-times"></i>
+                              </button>
+                            </form>
+                          <?php else : ?>
+                            <p>Belum Bayar</p>
+                          <?php endif ?>
                         <?php else : ?>
                           <span class="<?= ($r['status'] == 'Lulus') ? 'text-success' : 'text-danger' ?>"><?= $r['status'] ?></span>
                         <?php endif ?>
                       </td>
                       <td><?= $r['id_pendaftaran'] ?></td>
+                      <td>
+                        <?php if ($r['bukti_pembayaran'] != null) : ?>
+                          <a target="_blank" href="<?= base_url() . 'img/bukti/' . $r['bukti_pembayaran'] ?>" class="btn btn-primary">Lihat Bukti</a>
+                        <?php else : ?>
+                          <p class="text-danger">Belum Bayar</p>
+
+                        <?php endif ?>
+                      </td>
                       <td><?= $r['nama'] ?></td>
                       <td>
                         <img src="<?= base_url() . 'img/pendaftaran/' . $r['photo'] ?>" class="" width="128">
@@ -179,7 +193,7 @@
       "autoWidth": false,
       "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"],
       "columnDefs": [{
-        "targets": [3, 6, 7, 8, 9, 11, 12, 13, 15],
+        "targets": [4, 7, 8, 9, 10, 12, 13, 14, 16],
         "visible": false
 
       }]

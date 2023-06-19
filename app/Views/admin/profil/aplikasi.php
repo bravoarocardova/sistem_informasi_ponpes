@@ -94,6 +94,13 @@
                       </div>
                       <small>Embed map src by google maps</small>
                     </div>
+                    <div class="mb-3">
+                      <label class="form-label" for="pembayaran">Pembayaran</label>
+                      <textarea name="pembayaran" id="pembayaran" cols="30" rows="2" placeholder="Pembayaran" class="form-control <?= validation_show_error('pembayaran') ? 'is-invalid' : '' ?>"><?= old('pembayaran', $profilApp['pembayaran'] ?? '') ?></textarea>
+                      <div class="invalid-feedback">
+                        <?= validation_show_error('pembayaran') ?>
+                      </div>
+                    </div>
                   </div>
                 </div>
                 <a href="javascript:history.back()" class="btn btn-danger">Cancel</a>

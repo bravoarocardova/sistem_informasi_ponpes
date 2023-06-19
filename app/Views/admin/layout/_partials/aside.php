@@ -55,6 +55,12 @@ $uri = service('uri');
               </a>
             </li>
             <li class="nav-item">
+              <a href="<?= base_url() ?>admin/data/alumni" class="nav-link <?= ($uri->getSegment(3) == 'alumni') ? 'active text-primary' : '' ?>">
+                <i class="far fa-circle nav-icon"></i>
+                <p>Data Alumni</p>
+              </a>
+            </li>
+            <li class="nav-item">
               <a href="<?= base_url() ?>admin/data/ustadz" class="nav-link <?= ($uri->getSegment(3) == 'ustadz') ? 'active text-primary' : '' ?>">
                 <i class="far fa-circle nav-icon"></i>
                 <p>Data Ustadz</p>

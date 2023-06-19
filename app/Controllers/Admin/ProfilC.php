@@ -84,6 +84,15 @@ class ProfilC extends BaseController
           'min_length' => '{field} Minimal 1 Karakter',
         ],
       ],
+      'pembayaran' => [
+        'label' => 'Pembayaran',
+        'rules' => 'required|min_length[1]|max_length[1000]',
+        'errors' => [
+          'required' => '{field} Harus diisi',
+          'min_length' => '{field} Minimal 1 Karakter',
+          'max_length' => '{field} Maksimal 1000 Karakter',
+        ],
+      ],
     ];
 
     return $rule;
@@ -116,6 +125,7 @@ class ProfilC extends BaseController
           'telepon_pondok' => $post['telepon_pondok'],
           'email_pondok' => $post['email_pondok'],
           'lokasi_pondok' => $post['lokasi_pondok'],
+          'pembayaran' => $post['pembayaran'],
         ];
         if ($logo->isValid()) {
           $newlogo = $logo->getRandomName();

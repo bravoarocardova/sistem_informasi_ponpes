@@ -627,6 +627,49 @@ class DataC extends BaseController
     return redirect()->to(base_url() . 'admin/data/santri_keluar')->with('msg', myAlert($type, $msg));
   }
 
+  public function data_santri_alumni()
+  {
+    return view('admin/data/santri/data_santri_alumni_v', [
+      'santri' => $this->santriM->where('status', 'Aktif')->find(),
+      'santri_alumni' => $this->santriM->where('status', 'Alumni')->find(),
+      'profilApp' => $this->profilApp
+    ]);
+  }
+
+  public function proses_tambah_alumni_santri($nis)
+  {
+    $data = [
+      'nis' => $nis,
+      'status' => 'Alumni',
+    ];
+    $simpan = $this->santriM->save($data);
+    if ($simpan) {
+      $type = 'success';
+      $msg = 'Berhasil tambah data.';
+    } else {
+      $type = 'danger';
+      $msg = 'Gagal tambah data.';
+    }
+    return redirect()->to(base_url() . 'admin/data/alumni')->with('msg', myAlert($type, $msg));
+  }
+
+  public function proses_kembalikan_santri_alumni($nis)
+  {
+    $data = [
+      'nis' => $nis,
+      'status' => 'Aktif',
+    ];
+    $simpan = $this->santriM->save($data);
+    if ($simpan) {
+      $type = 'success';
+      $msg = 'Berhasil Ubah data.';
+    } else {
+      $type = 'danger';
+      $msg = 'Gagal Ubah data.';
+    }
+    return redirect()->to(base_url() . 'admin/data/alumni')->with('msg', myAlert($type, $msg));
+  }
+
   public function data_ustadz()
   {
     $ustadz = $this->ustadzM->findAll();

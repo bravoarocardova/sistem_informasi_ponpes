@@ -13,7 +13,7 @@ class PendaftaranM extends Model
 
   protected $returnType     = 'array';
 
-  protected $allowedFields = ['nama', 'photo', 'jk',  'no_telp', 'email', 'tempat_lahir', 'tgl_lahir', 'alamat', 'asal_sekolah', 'lulus_tahun',  'status', 'jenjang_sekolah', 'id_admin'];
+  protected $allowedFields = ['nama', 'photo', 'jk',  'no_telp', 'email', 'tempat_lahir', 'tgl_lahir', 'alamat', 'asal_sekolah', 'lulus_tahun',  'status', 'jenjang_sekolah', 'id_admin', 'bukti_pembayaran'];
 
   // Dates
   protected $useTimestamps = true;
