@@ -164,6 +164,7 @@ class Santri extends BaseController
             $userSantri['santri'] = [
               'nis' => session()->get('santri')['nis'],
               'nama' => $post['nama_santri'],
+              'jk' => $post['jk'],
               'isLoggedIn' => TRUE
             ];
 
@@ -248,6 +249,7 @@ class Santri extends BaseController
           $userSantri['santri'] = [
             'nis' => $santriCheck['nis'],
             'nama' => $santriCheck['nama_santri'],
+            'jk' => $santriCheck['jk'],
             'isLoggedIn' => TRUE
           ];
 

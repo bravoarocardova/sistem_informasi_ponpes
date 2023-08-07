@@ -55,7 +55,7 @@
                       </div>
                     </div>
                     <div class="mb-3">
-                      <label class="form-label" for="keterangan">Kereangan</label>
+                      <label class="form-label" for="keterangan">Keterangan</label>
                       <input type="text" class="form-control <?= validation_show_error('keterangan') ? 'is-invalid' : '' ?>" id="keterangan" name="keterangan" placeholder="Keterangan" value="<?= old('keterangan', $nilai_keasramaan['keterangan']) ?>">
                       <div class="invalid-feedback">
                         <?= validation_show_error('keterangan') ?>

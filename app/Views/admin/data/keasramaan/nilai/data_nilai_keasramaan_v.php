@@ -52,7 +52,7 @@
                     <th>SANTRI</th>
                     <th>NILAI</th>
                     <th>KETERANGAN</th>
-                    <th>TANGGAL DIBUAT</th>
+                    <th>TANGGAL SETORAN</th>
                     <th>TANGGAL UPDATE</th>
                     <th>AKSI</th>
                   </tr>
@@ -101,16 +101,51 @@
       "buttons": ["copy", "csv", "excel", "pdf",
         {
           extend: 'print',
+          exportOptions: {
+            columns: ":visible"
+          },
           customize: function(win) {
-            // $(win.document.body)
-            //   .css('font-size', '30pt')
-            //   .prepend(
-            //     '<?= $kegiatan_keasramaan['nama_kegiatan_keasramaan'] ?>'
-            //   );
+
             $(win.document.body)
               .css('font-size', '10pt')
               .prepend(
-                '<div><h3><?= $kegiatan_keasramaan['nama_kegiatan_keasramaan'] ?></h3></div><img src="" style="position:absolute; top:0; left:0;" />'
+                `
+                <div class="row mt-4 mt-4 mt-4 mb-4">
+                  <div class="col-4">
+                    <img class="w-25" src="<?= base_url() ?>/img/icon/<?= $profilApp['logo']; ?>" />
+                  </div>
+                  <div class="col-8">
+                    <h2><?= $profilApp['nama_pondok'] ?></h2>
+                    <h3>Data Keasramaan</h3>
+                    <h4><?= $kegiatan_keasramaan['nama_kegiatan_keasramaan'] ?></h4>
+                  </div>
+                </div>
+                <hr>
+                `
+              );
+
+            $(win.document.body)
+              .find('h1').hide();
+
+            $(win.document.body)
+              // .find('')
+              .css('font-size', '10pt')
+              .append(
+                `
+                <div class="row mt-4 mt-4 mt-4">
+                  <div class="col-12">
+                    <div class="d-flex justify-content-end">
+                      <div>
+                        <p>Pamenang, <?= date('d-m-Y') ?> <br></p>
+                        </br></br>
+                        
+                          <p></p>
+                          <p>Penanggung Jawab</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                `
               );
 
             $(win.document.body).find('table')
@@ -118,9 +153,6 @@
               .css('font-size', 'inherit');
 
           },
-          exportOptions: {
-            columns: ":visible"
-          }
         },
         "colvis"
       ],

@@ -40,7 +40,7 @@
               <table id="example1" class="table table-bordered table-striped ">
                 <thead>
                   <tr>
-                    <th>TANGGAL DIBUAT</th>
+                    <th>TANGGAL SETORAN</th>
                     <th>KEGIATAN KEASRAMAAN</th>
                     <th>NAMA USTADZ</th>
                     <th>NIS</th>
@@ -82,7 +82,64 @@
       "responsive": true,
       "lengthChange": false,
       "autoWidth": false,
-      "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"],
+      "buttons": ["copy", "csv", "excel", "pdf",
+        {
+          extend: 'print',
+          exportOptions: {
+            columns: ':visible'
+          },
+          customize: function(win) {
+
+            $(win.document.body)
+              .css('font-size', '10pt')
+              .prepend(
+                `
+                <div class="row mt-4 mt-4 mt-4 mb-4">
+                  <div class="col-4">
+                    <img class="w-25" src="<?= base_url() ?>/img/icon/<?= $profilApp['logo']; ?>" />
+                  </div>
+                  <div class="col-8">
+                    <h2><?= $profilApp['nama_pondok'] ?></h2>
+                    <h3>Data Kegiatan Keasramaan</h3>
+                  </div>
+                </div>
+                <hr>
+                `
+              );
+
+            $(win.document.body)
+              .find('h1').hide();
+
+            $(win.document.body)
+              // .find('')
+              .css('font-size', '10pt')
+              .append(
+                `
+                <div class="row mt-4 mt-4 mt-4">
+                  <div class="col-12">
+                    <div class="d-flex justify-content-end">
+                      <div>
+                        <p>Pamenang, <?= date('d-m-Y') ?> <br></p>
+                        </br></br>
+                        <?php if (session()->get('santri')['jk'] == 'L') : ?>
+                          <p>Khoirunnas</p>
+                        <?php else : ?>
+                          <p>Sri Wulandari, S.Pd</p>
+                        <?php endif ?>
+                          <p>Wakil Kesiswaan</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                `
+              );
+
+            $(win.document.body).find('table')
+              .addClass('compact')
+              .css('font-size', 'inherit');
+          }
+        }, "colvis"
+      ],
       "columnDefs": [{
         "targets": [3, 4, 7],
         "visible": false

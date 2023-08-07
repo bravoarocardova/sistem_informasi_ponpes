@@ -314,7 +314,7 @@ class DataC extends BaseController
     $ruleNilaiKeasramaan =  [
       'nis' => [
         'label' => 'NIS',
-        'rules' => ($is_unique) ? 'required|min_length[4]|max_length[100]|is_unique[nilai_keasramaan.nis]' : 'required|min_length[1]|max_length[100]',
+        'rules' => ($is_unique) ? 'required|min_length[4]|max_length[100]' : 'required|min_length[1]|max_length[100]',
         'errors' => [
           'required' => '{field} Harus diisi',
           'min_length' => '{field} Minimal 1 Karakter',
