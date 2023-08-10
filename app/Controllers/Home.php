@@ -2,12 +2,14 @@
 
 namespace App\Controllers;
 
+use App\Models\AdminM;
 use App\Models\GaleryM;
 use App\Models\KegiatanM;
 use App\Models\PendaftaranM;
 use App\Models\PengumumanM;
 use App\Models\SantriM;
 use App\Models\SlideshowM;
+use App\Models\UstadzM;
 
 class Home extends BaseController
 {
@@ -16,9 +18,15 @@ class Home extends BaseController
   private $galeryM;
   private $pengumumanM;
   private $pendaftaranM;
+  private $santriM;
+  private $ustadzM;
+  private $adminM;
 
   public function __construct()
   {
+    $this->adminM = new AdminM();
+    $this->santriM = new SantriM();
+    $this->ustadzM = new UstadzM();
     $this->slideshowM = new SlideshowM();
     $this->galeryM = new GaleryM();
     $this->pengumumanM = new PengumumanM();
@@ -334,5 +342,109 @@ class Home extends BaseController
         'santri_daftar' => $santri_daftar
       ]);
     }
+  }
+
+  public function login()
+  {
+    if ($this->request->is('post')) {
+      $post = $this->request->getVar();
+
+      if ($post['role'] == 'santri') {
+        $santriCheck = $this->santriM->where(
+          [
+            'nis' => $post['username'],
+            'status' => 'Aktif'
+          ]
+        )->first();
+
+        if ($santriCheck) {
+          $passVerif = password_verify($post['password'], $santriCheck['password']);
+
+          if ($passVerif) {
+            $userSantri['santri'] = [
+              'nis' => $santriCheck['nis'],
+              'nama' => $santriCheck['nama_santri'],
+              'jk' => $santriCheck['jk'],
+              'isLoggedIn' => TRUE
+            ];
+
+            session()->set($userSantri);
+            return redirect()->to(base_url() . 'santri/dashboard');
+          } else {
+            $msg = 'Username/Password tidak cocok';
+          }
+        } else {
+          $msg = 'Username tidak ditemukan';
+        }
+      } else if ($post['role'] == 'ustadz') {
+        $ustadzCheck = $this->ustadzM->where(
+          [
+            'kd_ustadz' => $post['username'],
+            'status' => 'Aktif'
+          ]
+        )->first();
+
+        if ($ustadzCheck) {
+          $passVerif = password_verify($post['password'], $ustadzCheck['password']);
+
+          if ($passVerif) {
+            $userUstadz['ustadz'] = [
+              'kd_ustadz' => $ustadzCheck['kd_ustadz'],
+              'nama' => $ustadzCheck['nama_ustadz'],
+              'jk' => $ustadzCheck['jk'],
+              'isLoggedIn' => TRUE
+            ];
+
+            session()->set($userUstadz);
+            return redirect()->to(base_url() . 'ustadz/dashboard');
+          } else {
+            $msg = 'Username/Password tidak cocok';
+          }
+        } else {
+          $msg = 'Username tidak ditemukan';
+        }
+      } else {
+        $adminCheck = $this->adminM->where(
+          [
+            'username' => $post['username'],
+            'is_active' => 1
+          ]
+        )->first();
+        if ($adminCheck) {
+          $passVerif = password_verify($post['password'], $adminCheck['password']);
+          // $passVerif = $post['password'] == $adminCheck['password'];
+          if ($passVerif) {
+            $userAdminSess['admin'] = [
+              'id_admin' => $adminCheck['id_admin'],
+              'nama' => $adminCheck['nama'],
+              'foto' => $adminCheck['foto'],
+              'role' => $adminCheck['role'],
+              'isLoggedIn' => TRUE
+            ];
+
+            session()->set($userAdminSess);
+            return redirect()->to(base_url() . 'admin/dashboard');
+          } else {
+            $msg = 'Username/Password tidak cocok';
+          }
+        } else {
+          $msg = 'Username tidak ditemukan';
+        }
+      }
+      return redirect()->back()->with('msg', myAlert('danger', $msg));
+    }
+
+    return view(
+      'home/login',
+      [
+        'profilApp' => $this->profilApp,
+      ]
+    );
+  }
+
+  public function logout()
+  {
+    session()->destroy();
+    return redirect()->to(base_url());
   }
 }

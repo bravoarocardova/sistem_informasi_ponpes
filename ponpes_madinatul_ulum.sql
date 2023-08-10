@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Waktu pembuatan: 20 Jun 2023 pada 20.19
+-- Waktu pembuatan: 10 Agu 2023 pada 22.35
 -- Versi server: 8.0.32-0ubuntu0.22.04.2
 -- Versi PHP: 8.1.2-1ubuntu2.11
 
@@ -35,7 +35,7 @@ CREATE TABLE `admin` (
   `no_telp` varchar(15) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `password` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `foto` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL DEFAULT 'default.jpg',
-  `role` enum('admin') CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `role` enum('admin','pimpinan') CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `is_active` char(1) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT '0',
   `created_at` timestamp NOT NULL,
   `updated_at` timestamp NOT NULL
@@ -46,9 +46,8 @@ CREATE TABLE `admin` (
 --
 
 INSERT INTO `admin` (`id_admin`, `username`, `nama`, `email`, `no_telp`, `password`, `foto`, `role`, `is_active`, `created_at`, `updated_at`) VALUES
-(1, 'Admin', 'Admin', 'admin@gmail.com', '08323332', '$2y$10$yRVNJ8SP0jxuU0wR98icJuUIBQSbEAvrQaRgmrmBgxjOH.t96y1ea', '1680968438_fa05fcfaa9a1fe5e326b.png', 'admin', '1', '2023-02-25 13:59:10', '2023-04-15 04:52:24'),
-(2, 'Admin2', 'Admin 2', 'admin2@gmail.com', '0008323332323', '$2y$10$nVtT8jP.UAQ5nLbzCBiVCOvcXvF5DlvvNeuENWya17gjgO.6H2Z.q', '1678891178_4f5e0b49866c3d947d0d.png', 'admin', '1', '2023-02-25 13:59:10', '2023-04-09 06:13:47'),
-(3, 'Admin3', 'Admin 3', 'admin3@gmail.com', '08323332323', '$2y$10$MPLiipuiWyWLgn9C8SxcVuEIkHr9DaeNp3nHRS8xo0PNQ9xMG5Oum', 'default.jpg', 'admin', '1', '2023-02-25 13:59:10', '2023-03-12 14:18:58');
+(1, 'Admin', 'Admin', 'admin@gmail.com', '628323332', '$2y$10$yRVNJ8SP0jxuU0wR98icJuUIBQSbEAvrQaRgmrmBgxjOH.t96y1ea', '1680968438_fa05fcfaa9a1fe5e326b.png', 'admin', '1', '2023-02-25 13:59:10', '2023-04-15 04:52:24'),
+(2, 'pimpinan', 'Pimpinan Pondok', 'pimpinan@gmail.com', '628323380', '$2y$10$yRVNJ8SP0jxuU0wR98icJuUIBQSbEAvrQaRgmrmBgxjOH.t96y1ea', '1678891178_4f5e0b49866c3d947d0d.png', 'pimpinan', '1', '2023-02-25 13:59:10', '2023-04-09 06:13:47');
 
 -- --------------------------------------------------------
 
@@ -124,7 +123,9 @@ CREATE TABLE `kegiatan_keasramaan` (
 
 INSERT INTO `kegiatan_keasramaan` (`id_kegiatan_keasramaan`, `nama_kegiatan_keasramaan`, `kd_ustadz`, `created_at`, `updated_at`) VALUES
 (1, 'Setoran Hafalan', 'abcdddd', '2023-05-22 13:05:53', '2023-05-22 14:00:37'),
-(4, 'Menghafal Setoran lagi', 'abcdddd', '2023-05-22 13:50:16', '2023-05-22 13:50:16');
+(4, 'Menghafal Setoran lagi', 'abcdddd', '2023-05-22 13:50:16', '2023-05-22 13:50:16'),
+(5, 'Setoran Hafalan Yang ke 2', 'abcdddd', '2023-06-22 09:38:02', '2023-06-22 09:38:02'),
+(6, 'Setoran Hafalan Yang ke 3', 'abcdddd22', '2023-06-22 09:38:35', '2023-06-22 09:38:35');
 
 -- --------------------------------------------------------
 
@@ -148,7 +149,12 @@ CREATE TABLE `nilai_keasramaan` (
 
 INSERT INTO `nilai_keasramaan` (`id_nilai_keasramaan`, `id_kegiatan_keasramaan`, `nis`, `nilai`, `keterangan`, `created_at`, `updated_at`) VALUES
 (2, 1, '2147483647', 80, 'dddddafdfd', '2023-05-22 14:48:46', '2023-05-22 15:46:00'),
-(4, 1, '12345678922', 80, 'kerangan', '2023-05-22 15:29:44', '2023-05-22 15:29:44');
+(4, 1, '12345678922', 80, 'kerangan', '2023-05-22 15:29:44', '2023-05-22 15:29:44'),
+(5, 5, '123456789212', 80, 'dddddafdfd', '2023-06-22 09:38:58', '2023-06-22 09:38:58'),
+(6, 5, '12345678922', 80, 'kerangan', '2023-06-22 09:45:21', '2023-06-22 09:45:21'),
+(7, 6, '123456789212', 80, 'kerangan', '2023-08-07 12:57:45', '2023-08-07 12:57:45'),
+(8, 6, '12345678922', 80, 'dddddafdfd', '2023-08-07 12:58:06', '2023-08-07 12:58:06'),
+(9, 6, '123456789223', 80, 'dddddafdfd', '2023-08-07 12:58:51', '2023-08-07 12:58:51');
 
 -- --------------------------------------------------------
 
@@ -277,8 +283,8 @@ CREATE TABLE `santri` (
 --
 
 INSERT INTO `santri` (`nis`, `nama_santri`, `jk`, `tgl_masuk`, `alamat_lengkap`, `status`, `no_telp_wali`, `wali`, `tempat_lahir`, `tgl_lahir`, `jenjang_sekolah`, `password`, `created_at`, `updated_at`) VALUES
-('123456789212', 'Santri', 'L', '2023-05-27', 'dsafdsf', 'Aktif', 2147483647, 'wali', 'jambi', '2023-05-27', 'MA', '$2y$10$9gooFh9UruaUt6s.KTmZP.A92QE/wy6/p6bTXIcfJP0gYsXTuW3Zq', '2023-05-27 16:06:46', '2023-06-20 11:46:14'),
-('12345678922', 'Santri', 'L', '2023-05-27', 'dfafddasfddddddddd', 'Aktif', 832984324, 'wali', 'jambi', '2023-05-27', 'MTS', '$2y$10$L4RQsVUeY4mNa3oUVQSAMOdH0A3o.Cy7Uy7SYo.ToB0dmOrImRw1C', '2023-05-27 15:05:25', '2023-06-20 13:14:12'),
+('123456789212', 'Santri2', 'L', '2023-05-27', 'dsafdsf', 'Aktif', 2147483647, 'wali', 'jambi', '2023-05-27', 'MA', '$2y$10$lNLVitRoAwOuIZpRMGfMq.XuEOXIEEtJud.vn3B89Ebb93yTxAFa2', '2023-05-27 16:06:46', '2023-08-07 13:00:18'),
+('12345678922', 'Santri1', 'L', '2023-05-27', 'dfafddasfddddddddd', 'Aktif', 832984324, 'wali', 'jambi', '2023-05-27', 'MTS', '$2y$10$L4RQsVUeY4mNa3oUVQSAMOdH0A3o.Cy7Uy7SYo.ToB0dmOrImRw1C', '2023-05-27 15:05:25', '2023-06-22 09:39:14'),
 ('123456789223', 'Santriddd', 'L', '2023-05-27', 'dsfaf', 'Aktif', 2147483647, 'wali', 'jambi', '2023-05-27', 'MA', '$2y$10$TPYTusHZp34T.ry/6dHTje7fg.DRnr47zA.tSjJUnlc.3lYkZ9e66', '2023-05-27 15:49:36', '2023-06-20 11:44:21');
 
 -- --------------------------------------------------------
@@ -320,6 +326,7 @@ CREATE TABLE `ustadz` (
   `alamat` text COLLATE utf8mb4_general_ci NOT NULL,
   `tgl_lahir` date NOT NULL,
   `no_telp` int NOT NULL,
+  `password` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
   `created_at` timestamp NOT NULL,
   `updated_at` timestamp NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -328,8 +335,10 @@ CREATE TABLE `ustadz` (
 -- Dumping data untuk tabel `ustadz`
 --
 
-INSERT INTO `ustadz` (`kd_ustadz`, `nama_ustadz`, `jk`, `status`, `alamat`, `tgl_lahir`, `no_telp`, `created_at`, `updated_at`) VALUES
-('abcdddd', 'abde', 'L', 'Aktif', 'aafds', '2023-04-04', 123456222, '2023-04-02 05:04:47', '2023-05-27 16:10:54');
+INSERT INTO `ustadz` (`kd_ustadz`, `nama_ustadz`, `jk`, `status`, `alamat`, `tgl_lahir`, `no_telp`, `password`, `created_at`, `updated_at`) VALUES
+('abcd', 'asdf', 'L', 'Aktif', 'asdf', '2023-08-10', 12343, '$2y$10$Y5UtB0pjaH1cWGKi9nMcPOGQ9b7pxOVZLZxNI5zuCiU7ua4xmiR6C', '2023-08-10 14:38:06', '2023-08-10 14:46:33'),
+('abcdddd', 'abde', 'L', 'Aktif', 'aafds', '2023-04-04', 1234562, '$2y$10$Qe2H3vivsUyFrJbaHOUmCOqivMidQOE3EfE2fUjTJp6t4onx7Ycfa', '2023-04-02 05:04:47', '2023-08-10 14:37:41'),
+('abcdddd22', 'ddddabcd22', 'L', 'Aktif', 'dsfadsfa', '2023-06-22', 123456, '', '2023-06-22 09:38:20', '2023-08-10 14:45:15');
 
 --
 -- Indexes for dumped tables
@@ -421,13 +430,13 @@ ALTER TABLE `kegiatan`
 -- AUTO_INCREMENT untuk tabel `kegiatan_keasramaan`
 --
 ALTER TABLE `kegiatan_keasramaan`
-  MODIFY `id_kegiatan_keasramaan` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id_kegiatan_keasramaan` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT untuk tabel `nilai_keasramaan`
 --
 ALTER TABLE `nilai_keasramaan`
-  MODIFY `id_nilai_keasramaan` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id_nilai_keasramaan` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT untuk tabel `pengumuman`

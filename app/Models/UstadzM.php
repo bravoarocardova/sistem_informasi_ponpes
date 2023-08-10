@@ -13,7 +13,7 @@ class UstadzM extends Model
 
   protected $returnType     = 'array';
 
-  protected $allowedFields = ['kd_ustadz',  'nama_ustadz',  'jk',  'status',  'alamat',  'tgl_lahir',  'no_telp'];
+  protected $allowedFields = ['kd_ustadz',  'nama_ustadz',  'jk',  'status',  'alamat',  'tgl_lahir',  'no_telp', 'password'];
 
   // Dates
   protected $useTimestamps = true;

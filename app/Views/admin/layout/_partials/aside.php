@@ -1,5 +1,6 @@
 <?php
 $uri = service('uri');
+$isAdmin = session()->get('admin')['role'] == 'admin';
 
 ?>
 
@@ -77,22 +78,24 @@ $uri = service('uri');
             </p>
           </a>
         </li>
-        <li class="nav-item">
-          <a href="<?= base_url() ?>admin/pengumuman" class="nav-link <?= ($uri->getSegment(2) == 'pengumuman') ? 'active' : '' ?>">
-            <i class="nav-icon fa fa-bullhorn"></i>
-            <p>
-              Pengumuman
-            </p>
-          </a>
-        </li>
-        <li class="nav-item">
-          <a href="<?= base_url() ?>admin/kegiatan" class="nav-link <?= ($uri->getSegment(2) == 'kegiatan') ? 'active' : '' ?>">
-            <i class="nav-icon fa fa-book-open"></i>
-            <p>
-              Kegiatan
-            </p>
-          </a>
-        </li>
+        <?php if ($isAdmin) : ?>
+          <li class="nav-item">
+            <a href="<?= base_url() ?>admin/pengumuman" class="nav-link <?= ($uri->getSegment(2) == 'pengumuman') ? 'active' : '' ?>">
+              <i class="nav-icon fa fa-bullhorn"></i>
+              <p>
+                Pengumuman
+              </p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="<?= base_url() ?>admin/kegiatan" class="nav-link <?= ($uri->getSegment(2) == 'kegiatan') ? 'active' : '' ?>">
+              <i class="nav-icon fa fa-book-open"></i>
+              <p>
+                Kegiatan
+              </p>
+            </a>
+          </li>
+        <?php endif ?>
         <li class="nav-item">
           <a href="<?= base_url() ?>admin/keasramaan" class="nav-link <?= ($uri->getSegment(2) == 'keasramaan') ? 'active' : '' ?>">
             <i class="nav-icon fa fa-bookmark"></i>
@@ -102,63 +105,65 @@ $uri = service('uri');
           </a>
         </li>
         <li class="nav-header">Profil</li>
-        <li class="nav-item">
-          <a href="<?= base_url() ?>admin/galery" class="nav-link <?= ($uri->getSegment(2) == 'galery') ? 'active' : '' ?>">
-            <i class="nav-icon fa fa-camera"></i>
-            <p>
-              Galery
-            </p>
-          </a>
-        </li>
-        <li class="nav-item">
-          <a href="<?= base_url() ?>admin/slideshow" class="nav-link <?= ($uri->getSegment(2) == 'slideshow') ? 'active' : '' ?>">
-            <i class="nav-icon fa fa-columns"></i>
-            <p>
-              Slideshow
-            </p>
-          </a>
-        </li>
-        <li class="nav-item <?= ($uri->getSegment(2) == 'profil') ? 'menu-open' : '' ?>">
-          <a href="#" class="nav-link <?= ($uri->getSegment(2) == 'profil') ? 'active' : '' ?>">
-            <i class="nav-icon fa fa-id-card"></i>
-            <p>
-              Profil
-              <i class="right fas fa-angle-left"></i>
-            </p>
-          </a>
-          <ul class="nav nav-treeview">
-            <li class="nav-item">
-              <a href="<?= base_url() ?>admin/profil/aplikasi" class="nav-link <?= ($uri->getSegment(3) == 'aplikasi') ? 'active text-primary' : '' ?>">
-                <i class="far fa-circle nav-icon"></i>
-                <p>Aplikasi</p>
-              </a>
-            </li>
-            <li class="nav-item">
-              <a href="<?= base_url() ?>admin/profil/sejarah" class="nav-link <?= ($uri->getSegment(3) == 'sejarah') ? 'active text-primary' : '' ?>">
-                <i class="far fa-circle nav-icon"></i>
-                <p>Sejarah</p>
-              </a>
-            </li>
-            <li class="nav-item">
-              <a href="<?= base_url() ?>admin/profil/visi_misi" class="nav-link <?= ($uri->getSegment(3) == 'visi_misi') ? 'active text-primary' : '' ?>">
-                <i class="far fa-circle nav-icon"></i>
-                <p>Visi & Misi</p>
-              </a>
-            </li>
-            <li class="nav-item">
-              <a href="<?= base_url() ?>admin/profil/struktur" class="nav-link <?= ($uri->getSegment(3) == 'struktur') ? 'active text-primary' : '' ?>">
-                <i class="far fa-circle nav-icon"></i>
-                <p>Struktur</p>
-              </a>
-            </li>
-            <li class="nav-item">
-              <a href="<?= base_url() ?>admin/profil/peraturan_pondok" class="nav-link <?= ($uri->getSegment(3) == 'peraturan_pondok') ? 'active text-primary' : '' ?>">
-                <i class="far fa-circle nav-icon"></i>
-                <p>Peraturan Pondok</p>
-              </a>
-            </li>
-          </ul>
-        </li>
+        <?php if ($isAdmin) : ?>
+          <li class="nav-item">
+            <a href="<?= base_url() ?>admin/galery" class="nav-link <?= ($uri->getSegment(2) == 'galery') ? 'active' : '' ?>">
+              <i class="nav-icon fa fa-camera"></i>
+              <p>
+                Galery
+              </p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="<?= base_url() ?>admin/slideshow" class="nav-link <?= ($uri->getSegment(2) == 'slideshow') ? 'active' : '' ?>">
+              <i class="nav-icon fa fa-columns"></i>
+              <p>
+                Slideshow
+              </p>
+            </a>
+          </li>
+          <li class="nav-item <?= ($uri->getSegment(2) == 'profil') ? 'menu-open' : '' ?>">
+            <a href="#" class="nav-link <?= ($uri->getSegment(2) == 'profil') ? 'active' : '' ?>">
+              <i class="nav-icon fa fa-id-card"></i>
+              <p>
+                Profil
+                <i class="right fas fa-angle-left"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="<?= base_url() ?>admin/profil/aplikasi" class="nav-link <?= ($uri->getSegment(3) == 'aplikasi') ? 'active text-primary' : '' ?>">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Aplikasi</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="<?= base_url() ?>admin/profil/sejarah" class="nav-link <?= ($uri->getSegment(3) == 'sejarah') ? 'active text-primary' : '' ?>">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Sejarah</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="<?= base_url() ?>admin/profil/visi_misi" class="nav-link <?= ($uri->getSegment(3) == 'visi_misi') ? 'active text-primary' : '' ?>">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Visi & Misi</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="<?= base_url() ?>admin/profil/struktur" class="nav-link <?= ($uri->getSegment(3) == 'struktur') ? 'active text-primary' : '' ?>">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Struktur</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="<?= base_url() ?>admin/profil/peraturan_pondok" class="nav-link <?= ($uri->getSegment(3) == 'peraturan_pondok') ? 'active text-primary' : '' ?>">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Peraturan Pondok</p>
+                </a>
+              </li>
+            </ul>
+          </li>
+        <?php endif ?>
         <li class="nav-item">
           <a href="<?= base_url() ?>" class="nav-link " target="_blank">
             <i class="nav-icon fas fa-home"></i>

@@ -25,6 +25,8 @@ class Filters extends BaseConfig
         'redirectIfLoggedInAdmin' => \App\Filters\RedirectIfLoggedInAdmin::class,
         'isLoggedInSantri' => \App\Filters\IsLoggedInSantriFilter::class,
         'redirectIfLoggedInSantri' => \App\Filters\RedirectIfLoggedInSantri::class,
+        'isLoggedInUstadz' => \App\Filters\IsLoggedInUstadzFilter::class,
+        'redirectIfLoggedInUstadz' => \App\Filters\RedirectIfLoggedInUstadz::class,
 
     ];
 
@@ -68,5 +70,6 @@ class Filters extends BaseConfig
     public array $filters = [
         'redirectIfLoggedInAdmin' => ['before' => ['admin/login']],
         'redirectIfLoggedInSantri' => ['before' => ['login']],
+        'redirectIfLoggedInUstadz' => ['before' => ['login']],
     ];
 }

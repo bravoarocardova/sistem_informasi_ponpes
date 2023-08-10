@@ -26,11 +26,11 @@
         <a href="<?= base_url() ?>" class="h1"><?= $profilApp['nama_pondok'] ?></a>
       </div>
       <div class="card-body">
-        <p class="login-box-msg">Selamat Datang Santri/Wali Santri</p>
+        <p class="login-box-msg">Selamat Datang </p>
         <?php echo session()->get('msg') ?>
         <form action="" method="post">
           <div class="input-group mb-3">
-            <input type="text" class="form-control" name="nis" placeholder="Nis">
+            <input type="text" class="form-control" name="username" placeholder="Nis/Kode User/Username">
             <div class="input-group-append">
               <div class="input-group-text">
                 <span class="fas fa-user"></span>
@@ -44,6 +44,14 @@
                 <span class="fas fa-lock"></span>
               </div>
             </div>
+          </div>
+          <div class="input-group mb-3">
+            <select class="form-select form-control" aria-label="Default select example" name="role">
+              <option selected value="santri">Santri</option>
+              <option value="ustadz">Ustadz</option>
+              <option value="pimpinan">Pimpinan</option>
+              <option value="admin">Admin</option>
+            </select>
           </div>
           <div class="row">
             <div class="col-8">

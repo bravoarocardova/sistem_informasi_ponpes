@@ -148,7 +148,7 @@ class DataC extends BaseController
     return $ruleSantri;
   }
 
-  private function ruleUstadz($is_unique = true)
+  private function ruleUstadz($is_unique = true, $pass_req = true)
   {
 
     $ruleUstadz =  [
@@ -159,6 +159,15 @@ class DataC extends BaseController
           'required' => '{field} Harus diisi',
           'is_unique' => '{field} Sudah Ada',
         ]
+      ],
+      'password' => [
+        'label' => 'Password',
+        'rules' => ($pass_req) ? 'required|min_length[4]|max_length[100]' : 'max_length[0]',
+        'errors' => [
+          'required' => '{field} Harus diisi',
+          'min_length' => '{field} Minimal 4 Karakter',
+          'max_length' => '{field} Maksimal 100 Karakter',
+        ],
       ],
       'nama_ustadz' => [
         'label' => 'Nama Ustadz',
@@ -699,7 +708,6 @@ class DataC extends BaseController
       return redirect()->back()->withInput();
     } else {
       $post = $this->request->getPost();
-
       $data = [
         'kd_ustadz' => $post['kd_ustadz'],
         'nama_ustadz' => $post['nama_ustadz'],
@@ -707,7 +715,8 @@ class DataC extends BaseController
         'jk' => $post['jk'],
         'alamat' => $post['alamat'],
         'status' => 'Aktif',
-        'no_telp' => $post['no_telp']
+        'no_telp' => $post['no_telp'],
+        'password' => password_hash($post['password'], PASSWORD_DEFAULT),
       ];
       $simpan = $this->ustadzM->save($data);
       if ($simpan) {
@@ -734,12 +743,17 @@ class DataC extends BaseController
     $dataLama = $this->ustadzM->find($kd_ustadz);
     $post = $this->request->getPost();
 
+    $pass_req = false;
+    if ($post['password']) {
+      $pass_req = true;
+    }
+
     $is_unique = true;
     if ($dataLama['kd_ustadz'] == $post['kd_ustadz']) {
       $is_unique = false;
     }
 
-    if (!$this->validate($this->ruleUstadz($is_unique))) {
+    if (!$this->validate($this->ruleUstadz($is_unique, $pass_req))) {
       return redirect()->back()->withInput();
     } else {
 
@@ -752,6 +766,12 @@ class DataC extends BaseController
         'status' => 'Aktif',
         'no_telp' => $post['no_telp']
       ];
+
+      if ($pass_req) {
+        $data['password'] = password_hash($post['password'], PASSWORD_DEFAULT);
+      }
+
+
       $simpan = $this->ustadzM->update(['kd_ustadz' => $kd_ustadz], $data);
       if ($simpan) {
         $type = 'success';

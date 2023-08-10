@@ -49,6 +49,13 @@
                       </div>
                     </div>
                     <div class="mb-3">
+                      <label class="form-label" for="password">Password (kosongkan jika tidak ingin diubah)</label>
+                      <input type="password" class="form-control <?= validation_show_error('password') ? 'is-invalid' : '' ?>" id="password" name="password" placeholder="Password" value="">
+                      <div class="invalid-feedback">
+                        <?= validation_show_error('password') ?>
+                      </div>
+                    </div>
+                    <div class="mb-3">
                       <label class="form-label" for="nama_ustadz">Nama Ustadz</label>
                       <input type="text" class="form-control <?= validation_show_error('nama_ustadz') ? 'is-invalid' : '' ?>" id="nama_ustadz" name="nama_ustadz" placeholder="Nama Santri" value="<?= old('nama_ustadz', $ustadz['nama_ustadz']) ?>">
                       <div class="invalid-feedback">

@@ -44,8 +44,8 @@ $routes->add('/pendaftaran', 'Home::pendaftaran');
 $routes->add('/pendaftaran/(:segment)', 'Home::detail_pendaftaran/$1');
 $routes->get('/kegiatan', 'Home::kegiatan');
 
-$routes->add('/login', 'Santri::login');
-$routes->add('/logout', 'Santri::logout');
+$routes->add('/login', 'Home::login');
+$routes->add('/logout', 'Home::logout');
 
 // Santri
 $routes->group('santri', ['filter' => 'isLoggedInSantri'], function ($routes) {
@@ -55,6 +55,13 @@ $routes->group('santri', ['filter' => 'isLoggedInSantri'], function ($routes) {
   $routes->put('pengguna', 'Santri::edit_pengguna');
 });
 
+// Ustadz
+$routes->group('ustadz', ['filter' => 'isLoggedInUstadz'], function ($routes) {
+  $routes->get('dashboard', 'Santri');
+  // $routes->get('keasramaan', 'Santri::keasramaan');
+  // $routes->get('pengguna', 'Santri::pengguna');
+  // $routes->put('pengguna', 'Santri::edit_pengguna');
+});
 
 // Admin
 
