@@ -109,21 +109,21 @@
                   <div class="col-md-6">
                     <div class="mb-3">
                       <label class="form-label" for="old_password">Password Lama</label>
-                      <input type="text" class="form-control <?= validation_show_error('old_password') ? 'is-invalid' : '' ?>" id="old_password" name="old_password" placeholder="Password Lama">
+                      <input type="password" class="form-control <?= validation_show_error('old_password') ? 'is-invalid' : '' ?>" id="old_password" name="old_password" placeholder="Password Lama">
                       <div class="invalid-feedback">
                         <?= validation_show_error('old_password') ?>
                       </div>
                     </div>
                     <div class="mb-3">
                       <label class="form-label" for="new_password">Password Baru</label>
-                      <input type="text" class="form-control <?= validation_show_error('new_password') ? 'is-invalid' : '' ?>" id="new_password" name="new_password" placeholder="Password Baru">
+                      <input type="password" class="form-control <?= validation_show_error('new_password') ? 'is-invalid' : '' ?>" id="new_password" name="new_password" placeholder="Password Baru">
                       <div class="invalid-feedback">
                         <?= validation_show_error('new_password') ?>
                       </div>
                     </div>
                     <div class="mb-3">
                       <label class="form-label" for="password_verify">Konfirmasi Password Baru</label>
-                      <input type="text" class="form-control <?= validation_show_error('password_verify') ? 'is-invalid' : '' ?>" id="password_verify" name="password_verify" placeholder="Konfirmasi Password Baru">
+                      <input type="password" class="form-control <?= validation_show_error('password_verify') ? 'is-invalid' : '' ?>" id="password_verify" name="password_verify" placeholder="Konfirmasi Password Baru">
                       <div class="invalid-feedback">
                         <?= validation_show_error('password_verify') ?>
                       </div>

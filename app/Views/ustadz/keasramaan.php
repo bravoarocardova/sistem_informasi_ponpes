@@ -1,4 +1,4 @@
-<?= $this->extend('santri/layout/layout_v') ?>
+<?= $this->extend('ustadz/layout/layout_v') ?>
 <?= $this->section('content') ?>
 
 
@@ -32,35 +32,51 @@
           <div class="card">
             <div class="card-header">
               <h2 class="">
-                <?= session()->get('santri')['nis'] . " - " . session()->get('santri')['nama']; ?>
+                <?= session()->get('ustadz')['kd_ustadz'] . " - " . session()->get('ustadz')['nama']; ?>
               </h2>
+            </div>
+            <div class="card-header">
+              <h3 class="card-title">
+                <a href="<?= base_url() ?>ustadz/keasramaan/tambah" class="btn btn-primary">
+                  <i class="fas fa-plus-square"></i>
+                  Tambah
+                </a>
+              </h3>
             </div>
             <!-- /.card-header -->
             <div class="card-body">
               <table id="example1" class="table table-bordered table-striped ">
                 <thead>
                   <tr>
-                    <th>TANGGAL SETORAN</th>
                     <th>KEGIATAN KEASRAMAAN</th>
-                    <th>NAMA USTADZ</th>
-                    <th>NIS</th>
-                    <th>SANTRI</th>
-                    <th>NILAI</th>
-                    <th>KETERANGAN</th>
+                    <th>KODE USTADZ</th>
+                    <th>TANGGAL SETORAN</th>
                     <th>TANGGAL UPDATE</th>
+                    <th>AKSI</th>
                   </tr>
                 </thead>
                 <tbody>
                   <?php foreach ($kegiatan_keasramaan as $r) : ?>
                     <tr>
-                      <td><?= $r['created_at'] ?></td>
                       <td><?= $r['nama_kegiatan_keasramaan'] ?></td>
-                      <td><?= $r['nama_ustadz'] ?></td>
-                      <td><?= $r['nis'] ?></td>
-                      <td><?= $r['nama_santri'] ?></td>
-                      <td class="text-bold"><?= $r['nilai'] ?></td>
-                      <td><?= $r['keterangan'] ?></td>
+                      <td><?= $r['kd_ustadz'] ?></td>
+                      <td><?= $r['created_at'] ?></td>
                       <td><?= $r['updated_at'] ?></td>
+                      <td>
+                        <a href="<?= base_url() ?>ustadz/keasramaan/detail/<?= $r['id_kegiatan_keasramaan'] ?>" class="btn btn-success" title="lihat detail">
+                          <i class="fas fa-eye"></i>
+                        </a>
+                        <a href="<?= base_url() ?>ustadz/keasramaan/edit/<?= $r['id_kegiatan_keasramaan'] ?>" class="btn btn-warning" title="edit">
+                          <i class="fas fa-pencil-alt"></i>
+                        </a>
+                        <form action="<?= base_url() ?>ustadz/keasramaan/hapus/<?= $r['id_kegiatan_keasramaan'] ?>" method="post" class="d-inline">
+                          <?= csrf_field() ?>
+                          <input type="hidden" name="_method" value="DELETE">
+                          <button class="btn btn-danger" title="hapus" onclick="return confirm('hapus <?= $r['id_kegiatan_keasramaan'] ?> ? ')">
+                            <i class="fas fa-trash"></i>
+                          </button>
+                        </form>
+                      </td>
                     </tr>
                   <?php endforeach ?>
                 </tbody>
@@ -121,12 +137,7 @@
                       <div>
                         <p>Pamenang, <?= date('d-m-Y') ?> <br></p>
                         </br></br>
-                        <?php if (session()->get('santri')['jk'] == 'L') : ?>
-                          <p>Khoirunnas</p>
-                        <?php else : ?>
-                          <p>Sri Wulandari, S.Pd</p>
-                        <?php endif ?>
-                          <p>Wakil Kesiswaan</p>
+                          <p><?= session('ustadz')['nama'] ?></p>
                       </div>
                     </div>
                   </div>
@@ -141,7 +152,7 @@
         }, "colvis"
       ],
       "columnDefs": [{
-        "targets": [3, 4, 7],
+        "targets": [1, 3],
         "visible": false
 
       }],

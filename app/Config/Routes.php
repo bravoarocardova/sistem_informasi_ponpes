@@ -57,10 +57,34 @@ $routes->group('santri', ['filter' => 'isLoggedInSantri'], function ($routes) {
 
 // Ustadz
 $routes->group('ustadz', ['filter' => 'isLoggedInUstadz'], function ($routes) {
-  $routes->get('dashboard', 'Santri');
-  // $routes->get('keasramaan', 'Santri::keasramaan');
-  // $routes->get('pengguna', 'Santri::pengguna');
-  // $routes->put('pengguna', 'Santri::edit_pengguna');
+  $routes->get('dashboard', 'Ustadz');
+
+  $routes->group('keasramaan', function ($routes) {
+    $routes->get('', 'Ustadz::keasramaan');
+
+    $routes->get('tambah', 'Ustadz::tambah_keasramaan');
+    $routes->post('tambah', 'Ustadz::proses_tambah_keasramaan');
+
+    $routes->get('edit/(:num)', 'Ustadz::edit_keasramaan/$1');
+    $routes->put('edit/(:num)', 'Ustadz::proses_edit_keasramaan/$1');
+
+    $routes->delete('hapus/(:num)', 'Ustadz::hapus_keasramaan/$1');
+
+    $routes->group('detail', function ($routes) {
+      $routes->get('(:segment)', 'Ustadz::detail_keasramaan/$1');
+
+      $routes->get('(:segment)/tambah', 'Ustadz::tambah_detail_keasramaan/$1');
+      $routes->post('(:segment)/tambah', 'Ustadz::proses_tambah_detail_keasramaan/$1');
+
+      $routes->get('(:segment)/edit/(:num)', 'Ustadz::edit_detail_keasramaan/$1/$2');
+      $routes->put('(:segment)/edit/(:num)', 'Ustadz::proses_edit_detail_keasramaan/$1/$2');
+
+      $routes->delete('(:segment)/hapus/(:num)', 'Ustadz::hapus_detail_keasramaan/$1/$2');
+    });
+  });
+
+  $routes->get('pengguna', 'Ustadz::pengguna');
+  $routes->put('pengguna', 'Ustadz::edit_pengguna');
 });
 
 // Admin

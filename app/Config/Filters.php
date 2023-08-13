@@ -68,7 +68,7 @@ class Filters extends BaseConfig
      * 'isLoggedIn' => ['before' => ['account/*', 'profiles/*']]
      */
     public array $filters = [
-        'redirectIfLoggedInAdmin' => ['before' => ['admin/login']],
+        'redirectIfLoggedInAdmin' => ['before' => ['admin/login', 'login']],
         'redirectIfLoggedInSantri' => ['before' => ['login']],
         'redirectIfLoggedInUstadz' => ['before' => ['login']],
     ];

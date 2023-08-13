@@ -54,7 +54,9 @@
                   <?php foreach ($kegiatan as $r) : ?>
                     <tr>
                       <td><?= $r['hari_kegiatan'] ?></td>
-                      <td><?= substr($r['kegiatan'], 0, 50) ?> <?php if (strlen($r['kegiatan']) > 50) echo  "...." ?></td>
+                      <td>
+                        <pre><?= substr($r['kegiatan'], 0, 50) ?> <?php if (strlen($r['kegiatan']) > 50) echo  "...." ?></pre>
+                      </td>
                       <td><?= $r['created_at'] ?></td>
                       <td><?= $r['updated_at'] ?></td>
                       <td>

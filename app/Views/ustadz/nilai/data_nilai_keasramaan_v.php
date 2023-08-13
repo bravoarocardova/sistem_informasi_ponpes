@@ -1,4 +1,4 @@
-<?= $this->extend('santri/layout/layout_v') ?>
+<?= $this->extend('ustadz/layout/layout_v') ?>
 <?= $this->section('content') ?>
 
 
@@ -8,12 +8,12 @@
     <div class="container-fluid">
       <div class="row mb-2">
         <div class="col-sm-6">
-          <h1 class="m-0">Data Kegiatan Keasramaan</h1>
+          <h1 class="m-0">Data Nilai Keasramaan</h1>
         </div><!-- /.col -->
         <div class="col-sm-6">
           <ol class="breadcrumb float-sm-right">
             <li class="breadcrumb-item"><a href="#">Data</a></li>
-            <li class="breadcrumb-item active">Kegiatan Keasramaan</li>
+            <li class="breadcrumb-item active">Nilai Keasramaan</li>
           </ol>
         </div><!-- /.col -->
       </div><!-- /.row -->
@@ -31,36 +31,52 @@
           <?= session()->get('msg') ?>
           <div class="card">
             <div class="card-header">
-              <h2 class="">
-                <?= session()->get('santri')['nis'] . " - " . session()->get('santri')['nama']; ?>
-              </h2>
+              <h3 class="card-title">
+                <h2><?= $kegiatan_keasramaan['nama_kegiatan_keasramaan'] ?></h2>
+              </h3>
             </div>
             <!-- /.card-header -->
             <div class="card-body">
+              <a href="<?= base_url() ?>ustadz/keasramaan/" class="btn btn-danger">
+                <i class="fas fa-arrow-left"></i>
+                Kembali
+              </a>
+              <a href="<?= base_url() ?>ustadz/keasramaan/detail/<?= $kegiatan_keasramaan['id_kegiatan_keasramaan'] ?>/tambah" class="btn btn-primary">
+                <i class="fas fa-plus-square"></i>
+                Tambah
+              </a>
+              <hr>
               <table id="example1" class="table table-bordered table-striped ">
                 <thead>
                   <tr>
-                    <th>TANGGAL SETORAN</th>
-                    <th>KEGIATAN KEASRAMAAN</th>
-                    <th>NAMA USTADZ</th>
-                    <th>NIS</th>
                     <th>SANTRI</th>
                     <th>NILAI</th>
                     <th>KETERANGAN</th>
+                    <th>TANGGAL SETORAN</th>
                     <th>TANGGAL UPDATE</th>
+                    <th>AKSI</th>
                   </tr>
                 </thead>
                 <tbody>
-                  <?php foreach ($kegiatan_keasramaan as $r) : ?>
+                  <?php foreach ($nilai_keasramaan as $r) : ?>
                     <tr>
-                      <td><?= $r['created_at'] ?></td>
-                      <td><?= $r['nama_kegiatan_keasramaan'] ?></td>
-                      <td><?= $r['nama_ustadz'] ?></td>
-                      <td><?= $r['nis'] ?></td>
                       <td><?= $r['nama_santri'] ?></td>
-                      <td class="text-bold"><?= $r['nilai'] ?></td>
+                      <td><?= $r['nilai'] ?></td>
                       <td><?= $r['keterangan'] ?></td>
+                      <td><?= $r['created_at'] ?></td>
                       <td><?= $r['updated_at'] ?></td>
+                      <td>
+                        <a href="<?= base_url() ?>ustadz/keasramaan/detail/<?= $r['id_kegiatan_keasramaan'] ?>/edit/<?= $r['id_nilai_keasramaan'] ?>" class="btn btn-warning" title="edit">
+                          <i class="fas fa-pencil-alt"></i>
+                        </a>
+                        <form action="<?= base_url() ?>ustadz/keasramaan/detail/<?= $r['id_kegiatan_keasramaan'] ?>/hapus/<?= $r['id_nilai_keasramaan'] ?>" method="post" class="d-inline">
+                          <?= csrf_field() ?>
+                          <input type="hidden" name="_method" value="DELETE">
+                          <button class="btn btn-danger" title="hapus" onclick="return confirm('hapus <?= $r['id_kegiatan_keasramaan'] ?> ? ')">
+                            <i class="fas fa-trash"></i>
+                          </button>
+                        </form>
+                      </td>
                     </tr>
                   <?php endforeach ?>
                 </tbody>
@@ -86,7 +102,7 @@
         {
           extend: 'print',
           exportOptions: {
-            columns: ':visible'
+            columns: ":visible"
           },
           customize: function(win) {
 
@@ -100,37 +116,11 @@
                   </div>
                   <div class="col-8">
                     <h2><?= $profilApp['nama_pondok'] ?></h2>
-                    <h3>Data Kegiatan Keasramaan</h3>
+                    <h3>Data Keasramaan</h3>
+                    <h4><?= $kegiatan_keasramaan['nama_kegiatan_keasramaan'] ?></h4>
                   </div>
                 </div>
                 <hr>
-                <div class="row">
-                  <div class="col-12 text-center">
-                    <h4>Laporan Hasil Kegiatan Keasramaan</h4>
-                  </div>
-                </div>
-                <div class="row mt-4">
-                  <div class="col-2">
-                    <p>Nama Santri</p>
-                  </div>
-                  <div class="col-1">
-                    :
-                  </div>
-                  <div class="col-9">
-                    <p><?= session('santri')['nama'] ?></p>
-                  </div>
-                </div>
-                <div class="row mt-4">
-                  <div class="col-2">
-                    <p>Nomor Induk Siswa</p>
-                  </div>
-                  <div class="col-1">
-                    :
-                  </div>
-                  <div class="col-9">
-                    <p><?= session('santri')['nis'] ?></p>
-                  </div>
-                </div>
                 `
               );
 
@@ -148,12 +138,9 @@
                       <div>
                         <p>Pamenang, <?= date('d-m-Y') ?> <br></p>
                         </br></br>
-                        <?php if (session()->get('santri')['jk'] == 'L') : ?>
-                          <p>Khoirunnas</p>
-                        <?php else : ?>
-                          <p>Sri Wulandari, S.Pd</p>
-                        <?php endif ?>
-                          <p>Wakil Kesiswaan</p>
+                        
+                          <p><?= session('ustadz')['nama'] ?></p>
+                          <p>Penanggung Jawab</p>
                       </div>
                     </div>
                   </div>
@@ -164,11 +151,13 @@
             $(win.document.body).find('table')
               .addClass('compact')
               .css('font-size', 'inherit');
-          }
-        }, "colvis"
+
+          },
+        },
+        "colvis"
       ],
       "columnDefs": [{
-        "targets": [3, 4, 7],
+        "targets": [4],
         "visible": false
 
       }],

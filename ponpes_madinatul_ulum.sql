@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Waktu pembuatan: 10 Agu 2023 pada 22.35
+-- Waktu pembuatan: 13 Agu 2023 pada 19.44
 -- Versi server: 8.0.32-0ubuntu0.22.04.2
 -- Versi PHP: 8.1.2-1ubuntu2.11
 
@@ -63,18 +63,6 @@ CREATE TABLE `galery` (
   `created_at` timestamp NOT NULL,
   `updated_at` timestamp NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data untuk tabel `galery`
---
-
-INSERT INTO `galery` (`id_galery`, `file`, `caption`, `tipe`, `created_at`, `updated_at`) VALUES
-(4, '1682087377_8f4004fbc1f787c3d3f8.png', 'galeryi 1', 'foto', '2023-04-08 14:14:01', '2023-04-21 14:29:37'),
-(5, '1682087383_765faa4589cca8eca109.png', 'galery2', 'foto', '2023-04-08 14:14:21', '2023-04-21 14:29:43'),
-(6, '1682087389_a624486d1120240dcc50.png', 'galery3', 'foto', '2023-04-08 14:15:10', '2023-04-21 14:29:49'),
-(7, '1682087395_088e3ff1544a2c38671d.png', 'galery4', 'foto', '2023-04-08 14:15:33', '2023-04-21 14:29:55'),
-(8, '1682087401_cca81362dada6ff3f8ab.png', 'galery5', 'foto', '2023-04-08 14:15:48', '2023-04-21 14:30:01'),
-(9, '1680963363_cab39c0151f1d82a53bb.png', 'galery6', 'foto', '2023-04-08 14:16:03', '2023-04-08 14:16:03');
 
 -- --------------------------------------------------------
 
@@ -149,12 +137,13 @@ CREATE TABLE `nilai_keasramaan` (
 
 INSERT INTO `nilai_keasramaan` (`id_nilai_keasramaan`, `id_kegiatan_keasramaan`, `nis`, `nilai`, `keterangan`, `created_at`, `updated_at`) VALUES
 (2, 1, '2147483647', 80, 'dddddafdfd', '2023-05-22 14:48:46', '2023-05-22 15:46:00'),
-(4, 1, '12345678922', 80, 'kerangan', '2023-05-22 15:29:44', '2023-05-22 15:29:44'),
+(4, 1, '12345678922', 70, 'keterangan', '2023-05-22 15:29:44', '2023-08-13 12:17:53'),
 (5, 5, '123456789212', 80, 'dddddafdfd', '2023-06-22 09:38:58', '2023-06-22 09:38:58'),
 (6, 5, '12345678922', 80, 'kerangan', '2023-06-22 09:45:21', '2023-06-22 09:45:21'),
 (7, 6, '123456789212', 80, 'kerangan', '2023-08-07 12:57:45', '2023-08-07 12:57:45'),
 (8, 6, '12345678922', 80, 'dddddafdfd', '2023-08-07 12:58:06', '2023-08-07 12:58:06'),
-(9, 6, '123456789223', 80, 'dddddafdfd', '2023-08-07 12:58:51', '2023-08-07 12:58:51');
+(9, 6, '123456789223', 80, 'dddddafdfd', '2023-08-07 12:58:51', '2023-08-07 12:58:51'),
+(10, 1, '123456789212', 80, 'kerangan', '2023-08-13 12:15:46', '2023-08-13 12:15:46');
 
 -- --------------------------------------------------------
 
@@ -181,16 +170,6 @@ CREATE TABLE `pendaftaran` (
   `created_at` timestamp NOT NULL,
   `updated_at` timestamp NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data untuk tabel `pendaftaran`
---
-
-INSERT INTO `pendaftaran` (`id_pendaftaran`, `nama`, `photo`, `jk`, `no_telp`, `email`, `tempat_lahir`, `tgl_lahir`, `alamat`, `asal_sekolah`, `lulus_tahun`, `status`, `jenjang_sekolah`, `id_admin`, `bukti_pembayaran`, `created_at`, `updated_at`) VALUES
-('PDS-00000000', 'tes', '1684757654_dccfbb65297f175e24e0.jpg', 'L', '080808', 'popo@gmail.com', 'jambi', '2023-05-23', 'sdfasd', 'sma', 2004, 'Lulus', 'MA', 1, NULL, '2023-05-22 12:10:19', '2023-05-22 12:41:15'),
-('PDS-00000001', 'bro', '1684756538_7522e70b09af3b5453fa.jpg', 'L', '123456', 'bro@gmail.com', 'Jambi', '2023-05-22', 'sdfa', 'sma', 2004, '', 'MA', NULL, '1687184584_9846cfad16535f98e569.jpg', '2023-05-22 11:55:38', '2023-06-19 14:23:04'),
-('PDS-00000002', 'popo', '1684758071_32564211e29bc3d45f1c.jpg', 'L', '123222', 'user1@mail.com', 'jambi', '2023-05-22', 'dsafd', 'sma', 2004, 'Tidak Lulus', 'MA', 1, NULL, '2023-05-22 12:21:11', '2023-06-01 08:27:50'),
-('PDS-00000003', 'bro', '1687260789_50991bfd87649e337083.jpg', 'L', '08238932433', 'bro@gmail.com', 'jambi', '2023-06-20', 'jljljl', 'sma', 2004, '', 'MA', NULL, '1687260928_f70feee6e0ce95d87678.jpg', '2023-06-20 11:33:09', '2023-06-20 11:35:28');
 
 -- --------------------------------------------------------
 
@@ -337,7 +316,7 @@ CREATE TABLE `ustadz` (
 
 INSERT INTO `ustadz` (`kd_ustadz`, `nama_ustadz`, `jk`, `status`, `alamat`, `tgl_lahir`, `no_telp`, `password`, `created_at`, `updated_at`) VALUES
 ('abcd', 'asdf', 'L', 'Aktif', 'asdf', '2023-08-10', 12343, '$2y$10$Y5UtB0pjaH1cWGKi9nMcPOGQ9b7pxOVZLZxNI5zuCiU7ua4xmiR6C', '2023-08-10 14:38:06', '2023-08-10 14:46:33'),
-('abcdddd', 'abde', 'L', 'Aktif', 'aafds', '2023-04-04', 1234562, '$2y$10$Qe2H3vivsUyFrJbaHOUmCOqivMidQOE3EfE2fUjTJp6t4onx7Ycfa', '2023-04-02 05:04:47', '2023-08-10 14:37:41'),
+('abcdddd', 'abcdddd', 'L', 'Aktif', 'JL BUNTU', '2023-04-04', 8293032, '$2y$10$FllCGbnLYoB5eliIYSrdC.CSdJHpU5Lf2eY2Z.LufecnZcmsttVk6', '2023-04-02 05:04:47', '2023-08-13 10:14:49'),
 ('abcdddd22', 'ddddabcd22', 'L', 'Aktif', 'dsfadsfa', '2023-06-22', 123456, '', '2023-06-22 09:38:20', '2023-08-10 14:45:15');
 
 --
@@ -430,13 +409,13 @@ ALTER TABLE `kegiatan`
 -- AUTO_INCREMENT untuk tabel `kegiatan_keasramaan`
 --
 ALTER TABLE `kegiatan_keasramaan`
-  MODIFY `id_kegiatan_keasramaan` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id_kegiatan_keasramaan` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT untuk tabel `nilai_keasramaan`
 --
 ALTER TABLE `nilai_keasramaan`
-  MODIFY `id_nilai_keasramaan` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id_nilai_keasramaan` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT untuk tabel `pengumuman`
