@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Waktu pembuatan: 13 Agu 2023 pada 19.44
+-- Waktu pembuatan: 03 Sep 2023 pada 21.06
 -- Versi server: 8.0.32-0ubuntu0.22.04.2
 -- Versi PHP: 8.1.2-1ubuntu2.11
 
@@ -48,6 +48,29 @@ CREATE TABLE `admin` (
 INSERT INTO `admin` (`id_admin`, `username`, `nama`, `email`, `no_telp`, `password`, `foto`, `role`, `is_active`, `created_at`, `updated_at`) VALUES
 (1, 'Admin', 'Admin', 'admin@gmail.com', '628323332', '$2y$10$yRVNJ8SP0jxuU0wR98icJuUIBQSbEAvrQaRgmrmBgxjOH.t96y1ea', '1680968438_fa05fcfaa9a1fe5e326b.png', 'admin', '1', '2023-02-25 13:59:10', '2023-04-15 04:52:24'),
 (2, 'pimpinan', 'Pimpinan Pondok', 'pimpinan@gmail.com', '628323380', '$2y$10$yRVNJ8SP0jxuU0wR98icJuUIBQSbEAvrQaRgmrmBgxjOH.t96y1ea', '1678891178_4f5e0b49866c3d947d0d.png', 'pimpinan', '1', '2023-02-25 13:59:10', '2023-04-09 06:13:47');
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `data_kelas`
+--
+
+CREATE TABLE `data_kelas` (
+  `id_data_kelas` int NOT NULL,
+  `nis` varchar(50) COLLATE utf8mb4_general_ci NOT NULL,
+  `id_kelas` int NOT NULL,
+  `created_at` timestamp NOT NULL,
+  `updated_at` timestamp NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data untuk tabel `data_kelas`
+--
+
+INSERT INTO `data_kelas` (`id_data_kelas`, `nis`, `id_kelas`, `created_at`, `updated_at`) VALUES
+(4, '123456789212', 11, '2023-09-03 07:42:22', '2023-09-03 07:42:22'),
+(5, '123456789223', 11, '2023-09-03 07:42:25', '2023-09-03 07:42:25'),
+(7, '12345678922', 15, '2023-09-03 09:13:36', '2023-09-03 09:13:36');
 
 -- --------------------------------------------------------
 
@@ -105,15 +128,149 @@ CREATE TABLE `kegiatan_keasramaan` (
   `updated_at` timestamp NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+-- --------------------------------------------------------
+
 --
--- Dumping data untuk tabel `kegiatan_keasramaan`
+-- Struktur dari tabel `kelas`
 --
 
-INSERT INTO `kegiatan_keasramaan` (`id_kegiatan_keasramaan`, `nama_kegiatan_keasramaan`, `kd_ustadz`, `created_at`, `updated_at`) VALUES
-(1, 'Setoran Hafalan', 'abcdddd', '2023-05-22 13:05:53', '2023-05-22 14:00:37'),
-(4, 'Menghafal Setoran lagi', 'abcdddd', '2023-05-22 13:50:16', '2023-05-22 13:50:16'),
-(5, 'Setoran Hafalan Yang ke 2', 'abcdddd', '2023-06-22 09:38:02', '2023-06-22 09:38:02'),
-(6, 'Setoran Hafalan Yang ke 3', 'abcdddd22', '2023-06-22 09:38:35', '2023-06-22 09:38:35');
+CREATE TABLE `kelas` (
+  `id_kelas` int NOT NULL,
+  `nama_kelas` varchar(100) COLLATE utf8mb4_general_ci NOT NULL,
+  `wali_kelas` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
+  `id_tahun_ajaran` int NOT NULL,
+  `created_at` timestamp NOT NULL,
+  `updated_at` timestamp NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data untuk tabel `kelas`
+--
+
+INSERT INTO `kelas` (`id_kelas`, `nama_kelas`, `wali_kelas`, `id_tahun_ajaran`, `created_at`, `updated_at`) VALUES
+(6, 'X PA', 'Edi Supriadi', 1, '2023-09-01 15:46:46', '2023-09-01 15:46:46'),
+(7, 'X PI', 'Desmiati Sundari,S.E', 1, '2023-09-01 15:46:58', '2023-09-01 15:46:58'),
+(8, 'XI PA', 'Ibnu Khairi,S.Pd.I', 1, '2023-09-01 15:47:09', '2023-09-01 15:47:09'),
+(9, 'XI PI', 'Nini Karlina, S.Pd', 1, '2023-09-01 15:47:23', '2023-09-01 15:47:23'),
+(10, 'XII PA', 'M.Amin, S.Pd.I', 1, '2023-09-01 15:47:34', '2023-09-01 15:47:34'),
+(11, 'XII PI', 'Abdul Haris, S.Pd.I', 1, '2023-09-01 15:47:34', '2023-09-02 15:31:15'),
+(12, 'VII / PA', '', 1, '2023-09-01 15:50:03', '2023-09-01 15:50:03'),
+(13, 'VII / PI', '', 1, '2023-09-01 15:50:53', '2023-09-01 15:51:09'),
+(14, 'VIII / PA', '', 1, '2023-09-01 15:51:21', '2023-09-01 15:51:21'),
+(15, 'VIII / PI', '', 1, '2023-09-01 15:51:31', '2023-09-01 15:51:31'),
+(16, 'IX / PA', '', 1, '2023-09-01 15:51:42', '2023-09-01 15:51:42'),
+(17, 'IX / PI', '', 1, '2023-09-01 15:52:17', '2023-09-01 15:52:17');
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `mapel`
+--
+
+CREATE TABLE `mapel` (
+  `kd_mapel` varchar(50) COLLATE utf8mb4_general_ci NOT NULL,
+  `nama_mapel` varchar(100) COLLATE utf8mb4_general_ci NOT NULL,
+  `created_at` timestamp NOT NULL,
+  `updated_at` timestamp NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data untuk tabel `mapel`
+--
+
+INSERT INTO `mapel` (`kd_mapel`, `nama_mapel`, `created_at`, `updated_at`) VALUES
+('akidahakhlak', 'Akidah Akhlak', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+('bahasaarab', 'Bahasa Arab', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+('bindonesia', 'B. Indonesia', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+('binggris', 'B. Inggris', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+('biologi1', 'Biologi 1', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+('ekoakun', 'Ekonomi/ Akuntasi', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+('fisika1', 'Fisika 1', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+('geografi', 'Geografi', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+('informatika', 'INFORMATIKA', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+('kimia1', 'Kimia 1', '0000-00-00 00:00:00', '2023-09-01 14:25:30'),
+('mtk', 'Matematika', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+('piqihumum', 'Piqih Umum', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+('ppkn', 'PPKn', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+('quranhadist', 'Quran Hadist', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+('sejarah', 'Sejarah', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+('ski', 'SKI', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+('sosiologi', 'Sosiologi', '0000-00-00 00:00:00', '0000-00-00 00:00:00');
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `mengajar`
+--
+
+CREATE TABLE `mengajar` (
+  `id_mengajar` int NOT NULL,
+  `kd_ustadz` varchar(50) COLLATE utf8mb4_general_ci NOT NULL,
+  `id_kelas` int NOT NULL,
+  `kd_mapel` varchar(50) COLLATE utf8mb4_general_ci NOT NULL,
+  `created_at` timestamp NOT NULL,
+  `updated_at` timestamp NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data untuk tabel `mengajar`
+--
+
+INSERT INTO `mengajar` (`id_mengajar`, `kd_ustadz`, `id_kelas`, `kd_mapel`, `created_at`, `updated_at`) VALUES
+(4, 'IT', 6, 'bindonesia', '2023-09-03 07:45:36', '2023-09-03 07:45:36'),
+(5, 'DS', 6, 'ekoakun', '2023-09-03 07:45:53', '2023-09-03 07:45:53'),
+(6, 'RN', 6, 'binggris', '2023-09-03 07:46:19', '2023-09-03 07:46:19'),
+(7, 'SU', 6, 'biologi1', '2023-09-03 07:46:40', '2023-09-03 07:46:40'),
+(8, 'NN', 6, 'ski', '2023-09-03 07:46:55', '2023-09-03 07:46:55'),
+(9, 'SU', 6, 'kimia1', '2023-09-03 07:47:08', '2023-09-03 07:47:08'),
+(10, 'SU', 6, 'geografi', '2023-09-03 07:47:22', '2023-09-03 07:47:22'),
+(11, 'SW', 6, 'mtk', '2023-09-03 07:47:44', '2023-09-03 07:47:44'),
+(12, 'ND', 6, 'akidahakhlak', '2023-09-03 07:47:56', '2023-09-03 07:47:56'),
+(13, 'RA', 6, 'informatika', '2023-09-03 07:48:18', '2023-09-03 07:48:18'),
+(14, 'IS', 6, 'sosiologi', '2023-09-03 07:48:42', '2023-09-03 07:48:42'),
+(15, 'SU', 6, 'fisika1', '2023-09-03 07:49:18', '2023-09-03 07:49:18'),
+(16, 'KM', 6, 'ppkn', '2023-09-03 07:49:35', '2023-09-03 07:49:35'),
+(17, 'FT', 6, 'sejarah', '2023-09-03 07:49:51', '2023-09-03 07:49:51'),
+(18, 'KM', 11, 'ppkn', '2023-09-03 08:25:55', '2023-09-03 08:25:55'),
+(19, 'SU', 11, 'geografi', '2023-09-03 08:26:05', '2023-09-03 08:26:05'),
+(20, 'NN', 11, 'ski', '2023-09-03 08:26:22', '2023-09-03 08:26:22'),
+(21, 'SW', 11, 'mtk', '2023-09-03 08:26:34', '2023-09-03 08:26:34'),
+(22, 'MA', 11, 'bahasaarab', '2023-09-03 08:26:49', '2023-09-03 08:26:49'),
+(23, 'IT', 11, 'bindonesia', '2023-09-03 08:27:04', '2023-09-03 08:27:04'),
+(24, 'DS', 11, 'ekoakun', '2023-09-03 08:27:18', '2023-09-03 08:27:18'),
+(25, 'KM', 11, 'sosiologi', '2023-09-03 08:27:32', '2023-09-03 08:27:32'),
+(26, 'IB', 11, 'quranhadist', '2023-09-03 08:27:47', '2023-09-03 08:27:47'),
+(27, 'AH', 11, 'piqihumum', '2023-09-03 08:27:58', '2023-09-03 08:27:58'),
+(28, 'NN', 11, 'akidahakhlak', '2023-09-03 08:28:08', '2023-09-03 08:28:08'),
+(29, 'IT', 11, 'sejarah', '2023-09-03 08:28:23', '2023-09-03 08:28:23'),
+(30, 'RA', 11, 'informatika', '2023-09-03 08:28:42', '2023-09-03 08:28:42'),
+(31, 'RN', 11, 'binggris', '2023-09-03 08:28:52', '2023-09-03 08:28:52');
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `nilai`
+--
+
+CREATE TABLE `nilai` (
+  `id_nilai` int NOT NULL,
+  `id_data_kelas` int NOT NULL,
+  `kd_mapel` varchar(50) COLLATE utf8mb4_general_ci NOT NULL,
+  `nilai` int NOT NULL,
+  `created_at` timestamp NOT NULL,
+  `updated_at` timestamp NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data untuk tabel `nilai`
+--
+
+INSERT INTO `nilai` (`id_nilai`, `id_data_kelas`, `kd_mapel`, `nilai`, `created_at`, `updated_at`) VALUES
+(1, 4, 'bahasaarab', 80, '2023-09-03 09:24:40', '2023-09-03 09:24:40'),
+(2, 4, 'ppkn', 80, '2023-09-03 09:24:40', '2023-09-03 14:02:26'),
+(3, 5, 'ppkn', 85, '2023-09-03 14:02:35', '2023-09-03 14:02:35'),
+(4, 5, 'sosiologi', 86, '2023-09-03 14:03:01', '2023-09-03 14:03:01'),
+(5, 4, 'sosiologi', 85, '2023-09-03 14:03:08', '2023-09-03 14:03:08');
 
 -- --------------------------------------------------------
 
@@ -136,14 +293,7 @@ CREATE TABLE `nilai_keasramaan` (
 --
 
 INSERT INTO `nilai_keasramaan` (`id_nilai_keasramaan`, `id_kegiatan_keasramaan`, `nis`, `nilai`, `keterangan`, `created_at`, `updated_at`) VALUES
-(2, 1, '2147483647', 80, 'dddddafdfd', '2023-05-22 14:48:46', '2023-05-22 15:46:00'),
-(4, 1, '12345678922', 70, 'keterangan', '2023-05-22 15:29:44', '2023-08-13 12:17:53'),
-(5, 5, '123456789212', 80, 'dddddafdfd', '2023-06-22 09:38:58', '2023-06-22 09:38:58'),
-(6, 5, '12345678922', 80, 'kerangan', '2023-06-22 09:45:21', '2023-06-22 09:45:21'),
-(7, 6, '123456789212', 80, 'kerangan', '2023-08-07 12:57:45', '2023-08-07 12:57:45'),
-(8, 6, '12345678922', 80, 'dddddafdfd', '2023-08-07 12:58:06', '2023-08-07 12:58:06'),
-(9, 6, '123456789223', 80, 'dddddafdfd', '2023-08-07 12:58:51', '2023-08-07 12:58:51'),
-(10, 1, '123456789212', 80, 'kerangan', '2023-08-13 12:15:46', '2023-08-13 12:15:46');
+(2, 1, '2147483647', 80, 'dddddafdfd', '2023-05-22 14:48:46', '2023-05-22 15:46:00');
 
 -- --------------------------------------------------------
 
@@ -225,7 +375,7 @@ CREATE TABLE `profil` (
   `pembayaran` text NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data untuk tabel `profil`
@@ -262,9 +412,9 @@ CREATE TABLE `santri` (
 --
 
 INSERT INTO `santri` (`nis`, `nama_santri`, `jk`, `tgl_masuk`, `alamat_lengkap`, `status`, `no_telp_wali`, `wali`, `tempat_lahir`, `tgl_lahir`, `jenjang_sekolah`, `password`, `created_at`, `updated_at`) VALUES
-('123456789212', 'Santri2', 'L', '2023-05-27', 'dsafdsf', 'Aktif', 2147483647, 'wali', 'jambi', '2023-05-27', 'MA', '$2y$10$lNLVitRoAwOuIZpRMGfMq.XuEOXIEEtJud.vn3B89Ebb93yTxAFa2', '2023-05-27 16:06:46', '2023-08-07 13:00:18'),
-('12345678922', 'Santri1', 'L', '2023-05-27', 'dfafddasfddddddddd', 'Aktif', 832984324, 'wali', 'jambi', '2023-05-27', 'MTS', '$2y$10$L4RQsVUeY4mNa3oUVQSAMOdH0A3o.Cy7Uy7SYo.ToB0dmOrImRw1C', '2023-05-27 15:05:25', '2023-06-22 09:39:14'),
-('123456789223', 'Santriddd', 'L', '2023-05-27', 'dsfaf', 'Aktif', 2147483647, 'wali', 'jambi', '2023-05-27', 'MA', '$2y$10$TPYTusHZp34T.ry/6dHTje7fg.DRnr47zA.tSjJUnlc.3lYkZ9e66', '2023-05-27 15:49:36', '2023-06-20 11:44:21');
+('123456789212', 'Santri 1 MA', 'L', '2023-05-27', 'dsafdsf', 'Aktif', 2147483647, 'wali', 'jambi', '2023-05-27', 'MA', '$2y$10$lNLVitRoAwOuIZpRMGfMq.XuEOXIEEtJud.vn3B89Ebb93yTxAFa2', '2023-05-27 16:06:46', '2023-09-03 06:49:25'),
+('12345678922', 'Santri1  MTS', 'L', '2023-05-27', 'dfafddasfddddddddd', 'Aktif', 832984324, 'wali', 'jambi', '2023-05-27', 'MTS', '$2y$10$L4RQsVUeY4mNa3oUVQSAMOdH0A3o.Cy7Uy7SYo.ToB0dmOrImRw1C', '2023-05-27 15:05:25', '2023-09-03 06:49:06'),
+('123456789223', 'Santri 2 MA', 'L', '2023-05-27', 'dsfaf', 'Aktif', 2147483647, 'wali', 'jambi', '2023-05-27', 'MA', '$2y$10$TPYTusHZp34T.ry/6dHTje7fg.DRnr47zA.tSjJUnlc.3lYkZ9e66', '2023-05-27 15:49:36', '2023-09-03 06:49:39');
 
 -- --------------------------------------------------------
 
@@ -294,6 +444,28 @@ INSERT INTO `slideshow` (`id_slideshow`, `slideshow`, `judul`, `caption`, `align
 -- --------------------------------------------------------
 
 --
+-- Struktur dari tabel `tahun_ajaran`
+--
+
+CREATE TABLE `tahun_ajaran` (
+  `id_tahun_ajaran` int NOT NULL,
+  `semester` set('Ganjil','Genap') COLLATE utf8mb4_general_ci NOT NULL,
+  `tahun_ajaran` varchar(100) COLLATE utf8mb4_general_ci NOT NULL,
+  `created_at` timestamp NOT NULL,
+  `updated_at` timestamp NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data untuk tabel `tahun_ajaran`
+--
+
+INSERT INTO `tahun_ajaran` (`id_tahun_ajaran`, `semester`, `tahun_ajaran`, `created_at`, `updated_at`) VALUES
+(1, 'Ganjil', '2023/2024', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(2, 'Genap', '2023/2024', '0000-00-00 00:00:00', '0000-00-00 00:00:00');
+
+-- --------------------------------------------------------
+
+--
 -- Struktur dari tabel `ustadz`
 --
 
@@ -315,9 +487,22 @@ CREATE TABLE `ustadz` (
 --
 
 INSERT INTO `ustadz` (`kd_ustadz`, `nama_ustadz`, `jk`, `status`, `alamat`, `tgl_lahir`, `no_telp`, `password`, `created_at`, `updated_at`) VALUES
-('abcd', 'asdf', 'L', 'Aktif', 'asdf', '2023-08-10', 12343, '$2y$10$Y5UtB0pjaH1cWGKi9nMcPOGQ9b7pxOVZLZxNI5zuCiU7ua4xmiR6C', '2023-08-10 14:38:06', '2023-08-10 14:46:33'),
-('abcdddd', 'abcdddd', 'L', 'Aktif', 'JL BUNTU', '2023-04-04', 8293032, '$2y$10$FllCGbnLYoB5eliIYSrdC.CSdJHpU5Lf2eY2Z.LufecnZcmsttVk6', '2023-04-02 05:04:47', '2023-08-13 10:14:49'),
-('abcdddd22', 'ddddabcd22', 'L', 'Aktif', 'dsfadsfa', '2023-06-22', 123456, '', '2023-06-22 09:38:20', '2023-08-10 14:45:15');
+('AH', 'Abdul Haris, S.Pd.I', 'L', 'Aktif', '1', '2023-08-30', 80808, '$2y$10$TwEbsnoDVahxgWLCoZXe9uf0B4DOM6tlKfXYh6K8G/FiZ.1Io/7Ke', '2023-08-30 12:41:21', '2023-08-30 12:49:12'),
+('DS', 'Desmiati Sundari,S.E', 'L', 'Aktif', '1', '2023-08-30', 0, '$2y$10$TwEbsnoDVahxgWLCoZXe9uf0B4DOM6tlKfXYh6K8G/FiZ.1Io/7Ke', '2023-08-30 12:41:21', '2023-08-30 12:41:21'),
+('ED', 'Edi Supriadi', 'L', 'Aktif', '1', '2023-08-30', 0, '$2y$10$TwEbsnoDVahxgWLCoZXe9uf0B4DOM6tlKfXYh6K8G/FiZ.1Io/7Ke', '2023-08-30 12:41:21', '2023-08-30 12:41:21'),
+('FT', 'Fatmawati, S.Pd', 'L', 'Aktif', '1', '2023-08-30', 0, '$2y$10$TwEbsnoDVahxgWLCoZXe9uf0B4DOM6tlKfXYh6K8G/FiZ.1Io/7Ke', '2023-08-30 12:41:21', '2023-08-30 12:41:21'),
+('IB', 'Ibnu Khairi ,S.Pd.I', 'L', 'Aktif', '1', '2023-08-30', 0, '$2y$10$TwEbsnoDVahxgWLCoZXe9uf0B4DOM6tlKfXYh6K8G/FiZ.1Io/7Ke', '2023-08-30 12:41:21', '2023-08-30 12:41:21'),
+('IS', 'Islamiarti, S.Pd', 'L', 'Aktif', '1', '2023-08-30', 0, '$2y$10$TwEbsnoDVahxgWLCoZXe9uf0B4DOM6tlKfXYh6K8G/FiZ.1Io/7Ke', '2023-08-30 12:41:21', '2023-08-30 12:41:21'),
+('IT', 'Istiyarni, S.Pd.', 'L', 'Aktif', '1', '2023-08-30', 0, '$2y$10$TwEbsnoDVahxgWLCoZXe9uf0B4DOM6tlKfXYh6K8G/FiZ.1Io/7Ke', '2023-08-30 12:41:21', '2023-08-30 12:41:21'),
+('KM', 'Kurnaini, S.PdI           \r\n', 'L', 'Aktif', '1', '2023-08-30', 0, '$2y$10$TwEbsnoDVahxgWLCoZXe9uf0B4DOM6tlKfXYh6K8G/FiZ.1Io/7Ke', '2023-08-30 12:41:21', '2023-08-30 12:41:21'),
+('MA', 'M.Amin, S.Pd.I', 'L', 'Aktif', '1', '2023-08-30', 0, '$2y$10$TwEbsnoDVahxgWLCoZXe9uf0B4DOM6tlKfXYh6K8G/FiZ.1Io/7Ke', '2023-08-30 12:41:21', '2023-08-30 12:41:21'),
+('ND', 'Hasnatun Nadia,M.Pd', 'L', 'Aktif', '1', '2023-08-30', 0, '$2y$10$TwEbsnoDVahxgWLCoZXe9uf0B4DOM6tlKfXYh6K8G/FiZ.1Io/7Ke', '2023-08-30 12:41:21', '2023-08-30 12:41:21'),
+('NN', 'Nini Karlina, S.H', 'L', 'Aktif', '1', '2023-08-30', 0, '$2y$10$TwEbsnoDVahxgWLCoZXe9uf0B4DOM6tlKfXYh6K8G/FiZ.1Io/7Ke', '2023-08-30 12:41:21', '2023-08-30 12:41:21'),
+('PR', 'Pronika Puji A, S.Pd.I', 'L', 'Aktif', '1', '2023-08-30', 0, '$2y$10$TwEbsnoDVahxgWLCoZXe9uf0B4DOM6tlKfXYh6K8G/FiZ.1Io/7Ke', '2023-08-30 12:41:21', '2023-08-30 12:41:21'),
+('RA', 'Rina, S.Kom.', 'L', 'Aktif', '1', '2023-08-30', 0, '$2y$10$TwEbsnoDVahxgWLCoZXe9uf0B4DOM6tlKfXYh6K8G/FiZ.1Io/7Ke', '2023-08-30 12:41:21', '2023-08-30 12:41:21'),
+('RN', 'Rahmi Novellia, S.Pd\r\n', 'P', 'Aktif', '1', '2023-08-30', 0, '$2y$10$TwEbsnoDVahxgWLCoZXe9uf0B4DOM6tlKfXYh6K8G/FiZ.1Io/7Ke', '2023-08-30 12:41:21', '2023-08-30 12:41:21'),
+('SU', 'Sri Wulandari,S.Pd.', 'L', 'Aktif', '1', '2023-08-30', 0, '$2y$10$TwEbsnoDVahxgWLCoZXe9uf0B4DOM6tlKfXYh6K8G/FiZ.1Io/7Ke', '2023-08-30 12:41:21', '2023-08-30 12:41:21'),
+('SW', 'Syamsi Warnis,S.Pd.', 'L', 'Aktif', '1', '2023-08-30', 0, '$2y$10$TwEbsnoDVahxgWLCoZXe9uf0B4DOM6tlKfXYh6K8G/FiZ.1Io/7Ke', '2023-08-30 12:41:21', '2023-08-30 12:41:21');
 
 --
 -- Indexes for dumped tables
@@ -328,6 +513,12 @@ INSERT INTO `ustadz` (`kd_ustadz`, `nama_ustadz`, `jk`, `status`, `alamat`, `tgl
 --
 ALTER TABLE `admin`
   ADD PRIMARY KEY (`id_admin`);
+
+--
+-- Indeks untuk tabel `data_kelas`
+--
+ALTER TABLE `data_kelas`
+  ADD PRIMARY KEY (`id_data_kelas`);
 
 --
 -- Indeks untuk tabel `galery`
@@ -346,6 +537,30 @@ ALTER TABLE `kegiatan`
 --
 ALTER TABLE `kegiatan_keasramaan`
   ADD PRIMARY KEY (`id_kegiatan_keasramaan`);
+
+--
+-- Indeks untuk tabel `kelas`
+--
+ALTER TABLE `kelas`
+  ADD PRIMARY KEY (`id_kelas`);
+
+--
+-- Indeks untuk tabel `mapel`
+--
+ALTER TABLE `mapel`
+  ADD PRIMARY KEY (`kd_mapel`);
+
+--
+-- Indeks untuk tabel `mengajar`
+--
+ALTER TABLE `mengajar`
+  ADD PRIMARY KEY (`id_mengajar`);
+
+--
+-- Indeks untuk tabel `nilai`
+--
+ALTER TABLE `nilai`
+  ADD PRIMARY KEY (`id_nilai`);
 
 --
 -- Indeks untuk tabel `nilai_keasramaan`
@@ -378,6 +593,12 @@ ALTER TABLE `slideshow`
   ADD PRIMARY KEY (`id_slideshow`);
 
 --
+-- Indeks untuk tabel `tahun_ajaran`
+--
+ALTER TABLE `tahun_ajaran`
+  ADD PRIMARY KEY (`id_tahun_ajaran`);
+
+--
 -- Indeks untuk tabel `ustadz`
 --
 ALTER TABLE `ustadz`
@@ -392,6 +613,12 @@ ALTER TABLE `ustadz`
 --
 ALTER TABLE `admin`
   MODIFY `id_admin` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT untuk tabel `data_kelas`
+--
+ALTER TABLE `data_kelas`
+  MODIFY `id_data_kelas` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT untuk tabel `galery`
@@ -412,6 +639,24 @@ ALTER TABLE `kegiatan_keasramaan`
   MODIFY `id_kegiatan_keasramaan` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
+-- AUTO_INCREMENT untuk tabel `kelas`
+--
+ALTER TABLE `kelas`
+  MODIFY `id_kelas` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+
+--
+-- AUTO_INCREMENT untuk tabel `mengajar`
+--
+ALTER TABLE `mengajar`
+  MODIFY `id_mengajar` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
+
+--
+-- AUTO_INCREMENT untuk tabel `nilai`
+--
+ALTER TABLE `nilai`
+  MODIFY `id_nilai` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
 -- AUTO_INCREMENT untuk tabel `nilai_keasramaan`
 --
 ALTER TABLE `nilai_keasramaan`
@@ -428,6 +673,12 @@ ALTER TABLE `pengumuman`
 --
 ALTER TABLE `slideshow`
   MODIFY `id_slideshow` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+
+--
+-- AUTO_INCREMENT untuk tabel `tahun_ajaran`
+--
+ALTER TABLE `tahun_ajaran`
+  MODIFY `id_tahun_ajaran` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

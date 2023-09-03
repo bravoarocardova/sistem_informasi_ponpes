@@ -67,6 +67,24 @@ $isAdmin = session()->get('admin')['role'] == 'admin';
                 <p>Data Ustadz</p>
               </a>
             </li>
+            <li class="nav-item">
+              <a href="<?= base_url() ?>admin/data/mapel" class="nav-link <?= ($uri->getSegment(3) == 'mapel') ? 'active text-primary' : '' ?>">
+                <i class="far fa-circle nav-icon"></i>
+                <p>Data Mapel</p>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a href="<?= base_url() ?>admin/data/tahun_ajaran" class="nav-link <?= ($uri->getSegment(3) == 'tahun_ajaran') ? 'active text-primary' : '' ?>">
+                <i class="far fa-circle nav-icon"></i>
+                <p>Data Tahun Ajaran</p>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a href="<?= base_url() ?>admin/data/kelas" class="nav-link <?= ($uri->getSegment(3) == 'kelas') ? 'active text-primary' : '' ?>">
+                <i class="far fa-circle nav-icon"></i>
+                <p>Data Kelas</p>
+              </a>
+            </li>
           </ul>
         </li>
         <li class="nav-item">

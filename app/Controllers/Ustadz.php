@@ -3,8 +3,13 @@
 namespace App\Controllers;
 
 use App\Controllers\BaseController;
+use App\Models\DataKelasM;
 use App\Models\KegiatanKeasramaanM;
+use App\Models\KelasM;
+use App\Models\MapelM;
+use App\Models\MengajarM;
 use App\Models\NilaiKeasramaanM;
+use App\Models\NilaiM;
 use App\Models\SantriM;
 use App\Models\UstadzM;
 
@@ -15,6 +20,11 @@ class Ustadz extends BaseController
   private $santriM;
   private $kegiatanKeasramaanM;
   private $nilaiKeasramaanM;
+  private $mengajarM;
+  private $kelasM;
+  private $mapelM;
+  private $kelasSiswaM;
+  private $nilaiM;
 
   public function __construct()
   {
@@ -22,6 +32,11 @@ class Ustadz extends BaseController
     $this->santriM = new SantriM();
     $this->kegiatanKeasramaanM = new KegiatanKeasramaanM();
     $this->nilaiKeasramaanM = new NilaiKeasramaanM();
+    $this->mengajarM = new MengajarM();
+    $this->kelasM = new KelasM();
+    $this->mapelM = new MapelM();
+    $this->kelasSiswaM = new DataKelasM();
+    $this->nilaiM = new NilaiM();
   }
 
   private function ruleKegiatanKeasramaan($is_unique = true)
@@ -85,6 +100,23 @@ class Ustadz extends BaseController
     ];
 
     return $ruleNilaiKeasramaan2;
+  }
+
+  private function ruleNilai()
+  {
+
+    $rule =  [
+      'nilai' => [
+        'label' => 'Nilai',
+        'rules' => 'required|min_length[1]',
+        'errors' => [
+          'required' => '{field} Harus diisi',
+          'min_length' => '{field} Minimal 1 Karakter',
+        ],
+      ],
+    ];
+
+    return $rule;
   }
 
   public function index()
@@ -455,5 +487,112 @@ class Ustadz extends BaseController
       $msg = 'Gagal dihapus.';
     }
     return redirect()->back()->with('msg', myAlert($type, $msg));
+  }
+
+  public function mengajar()
+  {
+    $mengajar = $this->mengajarM
+      ->select('distinct(mengajar.id_kelas), kelas.nama_kelas, kelas.wali_kelas, tahun_ajaran.tahun_ajaran, tahun_ajaran.semester')
+      ->join('kelas', 'kelas.id_kelas = mengajar.id_kelas')
+      ->join('tahun_ajaran', 'tahun_ajaran.id_tahun_ajaran = kelas.id_tahun_ajaran')
+      ->where('kd_ustadz', session()->get('ustadz')['kd_ustadz'])
+      ->find();
+
+    return view(
+      'ustadz/mengajar',
+      [
+        'profilApp' => $this->profilApp,
+        'mengajar' => $mengajar,
+      ]
+    );
+  }
+
+  public function mapel_mengajar($id_kelas)
+  {
+    $mapel_mengajar = $this->mengajarM
+      ->join('kelas', 'kelas.id_kelas = mengajar.id_kelas')
+      ->join('mapel', 'mapel.kd_mapel = mengajar.kd_mapel')
+      ->where(
+        [
+          'kd_ustadz' => session()->get('ustadz')['kd_ustadz'],
+          'mengajar.id_kelas' => $id_kelas
+        ]
+      )
+      ->find();
+
+    $kelas = $this->kelasM
+      ->join('tahun_ajaran', 'tahun_ajaran.id_tahun_ajaran = kelas.id_tahun_ajaran')
+      ->find($id_kelas);
+
+    return view(
+      'ustadz/mapel_mengajar',
+      [
+        'profilApp' => $this->profilApp,
+        'mapel_mengajar' => $mapel_mengajar,
+        'kelas' => $kelas
+      ]
+    );
+  }
+
+  public function daftar_siswa_diajar($id_kelas, $kd_mapel)
+  {
+
+    $mapel = $this->mapelM->find($kd_mapel);
+
+    $kelas = $this->kelasM
+      ->join('tahun_ajaran', 'tahun_ajaran.id_tahun_ajaran = kelas.id_tahun_ajaran')
+      ->find($id_kelas);
+
+    $siswa = $this->kelasSiswaM
+      ->select('data_kelas.*, mengajar.*, santri.*, mapel.*, nilai.id_nilai, nilai.nilai, nilai.created_at as dibuat, nilai.updated_at as diedit')
+      ->join('mengajar', 'mengajar.id_kelas = data_kelas.id_kelas')
+      ->join('mapel', 'mapel.kd_mapel = mengajar.kd_mapel')
+      ->join('nilai', 'nilai.id_data_kelas = data_kelas.id_data_kelas AND nilai.kd_mapel = mengajar.kd_mapel', 'left')
+      ->join('santri', 'data_kelas.nis = santri.nis')
+      ->where(
+        [
+          'data_kelas.id_kelas' => $id_kelas,
+          'mengajar.kd_mapel'  => $kd_mapel
+        ]
+      )
+      ->find();
+
+    return view(
+      'ustadz/daftar_siswa',
+      [
+        'profilApp' => $this->profilApp,
+        'kelas' => $kelas,
+        'siswa' => $siswa,
+        'mapel' => $mapel
+      ]
+    );
+  }
+
+  public function update_nilai_siswa_diajar($id_kelas, $kd_mapel)
+  {
+    if (!$this->validate($this->ruleNilai())) {
+      return redirect()->back()->withInput();
+    } else {
+      $post = $this->request->getPost();
+
+      $data = [
+        'id_data_kelas' => $post['id_data_kelas'],
+        'nilai' => $post['nilai'],
+        'kd_mapel' => $kd_mapel,
+      ];
+      if ($post['id_nilai'] != null) {
+        $data['id_nilai'] = $post['id_nilai'];
+      }
+
+      $simpan = $this->nilaiM->save($data);
+      if ($simpan) {
+        $type = 'success';
+        $msg = 'Berhasil ubah data.';
+      } else {
+        $type = 'danger';
+        $msg = 'Gagal ubah data.';
+      }
+      return redirect()->to(base_url() . '/ustadz/nilai/' . $id_kelas . '/mapel/' . $kd_mapel)->with('msg', myAlert($type, $msg));
+    }
   }
 }

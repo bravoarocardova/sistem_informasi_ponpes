@@ -3,7 +3,9 @@
 namespace App\Controllers;
 
 use App\Controllers\BaseController;
+use App\Models\DataKelasM;
 use App\Models\KegiatanKeasramaanM;
+use App\Models\KelasM;
 use App\Models\SantriM;
 
 class Santri extends BaseController
@@ -11,11 +13,15 @@ class Santri extends BaseController
 
   private $santriM;
   private $kegiatanKeasramaanM;
+  private $kelasSiswaM;
+  private $kelasM;
 
   public function __construct()
   {
     $this->santriM = new SantriM();
     $this->kegiatanKeasramaanM = new KegiatanKeasramaanM();
+    $this->kelasSiswaM = new DataKelasM();
+    $this->kelasM = new KelasM();
   }
 
   public function index()
@@ -228,5 +234,49 @@ class Santri extends BaseController
         $msg = 'Gagal update!.';
     }
     return redirect()->back()->withInput()->with('msg', myAlert($type, $msg));
+  }
+
+  public function nilai()
+  {
+    $kelas = $this->kelasSiswaM
+      ->select('data_kelas.*, data_kelas.created_at as dibuat,data_kelas.updated_at as diedit, kelas.*, tahun_ajaran.* ')
+      ->join('kelas', 'data_kelas.id_kelas = kelas.id_kelas')
+      ->join('tahun_ajaran', 'tahun_ajaran.id_tahun_ajaran = kelas.id_tahun_ajaran')
+      ->where('data_kelas.nis', session()->get('santri')['nis'])
+      ->find();
+
+    return view(
+      'santri/nilai',
+      [
+        'profilApp' => $this->profilApp,
+        'kelas' => $kelas
+      ]
+    );
+  }
+
+
+  public function detail_nilai($id_data_kelas)
+  {
+    $datakelas = $this->kelasSiswaM->find($id_data_kelas);
+    $kelas = $this->kelasM->join('tahun_ajaran', 'tahun_ajaran.id_tahun_ajaran = kelas.id_tahun_ajaran')->find($datakelas['id_kelas']);
+    $siswa = $this->santriM->find($datakelas['nis']);
+    $data = $this->kelasSiswaM
+      ->select('data_kelas.*, mengajar.*, santri.*, mapel.*, nilai.nilai, nilai.created_at as dibuat, nilai.updated_at as diedit')
+      ->join('mengajar', 'mengajar.id_kelas = data_kelas.id_kelas')
+      ->join('mapel', 'mapel.kd_mapel = mengajar.kd_mapel')
+      ->join('santri', 'santri.nis = data_kelas.nis')
+      ->join('nilai', 'nilai.id_data_kelas = data_kelas.id_data_kelas AND nilai.kd_mapel = mengajar.kd_mapel', 'left')
+      ->where([
+        'data_kelas.id_kelas' => $datakelas['id_kelas'],
+        'data_kelas.nis' => $datakelas['nis'],
+      ])
+      ->findAll();
+
+    return view('santri/detail_nilai', [
+      'kelas' => $kelas,
+      'profilApp' => $this->profilApp,
+      'siswa' => $siswa,
+      'nilai' => $data
+    ]);
   }
 }

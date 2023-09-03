@@ -41,6 +41,14 @@ $uri = service('uri');
             </p>
           </a>
         </li>
+        <li class="nav-item">
+          <a href="<?= base_url() ?>santri/nilai" class="nav-link <?= ($uri->getSegment(2) == 'nilai') ? 'active' : '' ?>">
+            <i class="nav-icon fa fa-bookmark"></i>
+            <p>
+              Nilai
+            </p>
+          </a>
+        </li>
 
         <li class="nav-header">Setting</li>
         <li class="nav-item">

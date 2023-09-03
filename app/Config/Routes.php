@@ -51,6 +51,8 @@ $routes->add('/logout', 'Home::logout');
 $routes->group('santri', ['filter' => 'isLoggedInSantri'], function ($routes) {
   $routes->get('dashboard', 'Santri');
   $routes->get('keasramaan', 'Santri::keasramaan');
+  $routes->get('nilai', 'Santri::nilai');
+  $routes->get('nilai/(:segment)', 'Santri::detail_nilai/$1');
   $routes->get('pengguna', 'Santri::pengguna');
   $routes->put('pengguna', 'Santri::edit_pengguna');
 });
@@ -58,6 +60,11 @@ $routes->group('santri', ['filter' => 'isLoggedInSantri'], function ($routes) {
 // Ustadz
 $routes->group('ustadz', ['filter' => 'isLoggedInUstadz'], function ($routes) {
   $routes->get('dashboard', 'Ustadz');
+
+  $routes->get('nilai', 'Ustadz::mengajar');
+  $routes->get('nilai/(:segment)', 'Ustadz::mapel_mengajar/$1');
+  $routes->get('nilai/(:segment)/mapel/(:segment)', 'Ustadz::daftar_siswa_diajar/$1/$2');
+  $routes->put('nilai/(:segment)/mapel/(:segment)', 'Ustadz::update_nilai_siswa_diajar/$1/$2');
 
   $routes->group('keasramaan', function ($routes) {
     $routes->get('', 'Ustadz::keasramaan');
@@ -143,6 +150,64 @@ $routes->group('admin', ['namespace' => 'App\Controllers\Admin', 'filter' => 'is
       $routes->put('edit/(:segment)', 'DataC::proses_edit_ustadz/$1');
 
       $routes->delete('hapus/(:segment)', 'DataC::hapus_ustadz/$1');
+    });
+
+    $routes->group('mapel', function ($routes) {
+      $routes->add('', 'DataC::data_mapel');
+
+      $routes->get('tambah', 'DataC::tambah_mapel');
+      $routes->post('tambah', 'DataC::proses_tambah_mapel');
+
+      $routes->get('edit/(:segment)', 'DataC::edit_mapel/$1');
+      $routes->put('edit/(:segment)', 'DataC::proses_edit_mapel/$1');
+
+      $routes->delete('hapus/(:segment)', 'DataC::hapus_mapel/$1');
+    });
+
+    $routes->group('tahun_ajaran', function ($routes) {
+      $routes->add('', 'DataC::data_tahun_ajaran');
+
+      $routes->get('tambah', 'DataC::tambah_tahun_ajaran');
+      $routes->post('tambah', 'DataC::proses_tambah_tahun_ajaran');
+
+      $routes->get('edit/(:segment)', 'DataC::edit_tahun_ajaran/$1');
+      $routes->put('edit/(:segment)', 'DataC::proses_edit_tahun_ajaran/$1');
+
+      $routes->delete('hapus/(:segment)', 'DataC::hapus_tahun_ajaran/$1');
+    });
+
+    $routes->group('kelas', function ($routes) {
+      $routes->add('', 'DataC::data_kelas');
+
+      $routes->get('tambah', 'DataC::tambah_kelas');
+      $routes->post('tambah', 'DataC::proses_tambah_kelas');
+
+      $routes->get('edit/(:segment)', 'DataC::edit_kelas/$1');
+      $routes->put('edit/(:segment)', 'DataC::proses_edit_kelas/$1');
+
+      $routes->delete('hapus/(:segment)', 'DataC::hapus_kelas/$1');
+
+      $routes->get('nilai/(:segment)', 'DataC::data_kelas_nilai/$1');
+
+      $routes->group('(:segment)/siswa', function ($routes) {
+        $routes->add('', 'DataC::data_kelas_siswa/$1');
+
+        $routes->put('tambah/(:segment)', 'DataC::proses_tambah_kelas_siswa/$1/$2');
+
+        $routes->delete('hapus/(:segment)', 'DataC::hapus_kelas_siswa/$1/$2');
+      });
+
+      $routes->group('(:segment)/mapel', function ($routes) {
+        $routes->add('', 'DataC::data_kelas_mapel/$1');
+
+        $routes->get('tambah', 'DataC::tambah_kelas_mapel/$1');
+        $routes->post('tambah', 'DataC::proses_tambah_kelas_mapel/$1');
+
+        $routes->get('edit/(:segment)', 'DataC::edit_kelas_mapel/$1/$2');
+        $routes->put('edit/(:segment)', 'DataC::proses_edit_kelas_mapel/$1/$2');
+
+        $routes->delete('hapus/(:segment)', 'DataC::hapus_kelas_mapel/$1/$2');
+      });
     });
 
     $routes->addRedirect('/', 'admin/dashboard');

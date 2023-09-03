@@ -3,15 +3,20 @@
 namespace App\Controllers\Admin;
 
 use App\Controllers\BaseController;
+use App\Models\DataKelasM;
 use App\Models\GaleryM;
 use App\Models\KegiatanKeasramaanM;
 use App\Models\KegiatanM;
+use App\Models\KelasM;
+use App\Models\MapelM;
+use App\Models\MengajarM;
 use App\Models\NilaiKeasramaanM;
 use App\Models\SantriM;
 use App\Models\UstadzM;
 use App\Models\PengumumanM;
 use App\Models\SlideshowM;
 use App\Models\PendaftaranM;
+use App\Models\TahunAjaranM;
 
 class DataC extends BaseController
 {
@@ -25,6 +30,11 @@ class DataC extends BaseController
   private $kegiatanM;
   private $kegiatanKeasramaanM;
   private $nilaiKeasramaanM;
+  private $mapelM;
+  private $kelasM;
+  private $tahunAjaranM;
+  private $kelasSiswaM;
+  private $mengajarM;
 
   public function __construct()
   {
@@ -37,6 +47,11 @@ class DataC extends BaseController
     $this->kegiatanM = new KegiatanM();
     $this->kegiatanKeasramaanM = new KegiatanKeasramaanM();
     $this->nilaiKeasramaanM = new NilaiKeasramaanM();
+    $this->mapelM = new MapelM();
+    $this->kelasM = new KelasM();
+    $this->tahunAjaranM = new TahunAjaranM();
+    $this->kelasSiswaM = new DataKelasM();
+    $this->mengajarM = new MengajarM();
   }
 
   private function ruleSantri($is_unique = true, $pass_req = true)
@@ -218,6 +233,116 @@ class DataC extends BaseController
     ];
 
     return $ruleUstadz;
+  }
+
+  private function ruleMapel($is_unique = true)
+  {
+
+    $rules =  [
+      'kd_mapel' => [
+        'label' => 'Kode Mapel',
+        'rules' => ($is_unique) ? 'required|is_unique[mapel.kd_mapel]' : 'required',
+        'errors' => [
+          'required' => '{field} Harus diisi',
+          'is_unique' => '{field} Sudah Ada',
+        ]
+      ],
+      'nama_mapel' => [
+        'label' => 'Nama Mapel',
+        'rules' => 'required|min_length[1]|max_length[100]',
+        'errors' => [
+          'required' => '{field} Harus diisi',
+          'min_length' => '{field} Minimal 1 Karakter',
+          'max_length' => '{field} Maksimal 100 Karakter',
+        ],
+      ],
+    ];
+
+    return $rules;
+  }
+
+  private function ruleTahunAjaran()
+  {
+
+    $rules =  [
+      'tahun_ajaran' => [
+        'label' => 'Tahun Ajaran',
+        'rules' => 'required|max_length[100]',
+        'errors' => [
+          'required' => '{field} Harus diisi',
+          'max_length' => '{field} Maksimal 100 Karakter',
+        ]
+      ],
+      'semester' => [
+        'label' => 'Semester',
+        'rules' => 'required|min_length[1]|max_length[100]',
+        'errors' => [
+          'required' => '{field} Harus diisi',
+          'min_length' => '{field} Minimal 1 Karakter',
+          'max_length' => '{field} Maksimal 100 Karakter',
+        ],
+      ],
+    ];
+
+    return $rules;
+  }
+
+  private function ruleKelas()
+  {
+
+    $rules =  [
+      'nama_kelas' => [
+        'label' => 'Nama Kelas',
+        'rules' => 'required|max_length[100]',
+        'errors' => [
+          'required' => '{field} Harus diisi',
+          'max_length' => '{field} Maksimal 100 Karakter',
+        ]
+      ],
+      'wali_kelas' => [
+        'label' => 'Wali Kelas',
+        'rules' => 'max_length[100]',
+        'errors' => [
+          'max_length' => '{field} Maksimal 100 Karakter',
+        ],
+      ],
+      'id_tahun_ajaran' => [
+        'label' => 'Tahun Ajaran',
+        'rules' => 'required|min_length[1]|max_length[100]',
+        'errors' => [
+          'required' => '{field} Harus diisi',
+          'min_length' => '{field} Minimal 1 Karakter',
+          'max_length' => '{field} Maksimal 100 Karakter',
+        ],
+      ],
+    ];
+
+    return $rules;
+  }
+
+  private function ruleKelasMapel()
+  {
+
+    $rules =  [
+      'kd_mapel' => [
+        'label' => 'Mata Pelajaran',
+        'rules' => 'required|max_length[100]',
+        'errors' => [
+          'required' => '{field} Harus diisi',
+          'max_length' => '{field} Maksimal 100 Karakter',
+        ]
+      ],
+      'kd_ustadz' => [
+        'label' => 'Pengajar',
+        'rules' => 'required|max_length[100]',
+        'errors' => [
+          'required' => '{field} Harus diisi',
+          'max_length' => '{field} Maksimal 100 Karakter',
+        ],
+      ],
+    ];
+
+    return $rules;
   }
 
   private function rulePengumuman($is_valid_gambar = true)
@@ -787,6 +912,448 @@ class DataC extends BaseController
   public function hapus_ustadz($kd_ustadz)
   {
     $hapus = $this->ustadzM->delete($kd_ustadz);
+    if ($hapus) {
+      $type = 'success';
+      $msg = 'Berhasil dihapus.';
+    } else {
+      $type = 'danger';
+      $msg = 'Gagal dihapus.';
+    }
+    return redirect()->back()->with('msg', myAlert($type, $msg));
+  }
+
+  public function data_mapel()
+  {
+    $mapel = $this->mapelM->findAll();
+    return view('admin/data/mapel/data_mapel_v', [
+      'mapel' => $mapel,
+      'profilApp' => $this->profilApp,
+    ]);
+  }
+
+  public function tambah_mapel()
+  {
+    return view('admin/data/mapel/tambah_mapel_form', [
+      'profilApp' => $this->profilApp
+    ]);
+  }
+
+  public function proses_tambah_mapel()
+  {
+    if (!$this->validate($this->ruleMapel(true))) {
+      return redirect()->back()->withInput();
+    } else {
+      $post = $this->request->getPost();
+      $data = [
+        'kd_mapel' => $post['kd_mapel'],
+        'nama_mapel' => $post['nama_mapel']
+      ];
+      $simpan = $this->mapelM->save($data);
+      if ($simpan) {
+        $type = 'success';
+        $msg = 'Berhasil tambah data.';
+      } else {
+        $type = 'danger';
+        $msg = 'Gagal tambah data.';
+      }
+      return redirect()->to(base_url() . 'admin/data/mapel')->with('msg', myAlert($type, $msg));
+    }
+  }
+
+  public function edit_mapel($kd_mapel)
+  {
+    return view('admin/data/mapel/edit_mapel_form', [
+      'mapel' => $this->mapelM->find($kd_mapel),
+      'profilApp' => $this->profilApp
+    ]);
+  }
+
+  public function proses_edit_mapel($kd_mapel)
+  {
+    $dataLama = $this->mapelM->find($kd_mapel);
+    $post = $this->request->getPost();
+
+    $is_unique = true;
+    if ($dataLama['kd_mapel'] == $post['kd_mapel']) {
+      $is_unique = false;
+    }
+
+    if (!$this->validate($this->ruleMapel($is_unique))) {
+      return redirect()->back()->withInput();
+    } else {
+
+      $data = [
+        'kd_mapel' => $post['kd_mapel'],
+        'nama_mapel' => $post['nama_mapel'],
+      ];
+
+
+      $simpan = $this->mapelM->update(['kd_mapel' => $kd_mapel], $data);
+      if ($simpan) {
+        $type = 'success';
+        $msg = 'Berhasil ubah data.';
+      } else {
+        $type = 'danger';
+        $msg = 'Gagal ubah data.';
+      }
+      return redirect()->to(base_url() . 'admin/data/mapel')->with('msg', myAlert($type, $msg));
+    }
+  }
+
+  public function hapus_mapel($kd_mapel)
+  {
+    $hapus = $this->mapelM->delete($kd_mapel);
+    if ($hapus) {
+      $type = 'success';
+      $msg = 'Berhasil dihapus.';
+    } else {
+      $type = 'danger';
+      $msg = 'Gagal dihapus.';
+    }
+    return redirect()->back()->with('msg', myAlert($type, $msg));
+  }
+
+  public function data_tahun_ajaran()
+  {
+    $tahun_ajaran = $this->tahunAjaranM->findAll();
+    return view('admin/data/tahun_ajaran/data_tahun_ajaran_v', [
+      'tahun_ajaran' => $tahun_ajaran,
+      'profilApp' => $this->profilApp,
+    ]);
+  }
+
+  public function tambah_tahun_ajaran()
+  {
+    return view('admin/data/tahun_ajaran/tambah_tahun_ajaran_form', [
+      'profilApp' => $this->profilApp,
+    ]);
+  }
+
+  public function proses_tambah_tahun_ajaran()
+  {
+    if (!$this->validate($this->ruleTahunAjaran())) {
+      return redirect()->back()->withInput();
+    } else {
+      $post = $this->request->getPost();
+      $data = [
+        'tahun_ajaran' => $post['tahun_ajaran'],
+        'semester' => $post['semester']
+      ];
+      $simpan = $this->tahunAjaranM->save($data);
+      if ($simpan) {
+        $type = 'success';
+        $msg = 'Berhasil tambah data.';
+      } else {
+        $type = 'danger';
+        $msg = 'Gagal tambah data.';
+      }
+      return redirect()->to(base_url() . 'admin/data/tahun_ajaran')->with('msg', myAlert($type, $msg));
+    }
+  }
+
+  public function edit_tahun_ajaran($id_tahun_ajaran)
+  {
+    return view('admin/data/tahun_ajaran/edit_tahun_ajaran_form', [
+      'tahun_ajaran' => $this->tahunAjaranM->find($id_tahun_ajaran),
+      'profilApp' => $this->profilApp,
+    ]);
+  }
+
+  public function proses_edit_tahun_ajaran($id_tahun_ajaran)
+  {
+    $post = $this->request->getPost();
+
+    if (!$this->validate($this->ruleTahunAjaran())) {
+      return redirect()->back()->withInput();
+    } else {
+
+      $data = [
+        'tahun_ajaran' => $post['tahun_ajaran'],
+        'semester' => $post['semester']
+      ];
+
+
+      $simpan = $this->tahunAjaranM->update(['id_tahun_ajaran' => $id_tahun_ajaran], $data);
+      if ($simpan) {
+        $type = 'success';
+        $msg = 'Berhasil ubah data.';
+      } else {
+        $type = 'danger';
+        $msg = 'Gagal ubah data.';
+      }
+      return redirect()->to(base_url() . 'admin/data/tahun_ajaran')->with('msg', myAlert($type, $msg));
+    }
+  }
+
+  public function hapus_tahun_ajaran($kd_tahun_ajaran)
+  {
+    $hapus = $this->tahunAjaranM->delete($kd_tahun_ajaran);
+    if ($hapus) {
+      $type = 'success';
+      $msg = 'Berhasil dihapus.';
+    } else {
+      $type = 'danger';
+      $msg = 'Gagal dihapus.';
+    }
+    return redirect()->back()->with('msg', myAlert($type, $msg));
+  }
+
+  public function data_kelas()
+  {
+    $kelas = $this->kelasM
+      ->join('tahun_ajaran', 'kelas.id_tahun_ajaran = tahun_ajaran.id_tahun_ajaran')
+      ->orderBy('kelas.id_tahun_ajaran', 'DESC')
+      ->orderBy('nama_kelas', 'ASC')
+      ->findAll();
+    return view('admin/data/kelas/data_kelas_v', [
+      'kelas' => $kelas,
+      'profilApp' => $this->profilApp,
+    ]);
+  }
+
+  public function tambah_kelas()
+  {
+    return view('admin/data/kelas/tambah_kelas_form', [
+      'profilApp' => $this->profilApp,
+      'tahun_ajaran' => $this->tahunAjaranM->orderBy('id_tahun_ajaran', 'DESC')->findAll()
+    ]);
+  }
+
+  public function proses_tambah_kelas()
+  {
+    if (!$this->validate($this->ruleKelas(true))) {
+      return redirect()->back()->withInput();
+    } else {
+      $post = $this->request->getPost();
+      $data = [
+        'nama_kelas' => $post['nama_kelas'],
+        'wali_kelas' => $post['wali_kelas'],
+        'id_tahun_ajaran' => $post['id_tahun_ajaran']
+      ];
+      $simpan = $this->kelasM->save($data);
+      if ($simpan) {
+        $type = 'success';
+        $msg = 'Berhasil tambah data.';
+      } else {
+        $type = 'danger';
+        $msg = 'Gagal tambah data.';
+      }
+      return redirect()->to(base_url() . 'admin/data/kelas')->with('msg', myAlert($type, $msg));
+    }
+  }
+
+  public function edit_kelas($kd_kelas)
+  {
+    return view('admin/data/kelas/edit_kelas_form', [
+      'kelas' => $this->kelasM->find($kd_kelas),
+      'profilApp' => $this->profilApp,
+      'tahun_ajaran' => $this->tahunAjaranM->orderBy('id_tahun_ajaran', 'DESC')->findAll()
+    ]);
+  }
+
+  public function proses_edit_kelas($kd_kelas)
+  {
+    $dataLama = $this->kelasM->find($kd_kelas);
+    $post = $this->request->getPost();
+
+    if (!$this->validate($this->ruleKelas())) {
+      return redirect()->back()->withInput();
+    } else {
+
+      $data = [
+        'nama_kelas' => $post['nama_kelas'],
+        'wali_kelas' => $post['wali_kelas'],
+        'id_tahun_ajaran' => $post['id_tahun_ajaran']
+      ];
+
+
+      $simpan = $this->kelasM->update(['id_kelas' => $kd_kelas], $data);
+      if ($simpan) {
+        $type = 'success';
+        $msg = 'Berhasil ubah data.';
+      } else {
+        $type = 'danger';
+        $msg = 'Gagal ubah data.';
+      }
+      return redirect()->to(base_url() . 'admin/data/kelas')->with('msg', myAlert($type, $msg));
+    }
+  }
+
+  public function hapus_kelas($kd_kelas)
+  {
+    $hapus = $this->kelasM->delete($kd_kelas);
+    if ($hapus) {
+      $type = 'success';
+      $msg = 'Berhasil dihapus.';
+    } else {
+      $type = 'danger';
+      $msg = 'Gagal dihapus.';
+    }
+    return redirect()->back()->with('msg', myAlert($type, $msg));
+  }
+
+  public function data_kelas_nilai($id_data_kelas)
+  {
+    $datakelas = $this->kelasSiswaM->find($id_data_kelas);
+    $kelas = $this->kelasM->join('tahun_ajaran', 'tahun_ajaran.id_tahun_ajaran = kelas.id_tahun_ajaran')->find($datakelas['id_kelas']);
+    $siswa = $this->santriM->find($datakelas['nis']);
+    $data = $this->kelasSiswaM
+      ->select('data_kelas.*, mengajar.*, santri.*, mapel.*, nilai.nilai, nilai.created_at as dibuat, nilai.updated_at as diedit')
+      ->join('mengajar', 'mengajar.id_kelas = data_kelas.id_kelas')
+      ->join('mapel', 'mapel.kd_mapel = mengajar.kd_mapel')
+      ->join('santri', 'santri.nis = data_kelas.nis')
+      ->join('nilai', 'nilai.id_data_kelas = data_kelas.id_data_kelas AND nilai.kd_mapel = mengajar.kd_mapel', 'left')
+      ->where([
+        'data_kelas.id_kelas' => $datakelas['id_kelas'],
+        'data_kelas.nis' => $datakelas['nis'],
+      ])
+      ->findAll();
+
+    return view('admin/data/kelas_nilai/data_kelas_nilai_v', [
+      'kelas' => $kelas,
+      'profilApp' => $this->profilApp,
+      'siswa' => $siswa,
+      'nilai' => $data
+    ]);
+  }
+
+  public function data_kelas_siswa($id_kelas)
+  {
+    $kelas_siswa = $this->kelasSiswaM
+      ->join('santri', 'data_kelas.nis = santri.nis')
+      ->where('id_kelas', $id_kelas)
+      ->find();
+    $kelas = $this->kelasM->join('tahun_ajaran', 'tahun_ajaran.id_tahun_ajaran = kelas.id_tahun_ajaran')->find($id_kelas);
+
+    return view('admin/data/kelas_siswa/data_kelas_siswa_v', [
+      'kelas_siswa' => $kelas_siswa,
+      'santri' => $this->santriM->findAll(),
+      'kelas' => $kelas,
+      'profilApp' => $this->profilApp,
+    ]);
+  }
+
+  public function proses_tambah_kelas_siswa($id_kelas, $nis)
+  {
+    $data = [
+      'nis' => $nis,
+      'id_kelas' => $id_kelas,
+    ];
+    $simpan = $this->kelasSiswaM->save($data);
+    if ($simpan) {
+      $type = 'success';
+      $msg = 'Berhasil tambah data.';
+    } else {
+      $type = 'danger';
+      $msg = 'Gagal tambah data.';
+    }
+    return redirect()->to(base_url() . 'admin/data/kelas/' . $id_kelas . '/siswa')->with('msg', myAlert($type, $msg));
+  }
+
+  public function hapus_kelas_siswa($kd_kelas_siswa, $id_data_kelas)
+  {
+    $hapus = $this->kelasSiswaM->delete($id_data_kelas);
+    if ($hapus) {
+      $type = 'success';
+      $msg = 'Berhasil dihapus.';
+    } else {
+      $type = 'danger';
+      $msg = 'Gagal dihapus.';
+    }
+    return redirect()->back()->with('msg', myAlert($type, $msg));
+  }
+
+  public function data_kelas_mapel($id_kelas)
+  {
+    $kelas = $this->kelasM->join('tahun_ajaran', 'tahun_ajaran.id_tahun_ajaran = kelas.id_tahun_ajaran')->find($id_kelas);
+    $mengajar = $this->mengajarM
+      ->join('ustadz', 'ustadz.kd_ustadz = mengajar.kd_ustadz')
+      ->join('mapel', 'mapel.kd_mapel = mengajar.kd_mapel')
+      ->where('id_kelas', $id_kelas)->find();
+    return view('admin/data/kelas_mapel/data_kelas_mapel_v', [
+      'kelas' => $kelas,
+      'mengajar' => $mengajar,
+      'profilApp' => $this->profilApp,
+    ]);
+  }
+
+  public function tambah_kelas_mapel($id_kelas)
+  {
+    $kelas = $this->kelasM->join('tahun_ajaran', 'tahun_ajaran.id_tahun_ajaran = kelas.id_tahun_ajaran')->find($id_kelas);
+    return view('admin/data/kelas_mapel/tambah_kelas_mapel_form', [
+      'kelas' => $kelas,
+      'profilApp' => $this->profilApp,
+      'mapel' => $this->mapelM->findAll(),
+      'ustadz' => $this->ustadzM->findAll(),
+    ]);
+  }
+
+  public function proses_tambah_kelas_mapel($id_kelas)
+  {
+    if (!$this->validate($this->ruleKelasMapel())) {
+      return redirect()->back()->withInput();
+    } else {
+      $post = $this->request->getPost();
+      $data = [
+        'kd_ustadz' => $post['kd_ustadz'],
+        'kd_mapel' => $post['kd_mapel'],
+        'id_kelas' => $id_kelas,
+      ];
+      $simpan = $this->mengajarM->save($data);
+      if ($simpan) {
+        $type = 'success';
+        $msg = 'Berhasil tambah data.';
+      } else {
+        $type = 'danger';
+        $msg = 'Gagal tambah data.';
+      }
+      return redirect()->to(base_url() . 'admin/data/kelas/' . $id_kelas . '/mapel')->with('msg', myAlert($type, $msg));
+    }
+  }
+
+  public function edit_kelas_mapel($id_kelas, $id_mengajar)
+  {
+    $kelas = $this->kelasM->join('tahun_ajaran', 'tahun_ajaran.id_tahun_ajaran = kelas.id_tahun_ajaran')->find($id_kelas);
+    return view('admin/data/kelas_mapel/edit_kelas_mapel_form', [
+      'kelas' => $kelas,
+      'profilApp' => $this->profilApp,
+      'mengajar' => $this->mengajarM->find($id_mengajar),
+      'mapel' => $this->mapelM->findAll(),
+      'ustadz' => $this->ustadzM->findAll(),
+    ]);
+  }
+
+  public function proses_edit_kelas_mapel($id_kelas, $id_mengajar)
+  {
+    $dataLama = $this->kelasM->find($id_kelas);
+    $post = $this->request->getPost();
+
+    if (!$this->validate($this->ruleKelasMapel())) {
+      return redirect()->back()->withInput();
+    } else {
+
+      $data = [
+        'kd_ustadz' => $post['kd_ustadz'],
+        'kd_mapel' => $post['kd_mapel'],
+        'id_kelas' => $id_kelas,
+      ];
+
+
+      $simpan = $this->mengajarM->update(['id_mengajar' => $id_mengajar], $data);
+      if ($simpan) {
+        $type = 'success';
+        $msg = 'Berhasil ubah data.';
+      } else {
+        $type = 'danger';
+        $msg = 'Gagal ubah data.';
+      }
+      return redirect()->to(base_url() . 'admin/data/kelas/' . $id_kelas . '/mapel')->with('msg', myAlert($type, $msg));
+    }
+  }
+
+  public function hapus_kelas_mapel($id_kelas, $id_mengajar)
+  {
+    $hapus = $this->mengajarM->delete($id_mengajar);
     if ($hapus) {
       $type = 'success';
       $msg = 'Berhasil dihapus.';
