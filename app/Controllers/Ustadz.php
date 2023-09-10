@@ -595,4 +595,67 @@ class Ustadz extends BaseController
       return redirect()->to(base_url() . '/ustadz/nilai/' . $id_kelas . '/mapel/' . $kd_mapel)->with('msg', myAlert($type, $msg));
     }
   }
+
+  public function kelas_saya()
+  {
+    $kelas_saya = $this->kelasM
+      ->join('tahun_ajaran', 'tahun_ajaran.id_tahun_ajaran = kelas.id_tahun_ajaran')
+      ->where('wali_kelas', session()->get('ustadz')['kd_ustadz'])
+      ->find();
+
+    return view(
+      'ustadz/kelas_saya',
+      [
+        'profilApp' => $this->profilApp,
+        'kelas_saya' => $kelas_saya,
+      ]
+    );
+  }
+
+  public function kelas_detail($id_kelas)
+  {
+
+    $kelas = $this->kelasM
+      ->join('tahun_ajaran', 'tahun_ajaran.id_tahun_ajaran = kelas.id_tahun_ajaran')
+      ->find($id_kelas);
+
+    $kelas_siswa = $this->kelasSiswaM
+      ->join('santri', 'data_kelas.nis = santri.nis')
+      ->where('id_kelas', $id_kelas)
+      ->find();
+
+    return view(
+      'ustadz/data_kelas_siswa',
+      [
+        'profilApp' => $this->profilApp,
+        'kelas_siswa' => $kelas_siswa,
+        'kelas' => $kelas
+      ]
+    );
+  }
+
+  public function siswa_detail($id_data_kelas)
+  {
+    $datakelas = $this->kelasSiswaM->find($id_data_kelas);
+    $kelas = $this->kelasM->join('tahun_ajaran', 'tahun_ajaran.id_tahun_ajaran = kelas.id_tahun_ajaran')->find($datakelas['id_kelas']);
+    $siswa = $this->santriM->find($datakelas['nis']);
+    $data = $this->kelasSiswaM
+      ->select('data_kelas.*, mengajar.*, santri.*, mapel.*, nilai.nilai, nilai.created_at as dibuat, nilai.updated_at as diedit')
+      ->join('mengajar', 'mengajar.id_kelas = data_kelas.id_kelas')
+      ->join('mapel', 'mapel.kd_mapel = mengajar.kd_mapel')
+      ->join('santri', 'santri.nis = data_kelas.nis')
+      ->join('nilai', 'nilai.id_data_kelas = data_kelas.id_data_kelas AND nilai.kd_mapel = mengajar.kd_mapel', 'left')
+      ->where([
+        'data_kelas.id_kelas' => $datakelas['id_kelas'],
+        'data_kelas.nis' => $datakelas['nis'],
+      ])
+      ->findAll();
+
+    return view('ustadz/siswa_detail', [
+      'kelas' => $kelas,
+      'profilApp' => $this->profilApp,
+      'siswa' => $siswa,
+      'nilai' => $data
+    ]);
+  }
 }

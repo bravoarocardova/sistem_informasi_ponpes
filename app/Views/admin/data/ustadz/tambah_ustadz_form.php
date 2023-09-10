@@ -58,7 +58,7 @@
                     </div>
                     <div class="mb-3">
                       <label class="form-label" for="nama_ustadz">Nama Ustadz</label>
-                      <input type="text" class="form-control <?= validation_show_error('nama_ustadz') ? 'is-invalid' : '' ?>" id="nama_ustadz" name="nama_ustadz" placeholder="Nama Santri" value="<?= old('nama_ustadz') ?>">
+                      <input type="text" class="form-control <?= validation_show_error('nama_ustadz') ? 'is-invalid' : '' ?>" id="nama_ustadz" name="nama_ustadz" placeholder="Nama Ustadz" value="<?= old('nama_ustadz') ?>">
                       <div class="invalid-feedback">
                         <?= validation_show_error('nama_ustadz')
                         ?>

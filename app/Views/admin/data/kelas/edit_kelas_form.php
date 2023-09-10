@@ -50,7 +50,12 @@
                     </div>
                     <div class="mb-3">
                       <label class="form-label" for="wali_kelas">Wali kelas</label>
-                      <input type="text" class="form-control <?= validation_show_error('wali_kelas') ? 'is-invalid' : '' ?>" id="wali_kelas" name="wali_kelas" placeholder="Wali kelas" value="<?= old('wali_kelas', $kelas['wali_kelas']) ?>">
+                      <select name="wali_kelas" id="wali_kelas" class="form-control <?= validation_show_error('wali_kelas') ? 'is-invalid' : '' ?>">
+                        <option value="">Pilih Wali Kelas</option>
+                        <?php foreach ($wali_kelas as $t) : ?>
+                          <option value="<?= $t['kd_ustadz'] ?>" <?= (old('wali_kelas', $kelas['wali_kelas']) ==  $t['kd_ustadz'] ? 'selected' : '') ?>><?= $t['nama_ustadz'] . ' - ' . $t['kd_ustadz'] ?></option>
+                        <?php endforeach ?>
+                      </select>
                       <div class="invalid-feedback">
                         <?= validation_show_error('wali_kelas')
                         ?>

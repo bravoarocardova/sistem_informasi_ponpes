@@ -301,8 +301,9 @@ class DataC extends BaseController
       ],
       'wali_kelas' => [
         'label' => 'Wali Kelas',
-        'rules' => 'max_length[100]',
+        'rules' => 'required|max_length[100]',
         'errors' => [
+          'required' => '{field} Harus diisi',
           'max_length' => '{field} Maksimal 100 Karakter',
         ],
       ],
@@ -1115,7 +1116,8 @@ class DataC extends BaseController
   {
     return view('admin/data/kelas/tambah_kelas_form', [
       'profilApp' => $this->profilApp,
-      'tahun_ajaran' => $this->tahunAjaranM->orderBy('id_tahun_ajaran', 'DESC')->findAll()
+      'tahun_ajaran' => $this->tahunAjaranM->orderBy('id_tahun_ajaran', 'DESC')->findAll(),
+      'wali_kelas' => $this->ustadzM->findAll()
     ]);
   }
 
@@ -1147,7 +1149,8 @@ class DataC extends BaseController
     return view('admin/data/kelas/edit_kelas_form', [
       'kelas' => $this->kelasM->find($kd_kelas),
       'profilApp' => $this->profilApp,
-      'tahun_ajaran' => $this->tahunAjaranM->orderBy('id_tahun_ajaran', 'DESC')->findAll()
+      'tahun_ajaran' => $this->tahunAjaranM->orderBy('id_tahun_ajaran', 'DESC')->findAll(),
+      'wali_kelas' => $this->ustadzM->findAll()
     ]);
   }
 

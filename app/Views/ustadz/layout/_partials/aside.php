@@ -49,6 +49,14 @@ $uri = service('uri');
             </p>
           </a>
         </li>
+        <li class="nav-item">
+          <a href="<?= base_url() ?>ustadz/kelas" class="nav-link <?= ($uri->getSegment(2) == 'kelas') ? 'active' : '' ?>">
+            <i class="nav-icon fa fa-bookmark"></i>
+            <p>
+              Kelas Saya
+            </p>
+          </a>
+        </li>
 
         <li class="nav-header">Setting</li>
         <li class="nav-item">

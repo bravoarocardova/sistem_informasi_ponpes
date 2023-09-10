@@ -66,6 +66,11 @@ $routes->group('ustadz', ['filter' => 'isLoggedInUstadz'], function ($routes) {
   $routes->get('nilai/(:segment)/mapel/(:segment)', 'Ustadz::daftar_siswa_diajar/$1/$2');
   $routes->put('nilai/(:segment)/mapel/(:segment)', 'Ustadz::update_nilai_siswa_diajar/$1/$2');
 
+  $routes->get('kelas', 'Ustadz::kelas_saya');
+  $routes->get('kelas/(:segment)', 'Ustadz::kelas_detail/$1');
+  $routes->get('kelas/nilai/(:segment)', 'Ustadz::siswa_detail/$1');
+
+
   $routes->group('keasramaan', function ($routes) {
     $routes->get('', 'Ustadz::keasramaan');
 
