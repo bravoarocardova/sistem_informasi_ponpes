@@ -100,6 +100,8 @@
                     <th>PENANGGUNG JAWAB</th>
                     <th>LULUS TAHUN</th>
                     <th>STATUS</th>
+                    <th>TANGGAL TES</th>
+                    <th>NILAI TES</th>
                     <th>TANGGAL DIBUAT</th>
                     <th>TANGGAL UPDATE</th>
                     <th>AKSI</th>
@@ -107,18 +109,133 @@
                 </thead>
                 <tbody>
                   <?php foreach ($pendaftaran as $r) : ?>
-                    <tr>
-                      <td>
-                        <?php if (!in_array($r['status'], ['Lulus', 'Tidak Lulus'])) : ?>
-                          <?php if ($r['bukti_pembayaran'] != null) : ?>
+
+                    <div class="modal fade" id="modal-default-<?= $r['id_pendaftaran'] ?>">
+                      <div class="modal-dialog modal-md">
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <h4 class="modal-title">Tanggal Tes</h4>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                              <span aria-hidden="true">&times;</span>
+                            </button>
+                          </div>
+                          <div class="modal-body">
 
                             <form action="<?= base_url() ?>admin/penerimaan/terima/<?= $r['id_pendaftaran'] ?>" method="post" class="d-inline">
                               <?= csrf_field() ?>
                               <input type="hidden" name="_method" value="PUT">
+                              <div class="mb-3">
+                                <label class="form-label" for="tgl_tes">Tanggal Tes</label>
+                                <input type="date" required class="form-control <?= validation_show_error('tgl_tes') ? 'is-invalid' : '' ?>" id="tgl_tes" name="tgl_tes" placeholder="Tanggal Tes" value="<?= old('tgl_tes') ?>">
+                              </div>
+                              <div class="mb-3">
+                                <label class="form-label" for="jam_tes">Jam Tes</label>
+                                <select name="jam_tes" id="jam_tes" class="form-control">
+                                  <option value="">Pilih Jam</option>
+                                  <option value="09:30">09:30</option>
+                                  <option value="13:30">13:30</option>
+                                </select>
+                                <!-- <input type="time" required class="form-control <?= validation_show_error('jam_tes') ? 'is-invalid' : '' ?>" id="jam_tes" name="jam_tes" placeholder="Jam Tes" value="<?= old('jam_tes') ?>"> -->
+                              </div>
                               <button type="submit" class="btn btn-success" title="Terima">
-                                <i class="fas fa-check"></i>
+                                <i class="fas fa-check"></i> Terima
                               </button>
                             </form>
+                          </div>
+                          <div class="modal-footer justify-content-between">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                          </div>
+                        </div>
+                        <!-- /.modal-content -->
+                      </div>
+                      <!-- /.modal-dialog -->
+                    </div>
+
+                    <div class="modal fade" id="modal-lulus-<?= $r['id_pendaftaran'] ?>">
+                      <div class="modal-dialog modal-md">
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <h4 class="modal-title">Nilai Hasil Tes</h4>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                              <span aria-hidden="true">&times;</span>
+                            </button>
+                          </div>
+                          <div class="modal-body">
+
+                            <form action="<?= base_url() ?>admin/penerimaan/terima_lulus/<?= $r['id_pendaftaran'] ?>" method="post" class="d-inline">
+                              <?= csrf_field() ?>
+                              <input type="hidden" name="_method" value="PUT">
+                              <div class="mb-3">
+                                <label class="form-label" for="nilai_tes">Nilai Tes</label>
+                                <input type="text" required class="form-control <?= validation_show_error('nilai_tes') ? 'is-invalid' : '' ?>" id="nilai_tes" name="nilai_tes" placeholder="Nilai Tes" value="<?= old('nilai_tes') ?>">
+                              </div>
+
+                              <button type="submit" class="btn btn-primary" title="Lulus Tes">
+                                <i class="fas fa-check"></i> Kirim
+                              </button>
+                            </form>
+                          </div>
+                          <div class="modal-footer justify-content-between">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                          </div>
+                        </div>
+                        <!-- /.modal-content -->
+                      </div>
+                      <!-- /.modal-dialog -->
+                    </div>
+
+                    <div class="modal fade" id="modal-tidak-lulus-<?= $r['id_pendaftaran'] ?>">
+                      <div class="modal-dialog modal-md">
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <h4 class="modal-title">Nilai Hasil Tes tidak lulus</h4>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                              <span aria-hidden="true">&times;</span>
+                            </button>
+                          </div>
+                          <div class="modal-body">
+
+                            <form action="<?= base_url() ?>admin/penerimaan/tidak_lulus/<?= $r['id_pendaftaran'] ?>" method="post" class="d-inline">
+                              <?= csrf_field() ?>
+                              <input type="hidden" name="_method" value="PUT">
+                              <div class="mb-3">
+                                <label class="form-label" for="nilai_tes">Nilai Tes</label>
+                                <input type="text" required class="form-control <?= validation_show_error('nilai_tes') ? 'is-invalid' : '' ?>" id="nilai_tes" name="nilai_tes" placeholder="Nilai Tes" value="<?= old('nilai_tes') ?>">
+                              </div>
+
+                              <button type="submit" class="btn btn-warning" title="Lulus Tes">
+                                <i class="fas fa-check"></i> Tidak Lulus
+                              </button>
+                            </form>
+                          </div>
+                          <div class="modal-footer justify-content-between">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                          </div>
+                        </div>
+                        <!-- /.modal-content -->
+                      </div>
+                      <!-- /.modal-dialog -->
+                    </div>
+                    <tr>
+                      <td>
+                        <?php if ($r['status'] == 'Lulus Syarat') : ?>
+                          <!-- Lulus Tes -->
+                          <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-lulus-<?= $r['id_pendaftaran'] ?>">
+                            <i class="fas fa-check"></i>
+                          </button>
+                          <!-- Tidak lulus -->
+                          <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modal-tidak-lulus-<?= $r['id_pendaftaran'] ?>">
+                            <i class="fas fa-times"></i>
+                          </button>
+
+                          <br>
+                          <span class="<?= (in_array($r['status'], ['Lulus Syarat'])) ? 'text-primary' : 'text-danger' ?>"><?= $r['status'] ?></span>
+                        <?php elseif (!in_array($r['status'], ['Lulus', 'Tidak Lulus'])) : ?>
+                          <?php if ($r['bukti_pembayaran'] != null) : ?>
+                            <!-- Terima berkas dan jadwalkan tes -->
+                            <button type="button" class="btn btn-success" data-toggle="modal" data-target="#modal-default-<?= $r['id_pendaftaran'] ?>">
+                              <i class="fas fa-check"></i>
+                            </button>
                             <form action="<?= base_url() ?>admin/penerimaan/tolak/<?= $r['id_pendaftaran'] ?>" method="post" class="d-inline">
                               <?= csrf_field() ?>
                               <input type="hidden" name="_method" value="PUT">
@@ -130,7 +247,9 @@
                             <p>Belum Bayar</p>
                           <?php endif ?>
                         <?php else : ?>
-                          <span class="<?= ($r['status'] == 'Lulus') ? 'text-success' : 'text-danger' ?>"><?= $r['status'] ?></span>
+                          <span class="<?= (in_array($r['status'], ['Lulus'])) ? 'text-success' : 'text-danger' ?>">
+                            <?= $r['status'] ?>
+                          </span>
                         <?php endif ?>
                       </td>
                       <td><?= $r['id_pendaftaran'] ?></td>
@@ -156,6 +275,8 @@
                       <td><?= $r['nama_admin'] ?></td>
                       <td class="text-center"><?= $r['lulus_tahun'] ?></td>
                       <td><?= $r['status'] ?></td>
+                      <td><?= $r['tgl_tes'] ?></td>
+                      <td><?= $r['nilai_tes'] ?></td>
                       <td><?= $r['created_at'] ?></td>
                       <td><?= $r['updated_at'] ?></td>
                       <td>
@@ -184,6 +305,9 @@
   </section>
   <!-- /.content -->
 </div>
+
+
+<!-- /.modal -->
 
 <script>
   $(function() {
@@ -245,7 +369,7 @@
         }
       }, "colvis"],
       "columnDefs": [{
-        "targets": [4, 7, 8, 9, 10, 12, 13, 14, 16],
+        "targets": [4, 7, 8, 9, 10, 12, 13, 14, 15, 18],
         "visible": false
 
       }]

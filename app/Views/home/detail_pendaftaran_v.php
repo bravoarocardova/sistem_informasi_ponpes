@@ -46,13 +46,23 @@
                           <h3 class="text-">
 
                           </h3>
+                        <?php elseif ($santri_daftar['status'] == 'Lulus Syarat') : ?>
+                          <h3 class="text-success">
+                            Silahkan mengikuti tes pada tanggal <br> <?= $santri_daftar['tgl_tes'] ?>
+                            <br>
+                          </h3>
                         <?php elseif ($santri_daftar['status'] == 'Lulus') : ?>
                           <h3 class="text-success">
                             Selamat Anda Lulus!
+                            <br>
+                            dengan nilai <?= $santri_daftar['nilai_tes'] ?>
                           </h3>
+                          <span class="d-print-none">Silahkan Download File ini untuk daftar ulang.</span>
                         <?php else : ?>
                           <h3 class="text-danger">
                             Anda Belum Lulus
+                            <br>
+                            dengan nilai <?= $santri_daftar['nilai_tes'] ?>
                           </h3>
                         <?php endif ?>
                       <?php else : ?>

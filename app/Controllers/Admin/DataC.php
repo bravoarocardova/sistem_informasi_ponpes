@@ -2032,9 +2032,55 @@ class DataC extends BaseController
 
   public function terima_penerimaan($id_pendaftaran)
   {
+    $post = $this->request->getVar();
+
+    $tgl_tes =  $post['tgl_tes'] . ' ' . $post['jam_tes'];
+    $data = [
+      'id_pendaftaran' => $id_pendaftaran,
+      'status' => 'Lulus Syarat',
+      'tgl_tes' => $tgl_tes,
+      'id_admin' => session()->get('admin')['id_admin'],
+    ];
+
+    $simpan = $this->pendaftaranM->save($data);
+    if ($simpan) {
+      $type = 'success';
+      $msg = 'Berhasil Simpan data.';
+    } else {
+      $type = 'danger';
+      $msg = 'Gagal Simpan data.';
+    }
+    return redirect()->to(base_url() . 'admin/penerimaan')->with('msg', myAlert($type, $msg));
+  }
+
+  public function terima_lulus($id_pendaftaran)
+  {
+    $post = $this->request->getVar();
     $data = [
       'id_pendaftaran' => $id_pendaftaran,
       'status' => 'Lulus',
+      'nilai_tes' => $post['nilai_tes'],
+      'id_admin' => session()->get('admin')['id_admin'],
+    ];
+
+    $simpan = $this->pendaftaranM->save($data);
+    if ($simpan) {
+      $type = 'success';
+      $msg = 'Berhasil Simpan data.';
+    } else {
+      $type = 'danger';
+      $msg = 'Gagal Simpan data.';
+    }
+    return redirect()->to(base_url() . 'admin/penerimaan')->with('msg', myAlert($type, $msg));
+  }
+
+  public function tidak_lulus_penerimaan($id_pendaftaran)
+  {
+    $post = $this->request->getVar();
+    $data = [
+      'id_pendaftaran' => $id_pendaftaran,
+      'status' => 'Tidak Lulus',
+      'nilai_tes' => $post['nilai_tes'],
       'id_admin' => session()->get('admin')['id_admin'],
     ];
 

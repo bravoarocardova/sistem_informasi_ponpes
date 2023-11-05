@@ -134,8 +134,8 @@
                         <p>Pamenang, <?= date('d-m-Y') ?> <br></p>
                         </br></br>
                         
+                          <p><?= session('ustadz')['nama'] ?></p>
                           <p></p>
-                          <p>Admin</p>
                       </div>
                     </div>
                   </div>

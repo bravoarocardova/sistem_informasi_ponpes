@@ -181,7 +181,7 @@
                         </br></br>
                         
                           <p>Wali Kelas</p>
-                          <p><?= $kelas['wali_kelas'] ?></p>
+                          <p><?= $kelas['nama_ustadz'] ?></p>
                       </div>
                     </div>
                   </div>

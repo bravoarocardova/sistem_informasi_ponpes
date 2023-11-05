@@ -225,6 +225,8 @@ $routes->group('admin', ['namespace' => 'App\Controllers\Admin', 'filter' => 'is
     // $routes->post('tambah', 'DataC::proses_tambah_penerimaan');
 
     $routes->put('terima/(:segment)', 'DataC::terima_penerimaan/$1');
+    $routes->put('terima_lulus/(:segment)', 'DataC::terima_lulus/$1');
+    $routes->put('tidak_lulus/(:segment)', 'DataC::tidak_lulus_penerimaan/$1');
     $routes->put('tolak/(:segment)', 'DataC::tolak_penerimaan/$1');
     // $routes->put('edit/(:segment)', 'DataC::proses_edit_penerimaan/$1');
 

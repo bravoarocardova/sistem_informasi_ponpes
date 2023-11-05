@@ -54,7 +54,7 @@
                     <th>TAHUN AJARAN</th>
                     <th>KELAS</th>
                     <th>SEMESTER</th>
-                    <th></th>
+                    <th>AKSI</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -139,7 +139,7 @@
                         <p>Pamenang, <?= date('d-m-Y') ?> <br></p>
                         </br></br>
 
-                          <p></p>
+                          <p><?= session('ustadz')['nama'] ?></p>
                           <p></p>
                       </div>
                     </div>

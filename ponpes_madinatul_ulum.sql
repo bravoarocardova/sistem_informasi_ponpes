@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Waktu pembuatan: 03 Sep 2023 pada 21.06
+-- Waktu pembuatan: 23 Sep 2023 pada 22.02
 -- Versi server: 8.0.32-0ubuntu0.22.04.2
 -- Versi PHP: 8.1.2-1ubuntu2.11
 
@@ -70,7 +70,10 @@ CREATE TABLE `data_kelas` (
 INSERT INTO `data_kelas` (`id_data_kelas`, `nis`, `id_kelas`, `created_at`, `updated_at`) VALUES
 (4, '123456789212', 11, '2023-09-03 07:42:22', '2023-09-03 07:42:22'),
 (5, '123456789223', 11, '2023-09-03 07:42:25', '2023-09-03 07:42:25'),
-(7, '12345678922', 15, '2023-09-03 09:13:36', '2023-09-03 09:13:36');
+(7, '12345678922', 15, '2023-09-03 09:13:36', '2023-09-03 09:13:36'),
+(9, '123456789212', 9, '2023-09-09 12:43:19', '2023-09-09 12:43:19'),
+(10, '123456789223', 6, '2023-09-09 12:50:26', '2023-09-09 12:50:26'),
+(11, '123456789212', 6, '2023-09-09 12:50:32', '2023-09-09 12:50:32');
 
 -- --------------------------------------------------------
 
@@ -148,12 +151,12 @@ CREATE TABLE `kelas` (
 --
 
 INSERT INTO `kelas` (`id_kelas`, `nama_kelas`, `wali_kelas`, `id_tahun_ajaran`, `created_at`, `updated_at`) VALUES
-(6, 'X PA', 'Edi Supriadi', 1, '2023-09-01 15:46:46', '2023-09-01 15:46:46'),
-(7, 'X PI', 'Desmiati Sundari,S.E', 1, '2023-09-01 15:46:58', '2023-09-01 15:46:58'),
-(8, 'XI PA', 'Ibnu Khairi,S.Pd.I', 1, '2023-09-01 15:47:09', '2023-09-01 15:47:09'),
-(9, 'XI PI', 'Nini Karlina, S.Pd', 1, '2023-09-01 15:47:23', '2023-09-01 15:47:23'),
-(10, 'XII PA', 'M.Amin, S.Pd.I', 1, '2023-09-01 15:47:34', '2023-09-01 15:47:34'),
-(11, 'XII PI', 'Abdul Haris, S.Pd.I', 1, '2023-09-01 15:47:34', '2023-09-02 15:31:15'),
+(6, 'X PA', 'ED', 1, '2023-09-01 15:46:46', '2023-09-09 12:18:39'),
+(7, 'X PI', 'DS', 1, '2023-09-01 15:46:58', '2023-09-09 12:18:29'),
+(8, 'XI PA', 'IB', 1, '2023-09-01 15:47:09', '2023-09-09 12:18:15'),
+(9, 'XI PI', 'NN', 1, '2023-09-01 15:47:23', '2023-09-09 12:18:00'),
+(10, 'XII PA', 'MA', 1, '2023-09-01 15:47:34', '2023-09-09 12:16:40'),
+(11, 'XII PI', 'AH', 1, '2023-09-01 15:47:34', '2023-09-09 12:17:45'),
 (12, 'VII / PA', '', 1, '2023-09-01 15:50:03', '2023-09-01 15:50:03'),
 (13, 'VII / PI', '', 1, '2023-09-01 15:50:53', '2023-09-01 15:51:09'),
 (14, 'VIII / PA', '', 1, '2023-09-01 15:51:21', '2023-09-01 15:51:21'),
@@ -317,9 +320,17 @@ CREATE TABLE `pendaftaran` (
   `jenjang_sekolah` varchar(5) COLLATE utf8mb4_general_ci NOT NULL,
   `id_admin` int DEFAULT NULL,
   `bukti_pembayaran` varchar(100) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `tgl_tes` varchar(50) COLLATE utf8mb4_general_ci DEFAULT NULL,
   `created_at` timestamp NOT NULL,
   `updated_at` timestamp NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data untuk tabel `pendaftaran`
+--
+
+INSERT INTO `pendaftaran` (`id_pendaftaran`, `nama`, `photo`, `jk`, `no_telp`, `email`, `tempat_lahir`, `tgl_lahir`, `alamat`, `asal_sekolah`, `lulus_tahun`, `status`, `jenjang_sekolah`, `id_admin`, `bukti_pembayaran`, `tgl_tes`, `created_at`, `updated_at`) VALUES
+('PDS-00000001', 'bro', '1695470978_fc2a06f0a9d1aaaff99e.png', 'L', '08238932433', 'bro@gmail.com', 'jambi', '2023-09-23', 'lengkap', 'sma', 2004, 'Lulus', 'MA', 1, '1695471995_dade16f19b41cbf7b441.png', '2023-09-25 09:00', '2023-09-23 12:09:38', '2023-09-23 14:46:02');
 
 -- --------------------------------------------------------
 
@@ -375,7 +386,7 @@ CREATE TABLE `profil` (
   `pembayaran` text NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Dumping data untuk tabel `profil`
@@ -618,7 +629,7 @@ ALTER TABLE `admin`
 -- AUTO_INCREMENT untuk tabel `data_kelas`
 --
 ALTER TABLE `data_kelas`
-  MODIFY `id_data_kelas` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id_data_kelas` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT untuk tabel `galery`
@@ -642,7 +653,7 @@ ALTER TABLE `kegiatan_keasramaan`
 -- AUTO_INCREMENT untuk tabel `kelas`
 --
 ALTER TABLE `kelas`
-  MODIFY `id_kelas` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+  MODIFY `id_kelas` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
 -- AUTO_INCREMENT untuk tabel `mengajar`

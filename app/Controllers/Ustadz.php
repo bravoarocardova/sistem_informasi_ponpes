@@ -637,7 +637,10 @@ class Ustadz extends BaseController
   public function siswa_detail($id_data_kelas)
   {
     $datakelas = $this->kelasSiswaM->find($id_data_kelas);
-    $kelas = $this->kelasM->join('tahun_ajaran', 'tahun_ajaran.id_tahun_ajaran = kelas.id_tahun_ajaran')->find($datakelas['id_kelas']);
+    $kelas = $this->kelasM
+      ->join('tahun_ajaran', 'tahun_ajaran.id_tahun_ajaran = kelas.id_tahun_ajaran')
+      ->join('ustadz', 'ustadz.kd_ustadz = kelas.wali_kelas')
+      ->find($datakelas['id_kelas']);
     $siswa = $this->santriM->find($datakelas['nis']);
     $data = $this->kelasSiswaM
       ->select('data_kelas.*, mengajar.*, santri.*, mapel.*, nilai.nilai, nilai.created_at as dibuat, nilai.updated_at as diedit')
